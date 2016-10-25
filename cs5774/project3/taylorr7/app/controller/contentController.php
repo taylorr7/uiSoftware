@@ -1,0 +1,196 @@
+<?php
+
+include_once '../global.php';
+
+$action = $_GET['action'];
+
+$pc = new SiteController();
+$pc->route($action);
+
+class SiteController {
+	public function route($action) {
+		switch($action) {
+			case 'viewAuthor':
+				$username = htmlspecialchars($_GET['aname']);
+				$this->viewAuthor($username);
+				break;
+				
+			case 'viewCourse':
+				if(isset($_GET['cid'])) {
+					$id = $_GET['cid'];
+				} else {
+					$id = null;
+				}
+				$this->viewCourse($id);
+				break;
+				
+			case 'editCourse':
+				if(isset($_GET['cid'])) {
+					$id = $_GET['cid'];
+				} else {
+					$id = null;
+				}
+				$this->editCourse($id);
+				break;
+				
+			case 'editLesson':
+				if(isset($_GET['lid'])) {
+					$id = $_GET['lid'];
+				} else {
+					$id = null;
+				}
+				$this->editLesson($id);
+				break;
+				
+			case 'processLesson':
+				$opp = htmlspecialchars($_POST['opp']);
+				$id = htmlspecialchars($_POST['id']);
+				$uid = htmlspecialchars($_POST['uid']);
+				$lname = htmlspecialchars($_POST['lname']);
+				$content = htmlspecialchars($_POST['content']);
+				$this->processLesson($opp, $id, $uid, $lname, $content);
+				break;
+				
+			case 'processCourse':
+				$opp = htmlspecialchars($_POST['opp']);
+				$id = htmlspecialchars($_POST['id']);
+				$uid = htmlspecialchars($_POST['uid']);
+				$cname = htmlspecialchars($_POST['cname']);
+				$description = htmlspecialchars($_POST['cdescription']);
+				$content = htmlspecialchars($_POST['ccontent']);
+				$this->processCourse($opp, $id, $uid, $cname, $description, $content);
+				break;
+				
+			case 'search':
+				$qry = htmlspecialchars($_GET['mainSearch']);
+				$this->search($qry);
+				break;
+				
+			default:
+				header('Location: '.BASE_URL);
+				exit();
+		}
+	}
+	
+	public function viewAuthor($user) {
+		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
+		mysql_select_db(DB_DATABASE);
+		$sql = "SELECT id, email FROM users WHERE username = '$user'";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		$uid = $row['id'];
+		$email = $row['email'];
+		if($uid != null) {
+			$sql = "SELECT * FROM courses WHERE userid = '$uid'";
+			$result = mysql_query($sql);
+			$hash = md5(strtolower(trim($email)));
+			$pageName = $user;
+			include_once SYSTEM_PATH.'/view/header.tpl';
+			include_once SYSTEM_PATH.'/view/author.tpl';
+		} else {
+			include_once SYSTEM_PATH.'/view/header.tpl';
+		}
+	}
+	
+	public function viewCourse($cid) {
+		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
+		mysql_select_db(DB_DATABASE);
+		if($cid != null) {
+			$sql = "SELECT * FROM courses WHERE id = '$cid'";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+			$cname = $row['coursename'];
+			$content = $row['coursecontent'];
+			$description = $row['coursedescription'];
+		} else {
+			$cname = 'Course';
+			$content = '';
+			$description = '';
+		}
+		$pageName = 'Course';
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/coursepage.tpl';
+	}
+	
+	public function editCourse($cid) {
+		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
+		mysql_select_db(DB_DATABASE);
+		if($cid != null) {
+			$sql = "SELECT * FROM courses WHERE id = '$cid'";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+		} else {
+			$row['id'] = null;
+			$row['coursename'] = '';
+			$row['coursedescription'] = '';
+			$row['coursecontent'] = '';
+		}
+		$pageName = 'Edit Course';
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/editcourse.tpl';
+	}
+	
+	public function editLesson($lid) {
+		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
+		mysql_select_db(DB_DATABASE);
+		if($lid != null) {
+			$sql = "SELECT * FROM lessons WHERE id = '$lid'";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+		} else {
+			$row['id'] = null;
+			$row['lessonname'] = '';
+			$row['content'] = '';
+		}
+		$pageName = 'Edit Lesson';
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/editlesson.tpl';
+	}
+	
+	public function processLesson($opp, $id, $uid, $lname, $content) {
+		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
+		mysql_select_db(DB_DATABASE);
+		if($opp == "Save") {
+			$sql = "UPDATE `lessons` SET `lessonname` = '$lname', `content` = '$content' WHERE
+					`lessons`.`id` = '$id'";
+			mysql_query($sql);
+		} else if($opp == "Delete") {
+			$sql = "DELETE FROM `lessons` WHERE `id` = '$id'";
+			mysql_query($sql);
+		} else if($opp == "New") {
+			$sql = "INSERT INTO `lessons` (`id`, `userid`, `lessonname`, `content`) VALUES
+					(NULL, '$uid', '$lname', '$content')";
+			mysql_query($sql);
+		}
+		header('Location: '.BASE_URL.'/lessons');
+		exit();
+	}
+	
+	public function processCourse($opp, $id, $uid, $cname, $description, $content) {
+		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
+		mysql_select_db(DB_DATABASE);
+		if($opp == "Save") {
+			$sql = "UPDATE `courses` SET `coursename` = '$cname', `coursedescription` = '$description', `coursecontent` = '$content' WHERE
+					`courses`.`id` = '$id'";
+			mysql_query($sql);
+		} else if($opp == "Delete") {
+			$sql = "DELETE FROM `lessons` WHERE `id` = '$id'";
+			mysql_query($sql);
+		} else if($opp == "New") {
+			$sql = "INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `coursecontent`) VALUES
+					(NULL, '$uid', '$cname', '$description', '$content')";
+			mysql_query($sql);
+		}
+		header('Location: '.BASE_URL.'/courses');
+		exit();	
+	}
+	
+	public function search($index) {
+		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
+		mysql_select_db(DB_DATABASE);
+		$pageName = 'Search';
+		$qry = $index;
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/search.tpl';
+	}
+}
