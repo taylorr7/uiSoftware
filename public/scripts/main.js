@@ -10,14 +10,40 @@
 $(document).ready(function(){
 	$('input[name="mainSearch"]').val("Search");
 
-	$('input[name="mainSearch"]').click(function(){
+	$('input[name="mainSearch"]').click(function() {
 		$('input[name="mainSearch"]').val("");
+	});
+
+	/*
+	* Function to allow the user to subscribe to a course.
+	*/
+	$("#subscribe").click(function() {
+		if (buttonObject.innerText == "Subscribe") {
+			alert("You are now subscribed to this course!");
+			buttonObject.innerText = "Unsubscribe";
+		} else {
+			alert("You are no longer subscribed to this course!");
+			buttonObject.innerText = "Subscribe";
+		}
+	});
+
+	/*
+	* Function to allow the user to publish a course.
+	*/
+	$("#publish").click(function() {
+		if (buttonObject.innerText == "Publish") {
+			alert("This course has been published!");
+			buttonObject.innerText = "Unpublish";
+		} else {
+			alert("This course has been unpublished!");
+			buttonObject.innerText = "Publish";
+		}
 	});
 });
 
 /*
 * Function to collapse lists of lists.
-* Used in the navigation bar on the course page. 
+* Used in the navigation bar on the course page.
 */
 $(document).on('click', '.collapse li a', function() {
 	$(this).parent().children('ul').toggle();
@@ -87,36 +113,10 @@ validateForm = function() {
 }
 
 /*
-* Function to allow the user to subscribe to a course.
-*/
-subscribe = function(buttonObject) {
-	if(buttonObject.innerText == "Subscribe") {
-		alert("You are now subscribed to this course!");
-		buttonObject.innerText = "Unsubscribe";
-	} else {
-		alert("You are no longer subscribed to this course!");
-		buttonObject.innerText = "Subscribe";
-	}
-}
-
-/*
-* Function to allow the user to publish a course.
-*/
-publish = function(buttonObject) {
-	if(buttonObject.innerText == "Publish") {
-		alert("This course has been published!");
-		buttonObject.innerText = "Unpublish";
-	} else {
-		alert("This course has been unpublished!");
-		buttonObject.innerText = "Publish";
-	}
-}
-
-/*
 * Function to reset the search form.
 */
 resetForm = function() {
-	$('input[type=checkbox]').each(function() { this.checked = false; }); 
+	$('input[type=checkbox]').each(function() { this.checked = false; });
 }
 
 /*

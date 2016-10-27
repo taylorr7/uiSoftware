@@ -10,11 +10,14 @@ $pc->route($action);
 class SiteController {
 	public function route($action) {
 		switch($action) {
+
+			case 'processDesign': $this->processDesign(); break;
+
 			case 'viewAuthor':
 				$username = htmlspecialchars($_GET['aname']);
 				$this->viewAuthor($username);
 				break;
-				
+
 			case 'viewCourse':
 				if(isset($_GET['cid'])) {
 					$id = $_GET['cid'];
@@ -23,7 +26,7 @@ class SiteController {
 				}
 				$this->viewCourse($id);
 				break;
-				
+
 			case 'editCourse':
 				if(isset($_GET['cid'])) {
 					$id = $_GET['cid'];
@@ -32,7 +35,7 @@ class SiteController {
 				}
 				$this->editCourse($id);
 				break;
-				
+
 			case 'editLesson':
 				if(isset($_GET['lid'])) {
 					$id = $_GET['lid'];
@@ -41,7 +44,7 @@ class SiteController {
 				}
 				$this->editLesson($id);
 				break;
-				
+
 			case 'processLesson':
 				$opp = htmlspecialchars($_POST['opp']);
 				$id = htmlspecialchars($_POST['id']);
@@ -50,7 +53,7 @@ class SiteController {
 				$content = htmlspecialchars($_POST['content']);
 				$this->processLesson($opp, $id, $uid, $lname, $content);
 				break;
-				
+
 			case 'processCourse':
 				$opp = htmlspecialchars($_POST['opp']);
 				$id = htmlspecialchars($_POST['id']);
@@ -60,18 +63,32 @@ class SiteController {
 				$content = htmlspecialchars($_POST['ccontent']);
 				$this->processCourse($opp, $id, $uid, $cname, $description, $content);
 				break;
-				
+
 			case 'search':
 				$qry = htmlspecialchars($_GET['mainSearch']);
 				$this->search($qry);
 				break;
-				
+
 			default:
 				header('Location: '.BASE_URL);
 				exit();
 		}
 	}
-	
+
+	public function processDesign() {
+		if (isset($_POST['courses'])) {
+
+		} else if (isset($_POST['lessons'])) {
+
+		} else if (isset($_POST['courseCreator'])) {
+
+		} else if (isset($_POST['lessonCreator'])) {
+
+		} else if (isset($_POST['accountInfo'])) {
+
+		}
+	}
+
 	public function viewAuthor($user) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
@@ -91,7 +108,7 @@ class SiteController {
 			include_once SYSTEM_PATH.'/view/header.tpl';
 		}
 	}
-	
+
 	public function viewCourse($cid) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
@@ -111,7 +128,7 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/coursepage.tpl';
 	}
-	
+
 	public function editCourse($cid) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
@@ -129,7 +146,7 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editcourse.tpl';
 	}
-	
+
 	public function editLesson($lid) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
@@ -146,7 +163,7 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editlesson.tpl';
 	}
-	
+
 	public function processLesson($opp, $id, $uid, $lname, $content) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
@@ -165,7 +182,7 @@ class SiteController {
 		header('Location: '.BASE_URL.'/lessons');
 		exit();
 	}
-	
+
 	public function processCourse($opp, $id, $uid, $cname, $description, $content) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
@@ -182,9 +199,9 @@ class SiteController {
 			mysql_query($sql);
 		}
 		header('Location: '.BASE_URL.'/courses');
-		exit();	
+		exit();
 	}
-	
+
 	public function search($index) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);

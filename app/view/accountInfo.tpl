@@ -6,22 +6,24 @@
 		$email = $row['email'];
 		$hash = md5(strtolower(trim($email)));
 	?>
-	
+
 	<div id="title">
 		<h2> Account Information </h2>
 	</div>
-	
+
 	<div id="navigation">
 		<h3> Design Tools </h3>
-		<button onclick="sendToPage('courses')"> Your Courses </button>
-		<button onclick="sendToPage('lessons')"> Your Lessons </button>
-		<button onclick="sendToPage('courseCreator')"> Create a Course </button>
-		<button onclick="sendToPage('lessonCreator')"> Create a Lesson </button>
-		<button onclick="sendToPage('accountInfo')"> Account Info </button>
+		<form action="<?= BASE_URL ?>processDesign" method="POST">
+			<input type="submit" name="courses"> Your Courses </input>
+			<input type="submit" name="lessons"> Your Lessons </input>
+			<input type="submit" name="courseCreator"> Create a Course </input>
+			<input type="submit" name="lessonCreator"> Create a Lesson </input>
+			<input type="submit" name="accountInfo"> Account Info </input>
+		</form>
 	</div>
-	
+
 	<div id="content">
-	
+
 		<div id="accountInfo">
 			<h3> Account Information </h3>
 			<img id="profile" class="profile" src="<?= BASE_URL ?>/public/media/default.jpg">
@@ -36,13 +38,13 @@
 					<input type="submit" name="submit" value="Update Information">
 				</form>
 		</div>
-		
+
 	</div>
-	
-		
+
+
 <script src="<?= BASE_URL ?>/public/scripts/gravatar.js" type="text/javascript"></script>
 <script src="https://en.gravatar.com/<?= $hash ?>.json?callback=findProfile" type="text/javascript"></script>
-	
+
 </body>
 
 </html>
