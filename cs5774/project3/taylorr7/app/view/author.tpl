@@ -10,9 +10,6 @@
 		<button onclick="sendToPage('<?= BASE_URL ?>/lessons/edit/')"> Create a Lesson </button>
 		<button onclick="sendToPage('<?= BASE_URL ?>/accountInfo')"> Account Info </button>
 	</div>
-
-	<script src="<?= BASE_URL ?>/public/scripts/gravatar.js" type="text/javascript"></script>
-	<script src="https://en.gravatar.com/<?= $hash ?>.json?callback=findProfile" type="text/javascript"></script>
 	
 	<div id="content">
 		<img id="profile" src="<?= BASE_URL ?>/public/media/default.jpg">
@@ -30,6 +27,9 @@
 		<?php endwhile; ?>
 		
 	</div>
+
+<script src="<?= BASE_URL ?>/public/scripts/gravatar.js" type="text/javascript"></script>
+<script src="https://en.gravatar.com/<?= $hash ?>.json?callback=findProfile" type="text/javascript"></script>
 	
 </body>
 

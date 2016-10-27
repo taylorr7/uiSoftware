@@ -20,9 +20,6 @@
 		<button onclick="sendToPage('accountInfo')"> Account Info </button>
 	</div>
 	
-	<script src="<?= BASE_URL ?>/public/scripts/gravatar.js" type="text/javascript"></script>
-	<script src="https://en.gravatar.com/<?= $hash ?>.json?callback=findProfile" type="text/javascript"></script>
-	
 	<div id="content">
 	
 		<div id="accountInfo">
@@ -41,6 +38,10 @@
 		</div>
 		
 	</div>
+	
+		
+<script src="<?= BASE_URL ?>/public/scripts/gravatar.js" type="text/javascript"></script>
+<script src="https://en.gravatar.com/<?= $hash ?>.json?callback=findProfile" type="text/javascript"></script>
 	
 </body>
 
