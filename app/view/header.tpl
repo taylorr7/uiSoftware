@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/styles/main.css">
 	<script src="<?= BASE_URL ?>/public/scripts/jquery.js"></script>
 	<script src="<?= BASE_URL ?>/public/scripts/main.js"></script>
-	<meta charset="UTF-8"> 
+	<meta charset="UTF-8">
 </head>
 
 <body>
@@ -28,7 +28,7 @@
 			<button onclick="help()"> Help </button>
 			<button onclick="sendToPage('<?= BASE_URL ?>/logout')"> Logout </button>
 		</div>
-		<h1> Thought Share </h1>
+		<img src="<?= BASE_URL ?>/public/media/logo.png" alt="logo" width="150" height="150">
 	</div>
-	
+
 	<hr />
