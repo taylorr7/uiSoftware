@@ -11,8 +11,6 @@ class SiteController {
 	public function route($action) {
 		switch($action) {
 
-			case 'processDesign': $this->processDesign(); break;
-
 			case 'viewAuthor':
 				$username = htmlspecialchars($_GET['aname']);
 				$this->viewAuthor($username);
@@ -25,24 +23,6 @@ class SiteController {
 					$id = null;
 				}
 				$this->viewCourse($id);
-				break;
-
-			case 'editCourse':
-				if(isset($_GET['cid'])) {
-					$id = $_GET['cid'];
-				} else {
-					$id = null;
-				}
-				$this->editCourse($id);
-				break;
-
-			case 'editLesson':
-				if(isset($_GET['lid'])) {
-					$id = $_GET['lid'];
-				} else {
-					$id = null;
-				}
-				$this->editLesson($id);
 				break;
 
 			case 'processLesson':
@@ -69,25 +49,11 @@ class SiteController {
 				$this->search($qry);
 				break;
 
-			default:
-				header('Location: '.BASE_URL);
-				exit();
+			default: header('Location: '.BASE_URL);	exit();
 		}
 	}
 
-	public function processDesign() {
-		if (isset($_POST['courses'])) {
 
-		} else if (isset($_POST['lessons'])) {
-
-		} else if (isset($_POST['courseCreator'])) {
-
-		} else if (isset($_POST['lessonCreator'])) {
-
-		} else if (isset($_POST['accountInfo'])) {
-
-		}
-	}
 
 	public function viewAuthor($user) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');

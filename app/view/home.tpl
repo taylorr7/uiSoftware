@@ -11,11 +11,13 @@
 
 	<div id="navigation">
 		<h3> Design Tools </h3>
-		<button href="<?= BASE_URL ?>/courses"> Your Courses </button>
-		<button href="<?= BASE_URL ?>/lessons"> Your Lessons </button>
-		<button href="<?= BASE_URL ?>/courses/edit/"> Create a Course </button>
-		<button href="<?= BASE_URL ?>/lessons/edit"> Create a Lesson </button>
-		<button href="<?= BASE_URL ?>/accountInfo"> Account Info </button>
+		<form action="<?= BASE_URL ?>/navigate/process" method="POST">
+			<input type="submit" name="courses" value="Your Courses"/>
+			<input type="submit" name="lessons" value="Your Lessons"/>
+			<input type="submit" name="newCourse" value="Create a Course"/>
+			<input type="submit" name="newLesson" value="Create a Lesson"/>
+			<input type="submit" name="accountInfo" value="Account Info"/>
+		</form>
 	</div>
 
 	<div id="content">

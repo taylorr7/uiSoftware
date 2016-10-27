@@ -6,6 +6,7 @@ RewriteEngine on
 
 # Site
 RewriteRule ^$ app/controller/siteController.php?action=home [QSA,L]
+RewriteRule ^navigate/process/?$ app/controller/siteController.php?action=processNavigation [QSA,L]
 RewriteRule ^courses/?$ app/controller/siteController.php?action=courses [QSA,L]
 RewriteRule ^lessons/?$ app/controller/siteController.php?action=lessons [QSA,L]
 RewriteRule ^accountInfo/?$ app/controller/siteController.php?action=accountInfo [QSA,L]
@@ -23,4 +24,3 @@ RewriteRule ^courses/edit/(\d*)/?$ app/controller/contentController.php?action=e
 RewriteRule ^lessons/edit/(\d*)/?$ app/controller/contentController.php?action=editLesson&lid=$1 [QSA,L]
 RewriteRule ^lessons/edit/process/?$ app/controller/contentController.php?action=processLesson [QSA,L]
 RewriteRule ^search/?$ app/controller/contentController.php?action=search [QSA,L]
-
