@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/styles/main.css">
 	<script src="<?= BASE_URL ?>/public/scripts/jquery.js"></script>
 	<script src="<?= BASE_URL ?>/public/scripts/main.js"></script>
-	<meta charset="UTF-8"> 
+	<meta charset="UTF-8">
 </head>
 
 <body>
@@ -22,7 +22,7 @@
 	<div id="header">
 		<h1> Thought Share </h1>
 	</div>
-	
+
 	<hr />
 
 	<div class="notUser">
@@ -31,9 +31,11 @@
 			<label>Password: <input type="password" name="pass"></label> <br>
 			<input type="submit" name="submit" value="Login">
 		</form>
-		<button onclick="sendToPage('<?= BASE_URL ?>/register')"> Register </button>
+		<form action="<?= BASE_URL ?>/register">
+    	<input type="submit" value="Register"/>
+		</form>
 	</div>
-	
+
 </body>
 
 </html>
