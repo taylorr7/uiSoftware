@@ -2,15 +2,6 @@
 		<h2> <?= $user ?>'s Page </h2>
 	</div>
 
-	<div id="navigation">
-		<h3> Design Tools </h3>
-		<button href="<?= BASE_URL ?>/courses"> Your Courses </button>
-		<button href="<?= BASE_URL ?>/lessons"> Your Lessons </button>
-		<button href="<?= BASE_URL ?>/courses/edit/"> Create a Course </button>
-		<button href="<?= BASE_URL ?>/essons/edit/"> Create a Lesson </button>
-		<button href="<?= BASE_URL ?>/accountInfo"> Account Info </button>
-	</div>
-
 	<div id="content">
 		<img id="profile" src="<?= BASE_URL ?>/public/media/default.jpg">
 		<h3> <?= $user ?>'s Courses </h3>

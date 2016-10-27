@@ -22,25 +22,14 @@ class SiteController {
 				$id = htmlspecialchars($_POST['id']);
 				$this->processAccountInfo($firstname, $lastname, $username, $password, $email, $id);
 				break;
-
-			case 'login':
-				$this->login();
-				break;
-
+			case 'login':	$this->login();	break;
 			case 'processLogin':
 				$username = $_POST['user'];
 				$password = $_POST['pass'];
 				$this->processLogin($username, $password);
 				break;
-
-			case 'logout':
-				$this->logout();
-				break;
-
-			case 'register':
-				$this->register();
-				break;
-
+			case 'logout': $this->logout();	break;
+			case 'register': $this->register();	break;
 			case 'processRegister':
 				$firstname = htmlspecialchars($_POST['fname']);
 				$lastname = htmlspecialchars($_POST['lname']);
@@ -50,9 +39,7 @@ class SiteController {
 				$this->processRegister($firstname, $lastname, $username, $password, $email);
 				break;
 
-			default:
-				header('Location: '.BASE_URL);
-				exit();
+			default: header('Location: '.BASE_URL); exit();
 		}
 	}
 
@@ -61,6 +48,7 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/home.tpl';
 	}
 
@@ -83,6 +71,7 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/courses.tpl';
 	}
 
@@ -91,6 +80,7 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/lessons.tpl';
 	}
 
@@ -124,6 +114,7 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/accountInfo.tpl';
 	}
 

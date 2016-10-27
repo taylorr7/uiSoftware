@@ -174,6 +174,7 @@ class SiteController {
 		$pageName = 'Search';
 		$qry = $index;
 		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/search.tpl';
 	}
 }
