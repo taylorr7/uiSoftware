@@ -141,8 +141,11 @@ class SiteController {
 	}
 	
 	public function logout() {
-		$pageName = 'Logout';
-		include_once SYSTEM_PATH.'/view/logout.tpl';
+		session_start();
+		session_unset();
+		session_destroy();
+		header('Location: '.BASE_URL);
+		exit();
 	}
 	
 	public function register() {
