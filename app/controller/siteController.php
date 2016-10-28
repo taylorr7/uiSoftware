@@ -148,7 +148,7 @@ class SiteController {
 		$sql = "SELECT * FROM users WHERE username = '$u' and password = '$p'";
 		$result = mysql_query($sql);
 		$count = mysql_num_rows($result);
-		if($count == 1) {
+		if ($count == 1) {
 			session_start();
 			$row = mysql_fetch_assoc($result);
 			$_SESSION['id'] = $row['id'];
@@ -180,7 +180,7 @@ class SiteController {
 		mysql_select_db(DB_DATABASE);
 		$sql = "INSERT INTO `users` (`id`, `namefirst`, `namelast`, `username`, `password`, `email`)
 			VALUES (NULL, '$fname', '$lname', '$uname', '$pass', '$email')";
-		if(mysql_query($sql) === TRUE) {
+		if (mysql_query($sql) === TRUE) {
 			header('Location: '.BASE_URL);
 			exit();
 		} else {

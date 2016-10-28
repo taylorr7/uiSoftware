@@ -112,35 +112,32 @@ class SiteController {
 	public function editLesson($lid) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
-		if($lid != null) {
-			$sql = "SELECT * FROM lessons WHERE id = '$lid'";
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-		} else {
-			$row['id'] = null;
-			$row['lessonname'] = '';
-			$row['content'] = '';
+		if ($lid == null) {
+			$uid = $_SESSION['id'];
+			$sql = "INSERT INTO `lessons` (`id`, `userid`, `lessonname`, `content`) VALUES
+					(null, '$uid', '', '')";
+			mysql_query($sql);
 		}
+		$sql = "SELECT * FROM lessons WHERE id = '$lid'";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+
 		$pageName = 'Edit Lesson';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editlesson.tpl';
 	}
 
-	public function processLesson($opp, $id, $uid, $lname, $content) {
+	public function processLesson($lname, $content) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
-		if($opp == "Save") {
+		if (isset($_POST['save'])) {
 			$sql = "UPDATE `lessons` SET `lessonname` = '$lname', `content` = '$content' WHERE
 					`lessons`.`id` = '$id'";
-			mysql_query($sql);
-		} else if($opp == "Delete") {
+		} else if (isset($_POST['delete'])) {
 			$sql = "DELETE FROM `lessons` WHERE `id` = '$id'";
-			mysql_query($sql);
-		} else if($opp == "New") {
-			$sql = "INSERT INTO `lessons` (`id`, `userid`, `lessonname`, `content`) VALUES
-					(NULL, '$uid', '$lname', '$content')";
-			mysql_query($sql);
 		}
+		mysql_query($sql);
+
 		header('Location: '.BASE_URL.'/lessons');
 		exit();
 	}
