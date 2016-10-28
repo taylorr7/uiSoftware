@@ -35,13 +35,10 @@ class SiteController {
 				break;
 
 			case 'processCourse':
-				$opp = htmlspecialchars($_POST['opp']);
-				$id = htmlspecialchars($_POST['id']);
-				$uid = htmlspecialchars($_POST['uid']);
 				$cname = htmlspecialchars($_POST['cname']);
 				$description = htmlspecialchars($_POST['cdescription']);
 				$content = htmlspecialchars($_POST['ccontent']);
-				$this->processCourse($opp, $id, $uid, $cname, $description, $content);
+				$this->processCourse($cname, $description, $content);
 				break;
 
 			case 'search':
@@ -98,16 +95,15 @@ class SiteController {
 	public function editCourse($cid) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
-		if($cid != null) {
-			$sql = "SELECT * FROM courses WHERE id = '$cid'";
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-		} else {
-			$row['id'] = null;
-			$row['coursename'] = '';
-			$row['coursedescription'] = '';
-			$row['coursecontent'] = '';
+		if ($cid == null) {
+			$uid = $_SESSION['id'];
+			$sql = "INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `coursecontent`) VALUES (NULL, $uid, '', '', '')";
+			 mysql_query($sql);
 		}
+		$sql = "SELECT * FROM courses WHERE id = '$cid'";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+
 		$pageName = 'Edit Course';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editcourse.tpl';
@@ -149,21 +145,17 @@ class SiteController {
 		exit();
 	}
 
-	public function processCourse($opp, $id, $uid, $cname, $description, $content) {
+	public function processCourse($cname, $description, $content) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
-		if($opp == "Save") {
-			$sql = "UPDATE `courses` SET `coursename` = '$cname', `coursedescription` = '$description', `coursecontent` = '$content' WHERE
-					`courses`.`id` = '$id'";
-			mysql_query($sql);
-		} else if($opp == "Delete") {
-			$sql = "DELETE FROM `lessons` WHERE `id` = '$id'";
-			mysql_query($sql);
-		} else if($opp == "New") {
-			$sql = "INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `coursecontent`) VALUES
-					(NULL, '$uid', '$cname', '$description', '$content')";
-			mysql_query($sql);
+		$cid = $_GET['cid'];
+		if (isset($_POST['save'])) {
+			$sql = "UPDATE `courses` SET `coursename` = '$cname', `coursedescription` = '$description', `coursecontent` = '$content' WHERE `courses`.`id` = $cid";
+		} else if (isset($_POST['delete'])) {
+			$sql = "DELETE FROM `lessons` WHERE `id` = $cid";
 		}
+		mysql_query($sql);
+
 		header('Location: '.BASE_URL.'/courses');
 		exit();
 	}

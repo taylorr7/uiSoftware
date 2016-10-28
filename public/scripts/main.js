@@ -7,7 +7,7 @@
 * The text in the search bar is set to "Search" by
 * default and is cleared when the user clicks it.
 */
-$(document).ready(() => {
+$(document).ready(function() {
 	/*
 	* Function to allow the user to subscribe to a course.
 	*/
@@ -32,6 +32,16 @@ $(document).ready(() => {
 			alert("This course has been unpublished!");
 			buttonObject.innerText = "Publish";
 		}
+	});
+
+	/*
+	* Function to add a new chapter to a course.
+	*/
+	$("#addChapter").click(function() {
+		var appendText = "";
+		var name = prompt("What is the name of this chapter?");
+		appendText = "\n~CHAPTER:name-"+name+":~\n";
+		document.getElementById('courseContent').value += appendText;
 	});
 });
 
@@ -111,16 +121,6 @@ const validateForm = () => {
 */
 const resetForm = function() {
 	$('input[type=checkbox]').each(function() { this.checked = false; });
-}
-
-/*
-* Function to add a new chapter to a course.
-*/
-const addChapter = () => {
-	var appendText = "";
-	var name = prompt("What is the name of this chapter?");
-	appendText = "\n~CHAPTER:name-"+name+":~\n";
-	document.getElementById('courseContent').value += appendText;
 }
 
 /*
@@ -212,21 +212,6 @@ const uploadImage = function() {
 	var url = prompt("What is the image url?");
 	appendText = "\n~IMAGE:url-"+url+":~\n";
 	document.getElementById('lessonContent').value += appendText;
-}
-
-/*
-* Function to save a lesson a user has created.
-*/
-const saveLesson = function(id) {
-	if(id === null || id === '') {
-		document.getElementById('opp').value = "New";
-	} else {
-		document.getElementById('opp').value = "Save";
-	}
-	answer = confirm("Are you sure?");
-	if(answer) {
-		document.getElementById('lessonCreator').submit();
-	}
 }
 
 /*

@@ -11,8 +11,13 @@ class SiteController {
 	public function route($action) {
 		switch($action) {
 			case 'home':	$this->home(); break;
-			case 'processNavigation': $this->processNavigation(); break;
+			case 'courses':	$this->courses(); break;
+			case 'lessons':	$this->lessons(); break;
+			case 'newCourse':	$this->newCourse(); break;
+			case 'newLesson':	$this->newLesson(); break;
+			case 'accountInfo':	$this->accountInfo(); break;
 
+			case 'processNavigation': $this->processNavigation(); break;
 			case 'processAccountInfo':
 				$firstname = htmlspecialchars($_POST['fname']);
 				$lastname = htmlspecialchars($_POST['lname']);
@@ -54,15 +59,15 @@ class SiteController {
 
 	public function processNavigation() {
 		if (isset($_POST['courses'])) {
-			$this->courses();
+			header('Location: '.BASE_URL.'/courses');
 		} else if (isset($_POST['lessons'])) {
-			$this->lessons();
+			header('Location: '.BASE_URL.'/lessons');
 		} else if (isset($_POST['newCourse'])) {
-			$this->newCourse();
+			header('Location: '.BASE_URL.'/courses/new');
 		} else if (isset($_POST['newLesson'])) {
-			$this->newLesson();
+			header('Location: '.BASE_URL.'/lessons/new');
 		} else if (isset($_POST['accountInfo'])) {
-			$this->accountInfo();
+			header('Location: '.BASE_URL.'/accountInfo');
 		}
 	}
 

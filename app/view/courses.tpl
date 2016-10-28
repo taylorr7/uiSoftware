@@ -14,7 +14,9 @@
 		<?php while($row = mysql_fetch_assoc($result)): ?>
 
 			<div class="course">
-				<button onclick="sendToPage('<?= BASE_URL ?>/courses/edit/<?= $row['id'] ?>')"> Edit </button>
+				<form action="<?= BASE_URL ?>/courses/edit/<?= $row['id'] ?>')">
+					<input type="button" value="Edit"/>
+				</form>
 				<a href="<?= BASE_URL ?>/courses/view/<?= $row['id']; ?>"><?= $row['coursename']; ?></a>
 				<p><?= $row['coursedescription']; ?></p>
 			</div>
