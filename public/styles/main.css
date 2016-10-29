@@ -2,6 +2,11 @@ body {
 	height: 100vh;
 	/* Padding for the footer */
 	padding-bottom: 70px;
+	background: #bfdff5;
+}
+
+main.container {
+	background: white;
 }
 
 .navbar ul {
