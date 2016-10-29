@@ -67,8 +67,10 @@ class SiteController {
 			$pageName = $user;
 			include_once SYSTEM_PATH.'/view/header.tpl';
 			include_once SYSTEM_PATH.'/view/author.tpl';
+			include_once SYSTEM_PATH.'/view/footer.tpl';
 		} else {
 			include_once SYSTEM_PATH.'/view/header.tpl';
+			include_once SYSTEM_PATH.'/view/footer.tpl';
 		}
 	}
 
@@ -90,6 +92,7 @@ class SiteController {
 		$pageName = 'Course';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/coursepage.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function editCourse($cid) {
@@ -107,6 +110,7 @@ class SiteController {
 		$pageName = 'Edit Course';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editcourse.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function editLesson($lid) {
@@ -125,6 +129,7 @@ class SiteController {
 		$pageName = 'Edit Lesson';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editlesson.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function processLesson($lname, $content) {
@@ -163,7 +168,7 @@ class SiteController {
 		$pageName = 'Search';
 		$qry = $index;
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/search.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 }
