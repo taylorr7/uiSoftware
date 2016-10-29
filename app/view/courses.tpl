@@ -24,7 +24,3 @@
 		<?php endwhile; ?>
 
 	</div>
-
-</body>
-
-</html>

@@ -75,8 +75,8 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/courses.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function lessons() {
@@ -84,8 +84,8 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/lessons.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function newCourse() {
@@ -99,6 +99,7 @@ class SiteController {
 		$pageName = 'New Course';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editcourse.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function newLesson() {
@@ -111,6 +112,7 @@ class SiteController {
 		$pageName = 'New Lesson';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editlesson.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function accountInfo() {
@@ -118,8 +120,8 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/accountInfo.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function processAccountInfo($fname, $lname, $uname, $pass, $email, $id) {
