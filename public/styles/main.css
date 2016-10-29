@@ -1,9 +1,15 @@
+body {
+	height: 100vh;
+}
+
 #nav-top {
 	margin-bottom: 0;
 }
 
-header {
-	background-size: cover;
+.banner {
+	background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
 }
 
 header #logo {

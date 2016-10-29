@@ -12,6 +12,7 @@
 	<script src="<?= BASE_URL ?>/public/scripts/bootstrap.min.js"></script>
 	<!-- <script src="<?= BASE_URL ?>/public/scripts/main.js"></script> -->
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -69,7 +70,7 @@
 		</div>
 	</nav>
 
-	<header style="background-image: url('<?= BASE_URL ?>/public/media/banner.jpg')">
+	<header class="banner" style="background-image: url('<?= BASE_URL ?>/public/media/banner.jpg')">
 		<img id="logo" src="<?= BASE_URL ?>/public/media/logo.png" alt="logo">
 	</header>
 

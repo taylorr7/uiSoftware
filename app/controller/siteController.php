@@ -34,7 +34,6 @@ class SiteController {
 				$this->processLogin($username, $password);
 				break;
 			case 'logout': $this->logout();	break;
-			case 'register': $this->register();	break;
 			case 'processRegister':
 				$firstname = htmlspecialchars($_POST['fname']);
 				$lastname = htmlspecialchars($_POST['lname']);
@@ -168,11 +167,6 @@ class SiteController {
 		session_destroy();
 		header('Location: '.BASE_URL);
 		exit();
-	}
-
-	public function register() {
-		$pageName = 'Registration';
-		include_once SYSTEM_PATH.'/view/register.tpl';
 	}
 
 	public function processRegister($fname, $lname, $uname, $pass, $email) {
