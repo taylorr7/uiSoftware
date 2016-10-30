@@ -35,7 +35,8 @@
 				<li>
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
 						<span class="glyphicon glyphicon-user"></span>
-						TODO: Name <span class="caret"></span>
+						<?= $_SESSION['username']; ?>
+						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li>

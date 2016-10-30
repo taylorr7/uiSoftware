@@ -162,8 +162,7 @@ const sendToPage = (destination) => {
 */
 const validateForm = () => {
 	const errColor = "#ffad99";
-
-
+	
 	const {user, pass, passV, fname, lname, email} = document.forms.register;
 
 	if(!user.value) {
