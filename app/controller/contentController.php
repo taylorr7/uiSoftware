@@ -11,10 +11,7 @@ class SiteController {
 	public function route($action) {
 		switch($action) {
 
-			case 'viewAuthor':
-				$username = htmlspecialchars($_GET['aname']);
-				$this->viewAuthor($username);
-				break;
+			case 'viewAuthor': $this->viewAuthor(); break;
 
 			case 'viewCourse':
 				if(isset($_GET['cid'])) {
@@ -26,12 +23,9 @@ class SiteController {
 				break;
 
 			case 'processLesson':
-				$opp = htmlspecialchars($_POST['opp']);
-				$id = htmlspecialchars($_POST['id']);
-				$uid = htmlspecialchars($_POST['uid']);
 				$lname = htmlspecialchars($_POST['lname']);
 				$content = htmlspecialchars($_POST['content']);
-				$this->processLesson($opp, $id, $uid, $lname, $content);
+				$this->processLesson($lname, $content);
 				break;
 
 			case 'processCourse':
@@ -50,7 +44,9 @@ class SiteController {
 		}
 	}
 
-	public function viewAuthor($user) {
+	public function viewAuthor() {
+		$username = htmlspecialchars($_GET['aname']);
+
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		$sql = "SELECT id, email FROM users WHERE username = '$user'";
