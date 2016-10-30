@@ -34,8 +34,14 @@
 					<span class="glyphicon glyphicon-edit"></span>
 					Edit
 				</a>
+				<a class="btn btn-default" id="publish" name="<?= $row['id'] ?>" role="button">
+					<span class="glyphicon glyphicon-edit"></span>
+					Unpublish
+				</a>
 			</div>
 		</li>
 
 	<?php endwhile; ?>
 </ul>
+
+<script src="<?= BASE_URL ?>/public/scripts/publish.js" type="text/javascript"></script>
