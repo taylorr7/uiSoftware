@@ -10,7 +10,7 @@
 	<?php while($row = mysql_fetch_assoc($result)): ?>
 
 		<div class="course">
-			<button href="<?= BASE_URL ?>/subscribe"> Unsubscribe </button>
+			<button id="unsubscribe"> Unsubscribe </button>
 			<a href="<?= BASE_URL ?>/courses/view/<?= $row['id']; ?>"><?= $row['coursename']; ?></a>
 			<p><?= $row['coursedescription']; ?></p>
 		</div>

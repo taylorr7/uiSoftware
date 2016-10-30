@@ -31,6 +31,13 @@ $(document).ready(function() {
 	});
 
 	/*
+	* Unsubscribe the user from the author's course
+	*/
+	$("#unsubscribe").click(function() {
+		location.href = BASE_URL + "/subscribe";
+	});
+
+	/*
 	* Function to allow the user to subscribe to a course.
 	*/
 	$("#subscribe").click(function() {
