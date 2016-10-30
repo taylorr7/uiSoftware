@@ -32,6 +32,8 @@ RewriteRule ^authors/view/(\w+)/?$ app/controller/contentController.php?action=v
 
 RewriteRule ^courses/view/(\d+)/?$ app/controller/contentController.php?action=viewCourse&cid=$1 [QSA,L]
 
+RewriteRule ^courses/view/(\d+)/load/?$ app/controller/contentController.php?action=loadCourse [QSA,L]
+
 RewriteRule ^courses/new/?$ app/controller/siteController.php?action=newCourse [QSA,L]
 
 RewriteRule ^courses/edit/(\d*)/?$ app/controller/siteController.php?action=newCourse&cid=$1 [QSA,L]
