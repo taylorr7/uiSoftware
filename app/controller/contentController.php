@@ -89,44 +89,6 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
-	public function editCourse($cid) {
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-		if ($cid == null) {
-			Session::start();
-			$uid = $_SESSION['id'];
-			$sql = "INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `coursecontent`) VALUES (NULL, $uid, '', '', '')";
-			 mysql_query($sql);
-		}
-		$sql = "SELECT * FROM courses WHERE id = '$cid'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
-
-		$pageName = 'Edit Course';
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/editcourse.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-	}
-
-	public function editLesson($lid) {
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-		if ($lid == null) {
-			$uid = $_SESSION['id'];
-			$sql = "INSERT INTO `lessons` (`id`, `userid`, `lessonname`, `content`) VALUES
-					(null, '$uid', '', '')";
-			mysql_query($sql);
-		}
-		$sql = "SELECT * FROM lessons WHERE id = '$lid'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
-
-		$pageName = 'Edit Lesson';
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/editlesson.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-	}
-
 	public function processLesson($lname, $content) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
