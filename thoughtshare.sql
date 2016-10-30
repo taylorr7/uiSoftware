@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2016 at 10:28 AM
+-- Generation Time: Oct 30, 2016 at 05:42 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -19,27 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `thoughtshare`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chapters`
---
-
-CREATE TABLE `chapters` (
-  `id` int(11) NOT NULL,
-  `courseid` int(11) NOT NULL,
-  `lessonid` int(11) NOT NULL,
-  `chapternumber` int(11) NOT NULL,
-  `lessonnumber` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `chapters`
---
-
-INSERT INTO `chapters` (`id`, `courseid`, `lessonid`, `chapternumber`, `lessonnumber`) VALUES
-(1, 1, 1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -62,6 +41,24 @@ CREATE TABLE `courses` (
 INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `coursecontent`) VALUES
 (1, 2, 'Calculus 1', 'This course is an introduction to calculus. The course begins with a review of functions and basic arithmetic then transitions into an introduction to limits. Derivatives are then introduced and their applications are studied. The course ends with a brief introduction to anti-derivatives and definite integrals.', '~CHAPTER:name-Derivatives:~\r\n\r\n~LESSON:name-Power Rule:~'),
 (2, 3, 'Calculus 2', 'This course is an introduction to integral calculus. The course begins with a review of antiderivatives then transitions into an introduction to definite integrals. Indefinite integrals are then introduced and their applications are studied. The course ends with a brief introduction to summations and infinite series.', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hidden_courses`
+--
+
+CREATE TABLE `hidden_courses` (
+  `id` int(11) NOT NULL,
+  `courseid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `hidden_courses`
+--
+
+INSERT INTO `hidden_courses` (`id`, `courseid`) VALUES
+(18, 1);
 
 -- --------------------------------------------------------
 
@@ -133,15 +130,15 @@ INSERT INTO `users` (`id`, `namefirst`, `namelast`, `username`, `password`, `ema
 --
 
 --
--- Indexes for table `chapters`
---
-ALTER TABLE `chapters`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hidden_courses`
+--
+ALTER TABLE `hidden_courses`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -169,15 +166,15 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `chapters`
---
-ALTER TABLE `chapters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `hidden_courses`
+--
+ALTER TABLE `hidden_courses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `lessons`
 --
