@@ -2,10 +2,10 @@
 	<h2> <?= $cname ?> </h2>
 </div>
 
-<div id="navigation">
+<div id="navigation" class="courseNav">
 </div>
 
-<div id="content">
+<div id="content" class="courseContent">
 </div>
 
 <script src="<?= BASE_URL ?>/public/scripts/course.js" type="text/javascript"></script>
