@@ -201,6 +201,11 @@ const validateForm = () => {
 	return true;
 }
 
+/*
+* Function used to read a string of course information
+* and add it to the page in the form of a table of
+* contents.
+*/
 const parseCourse = function(courseString, currentLesson = null) {
 	var courseContent = "<h3> Table of Contents </h3><ul>";
 	courseContent += "<li><a name='home' class='lesson'> Home Page </a></li>";
@@ -225,6 +230,10 @@ const parseCourse = function(courseString, currentLesson = null) {
 	document.getElementById('navigation').innerHTML = courseContent;
 }
 
+/*
+* Function used to read a string of lesson information
+* and add it to the page in the form of a lesson.
+*/
 const parseLesson = function(lessonString) {
 	var lessonContent = "";
 	var lessonArr = lessonString.split('~');
@@ -264,7 +273,11 @@ const parseLesson = function(lessonString) {
 	document.getElementById('content').innerHTML = lessonContent;
 }
 
-validateQuestion = function() {
+/*
+* Function used to check if a question posted on a lesson
+* is correct.
+*/
+const validateQuestion = function() {
 	userAnswer = $('input[name="answer"]:checked').val();
 	if(userAnswer == "correct") {
 		alert("Correct!");
