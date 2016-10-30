@@ -116,37 +116,38 @@ class SiteController {
 		mysql_select_db(DB_DATABASE);
 		if (isset($_GET['cid'])) {
 			$pageName = 'Edit Course';
+			$cid = $_GET['cid'];
+			$sql = "SELECT * FROM courses WHERE id = '$cid'";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
 		} else {
 			$pageName = 'New Course';
-			Session::start();
-			$uid = $_SESSION['id'];
-			$sql = "INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `coursecontent`) VALUES (NULL, $uid, '', '', '')";
-			 mysql_query($sql);
+			$row['id'] = null;
+ 	  	$row['coursename'] = '';
+ 	 	  $row['coursedescription'] = '';
+  		$row['coursecontent'] = '';
 		}
-		$sql = "SELECT * FROM courses WHERE id = '$cid'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
 
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editcourse.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
-	public function newLesson($lid) {
+	public function newLesson() {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		if (isset($_GET['lid'])) {
 			$pageName = 'Edit Lesson';
+			$sql = "SELECT * FROM lessons WHERE id = '$lid'";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
 		} else {
 			$pageName = 'New Lesson';
-			$uid = $_SESSION['id'];
-			$sql = "INSERT INTO `lessons` (`id`, `userid`, `lessonname`, `content`) VALUES
-					(null, '$uid', '', '')";
-			mysql_query($sql);
+			$row['id'] = null;
+ 	  	$row['userid'] = $_SESSION['id'];
+ 	 	  $row['lessonname'] = '';
+  		$row['content'] = '';
 		}
-		$sql = "SELECT * FROM lessons WHERE id = '$lid'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
 
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editlesson.tpl';

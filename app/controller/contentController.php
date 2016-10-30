@@ -39,7 +39,7 @@ class SiteController {
 				$qry = htmlspecialchars($_GET['s']);
 				$this->search($qry);
 				break;
-				
+
 			case 'loadCourse':
 				$cid = $_GET['courseid'];
 				$lid = $_GET['lessonid'];
@@ -98,7 +98,12 @@ class SiteController {
 	public function processLesson($lname, $content) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
-		if (isset($_POST['save'])) {
+		if ($lid == null) {
+			Session::start();
+			$uid = $_SESSION['id'];
+			$sql = "INSERT INTO `lessons` (`id`, `userid`, `lessonname`, `content`) VALUES
+					(null, '$uid', '$lname', '$content')";
+		} else if (isset($_POST['save'])) {
 			$sql = "UPDATE `lessons` SET `lessonname` = '$lname', `content` = '$content' WHERE
 					`lessons`.`id` = '$id'";
 		} else if (isset($_POST['delete'])) {
@@ -114,7 +119,11 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		$cid = $_GET['cid'];
-		if (isset($_POST['save'])) {
+		if ($cid == null) {
+			Session::start();
+			$uid = $_SESSION['id'];
+			$sql = "INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `coursecontent`) VALUES (NULL, $uid, '$cname', '$description', '$content')";
+		} else if (isset($_POST['save'])) {
 			$sql = "UPDATE `courses` SET `coursename` = '$cname', `coursedescription` = '$description', `coursecontent` = '$content' WHERE `courses`.`id` = $cid";
 		} else if (isset($_POST['delete'])) {
 			$sql = "DELETE FROM `lessons` WHERE `id` = $cid";
@@ -141,7 +150,7 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/search.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
-	
+
 	public function loadCourse($cid, $lid) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);

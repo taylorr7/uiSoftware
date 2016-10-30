@@ -44,6 +44,6 @@ RewriteRule ^lessons/edit/(\d*)/?$ app/controller/contentController.php?action=n
 
 RewriteRule ^lessons/new/?$ app/controller/contentController.php?action=newLesson [QSA,L]
 
-RewriteRule ^lessons/edit/process/(\d*)/?$ app/controller/contentController.php?action=processLesson&cid=$1 [QSA,L]
+RewriteRule ^lessons/edit/process/(\d*)/?$ app/controller/contentController.php?action=processLesson&lid=$1 [QSA,L]
 
 RewriteRule ^search/?$ app/controller/contentController.php?action=search [QSA,L]
