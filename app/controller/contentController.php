@@ -39,6 +39,12 @@ class SiteController {
 				$qry = htmlspecialchars($_GET['s']);
 				$this->search($qry);
 				break;
+				
+			case 'loadCourse':
+				$cid = $_GET['courseid'];
+				$lid = $_GET['lessonid'];
+				$this->loadCourse($cid,$lid);
+				break;
 
 			default: header('Location: '.BASE_URL);	exit();
 		}
@@ -134,5 +140,28 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/search.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
+	}
+	
+	public function loadCourse($cid, $lid) {
+		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
+		mysql_select_db(DB_DATABASE);
+		$sql = "SELECT * FROM `courses` WHERE `id` = '$cid'";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		$toc = $row['coursecontent'];
+		if($lid == "null") {
+			$content = "null";
+		} else if($lid == "home") {
+			$content = "Home Page!";
+		} else {
+			$sql = "SELECT * FROM `lessons` WHERE `lessonname` = '$lid'";
+			$result = mysql_query($sql);
+			$count = mysql_num_rows($result);
+			$row = mysql_fetch_assoc($result);
+			$content = $row['content'];
+		}
+		$json = array('toc' => $toc, 'content' => $content);
+		header('Content-Type: application/json');
+		echo json_encode($json);
 	}
 }
