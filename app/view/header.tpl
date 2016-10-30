@@ -111,7 +111,7 @@
 
 				<form class="navbar-form navbar-right" role="search" action="<?= BASE_URL ?>/search/" method="GET">
 					<div class="input-group">
-						<input type="text" name="mainSearch" class="form-control" placeholder="Search...">
+						<input type="text" name="s" class="form-control" placeholder="Search...">
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="submit">
 								<span class="glyphicon glyphicon-search"></span>

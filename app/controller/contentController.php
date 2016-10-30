@@ -42,7 +42,7 @@ class SiteController {
 				break;
 
 			case 'search':
-				$qry = htmlspecialchars($_GET['mainSearch']);
+				$qry = htmlspecialchars($_GET['s']);
 				$this->search($qry);
 				break;
 
