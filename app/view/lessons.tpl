@@ -4,20 +4,31 @@
 	$result = mysql_query($sql);
 ?>
 
-<div id="title">
-	<h2> Course Page </h2>
+<div class="page-header">
+	<h2>Your Lessons</h2>
 </div>
 
-<div id="content">
-	<h3> Your Lessons </h3>
-
+<ul class="list-group">
 	<?php while($row = mysql_fetch_assoc($result)): ?>
 
-		<div class="course">
-			<button onclick="sendToPage('<?= BASE_URL ?>/lessons/edit/<?= $row['id'] ?>')"> Edit </button>
-			<a href="<?= BASE_URL ?>/lessons/edit/<?= $row['id']; ?>"><?= $row['lessonname']; ?></a>
-		</div>
+		<li class="list-group-item">
+			<h4>
+				<a href="<?= BASE_URL ?>/courses/view/<?= $row['id']; ?>">
+					<?= $row['lessonname']; ?>
+				</a>
+			</h4>
+
+			<div class="btn-group">
+				<a class="btn btn-default" href="<?= BASE_URL ?>/lessons/view/<?= $row['id']; ?>" role="button">
+					<span class="glyphicon glyphicon-eye-open"></span>
+					View
+				</a>
+				<a class="btn btn-default" href="<?= BASE_URL ?>/lessons/edit/<?= $row['id']; ?>" role="button">
+					<span class="glyphicon glyphicon-edit"></span>
+					Edit
+				</a>
+			</div>
+		</li>
 
 	<?php endwhile; ?>
-
-</div>
+</ul>
