@@ -50,8 +50,6 @@ class SiteController {
 		}
 	}
 
-
-
 	public function viewAuthor($user) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);

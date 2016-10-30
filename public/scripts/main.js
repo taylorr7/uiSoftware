@@ -110,6 +110,26 @@ $(document).ready(function() {
 		appendText = "\n~IMAGE:url-"+url+":~\n";
 		document.getElementById('lessonContent').value += appendText;
 	});
+
+
+	/*
+	* Function to add a new lesson to a course.
+	*/
+	$("#addLesson").click(function() {
+		var lessons = document.getElementById("addLesson").value
+		var appendText = "";
+		var promptText = "Enter the number of the lesson you would like to add:\n";
+		for (i = 0; i < lessons.length; i++) {
+			promptText += "\n" + i + ": " + lessons[i];
+		}
+		var response = prompt(promptText);
+		if (parseInt(response) < lessons.length) {
+			appendText += "\n~LESSON:name-"+lessons[parseInt(response)]+":~";
+		} else {
+			appendText += "\n~LESSON:name-null:~";
+		}
+		document.getElementById('courseContent').value += appendText;
+	});
 });
 
 /*
@@ -180,24 +200,6 @@ const validateForm = () => {
 */
 const resetForm = function() {
 	$('input[type=checkbox]').each(function() { this.checked = false; });
-}
-
-/*
-* Function to add a new lesson to a course.
-*/
-const addLesson = function(lessons) {
-	var appendText = "";
-	var promptText = "Enter the number of the lesson you would like to add:\n";
-	for (i = 0; i < lessons.length; i++) {
-		promptText += "\n" + i + ": " + lessons[i];
-	}
-	var response = prompt(promptText);
-	if (parseInt(response) < lessons.length) {
-		appendText += "\n~LESSON:name-"+lessons[parseInt(response)]+":~";
-	} else {
-		appendText += "\n~LESSON:name-null:~";
-	}
-	document.getElementById('courseContent').value += appendText;
 }
 
 /*

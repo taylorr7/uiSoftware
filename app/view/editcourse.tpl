@@ -8,7 +8,7 @@
 	$result = mysql_query($sql);
 	$lessonList = array();
 	$i = 0;
-	while($lessons = mysql_fetch_array($result)) {
+	while ($lessons = mysql_fetch_array($result)) {
 		$lessonList[$i] = $lessons[0];
 		$i++;
 	}
@@ -37,7 +37,7 @@
 	<aside class="col-sm-4 col-xs-12">
 		<h5>Design Tools</h5>
 
-		<button class="btn btn-default"onclick="addLesson(<?= htmlspecialchars(json_encode($lessonList)) ?>)">
+		<button id="addLesson" class="btn btn-default" value="(<?= htmlspecialchars(json_encode($lessonList)) ?>)">
 			Add an Existing Lesson
 		</button>
 
