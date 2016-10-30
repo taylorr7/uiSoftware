@@ -5,7 +5,13 @@
 ?>
 
 <div class="page-header">
-	<h2>Your Lessons</h2>
+	<h2>
+		Your Lessons
+		<a class="btn btn-primary pull-right" href="<?= BASE_URL ?>/lessons/new" role="button">
+			<span class="glyphicon glyphicon-plus"></span>
+			New Lesson
+		</a>
+	</h2>
 </div>
 
 <ul class="list-group">
