@@ -34,7 +34,7 @@
 					<span class="glyphicon glyphicon-edit"></span>
 					Edit
 				</a>
-				<a class="btn btn-default" id="publish" name="<?= $row['id'] ?>" role="button">
+				<a class="btn btn-default publish" name="<?= $row['id'] ?>" role="button">
 					<span class="glyphicon glyphicon-edit"></span>
 					Unpublish
 				</a>
