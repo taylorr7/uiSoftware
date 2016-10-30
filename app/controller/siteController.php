@@ -57,6 +57,7 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 
+		Session::start();
 		$uid = $_SESSION['id'];
 		$sql = "SELECT * FROM subscriptions WHERE userid = '$uid'";
 		$result = mysql_query($sql);
@@ -84,7 +85,8 @@ class SiteController {
 		$pageName = 'Courses';
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
-		
+
+		Session::start();
 		$uid = $_SESSION['id'];
 		$sql = "SELECT * FROM courses WHERE userid = '$uid'";
 		$result = mysql_query($sql);
@@ -99,6 +101,7 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 
+		Session::start();
 		$uid = $_SESSION['id'];
 		$sql = "SELECT * FROM lessons WHERE userid = '$uid'";
 		$result = mysql_query($sql);
@@ -118,6 +121,7 @@ class SiteController {
 
 		$pageName = 'New Course';
 
+		Session::start();
 		$uid = $_SESSION['id'];
 		$sql = "SELECT lessonname FROM lessons WHERE userid = '$uid'";
 		$result = mysql_query($sql);
@@ -179,6 +183,11 @@ class SiteController {
 
 	public function login() {
 		$pageName = 'Login';
+		Session::start();
+		if (isset($_SESSION['user'])) {
+			header('Location: '.BASE_URL);
+			exit();
+		}
 		include_once SYSTEM_PATH.'/view/login.tpl';
 	}
 

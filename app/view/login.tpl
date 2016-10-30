@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-	<title> Thought Share |
-		<?= $pageName ?>
+	<title>
+		Thought Share | <?= $pageName ?>
 	</title>
 
 	<link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/styles/bootstrap.min.css">
@@ -18,14 +18,6 @@
 </head>
 
 <body class="container banner" style="background-image: url('<?= BASE_URL ?>/public/media/banner.jpg')">
-
-<?php
-Session::start();
-if(isset($_SESSION['user'])) {
-	header('Location: '.BASE_URL);
-	exit();
-}
-?>
 
 	<header class="text-center">
 		<img id="logo" src="<?= BASE_URL ?>/public/media/logo.png" alt="logo">

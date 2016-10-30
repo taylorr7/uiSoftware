@@ -21,13 +21,7 @@
 
 <body>
 
-<?php
-	Session::start();
-	if (!isset($_SESSION['username'])) {
-		header('Location: '.BASE_URL.'/login');
-		exit();
-	}
-?>
+	<?= Session::redirect() ?>
 
 	<nav id="nav-top" class="navbar navbar-default">
 		<div class="navbar-header pull-left">

@@ -93,6 +93,7 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		if ($cid == null) {
+			Session::start();
 			$uid = $_SESSION['id'];
 			$sql = "INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `coursecontent`) VALUES (NULL, $uid, '', '', '')";
 			 mysql_query($sql);
