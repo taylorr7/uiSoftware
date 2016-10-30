@@ -42,6 +42,11 @@ class SiteController {
 				$email = htmlspecialchars($_POST['email']);
 				$this->processRegister($firstname, $lastname, $username, $password, $email);
 				break;
+			case 'publish':
+				$id = $_POST['name'];
+				$check = $_POST['check'];
+				$this->publish($id, $check);
+				break;
 
 			default: header('Location: '.BASE_URL); exit();
 		}
@@ -183,5 +188,31 @@ class SiteController {
 			header('Location: '.BASE_URL.'/register');
 			exit();
 		}
+	}
+	
+	public function publish($cid, $check) {
+		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
+		mysql_select_db(DB_DATABASE);
+		$sql = "SELECT * FROM `hidden_courses` WHERE `courseid` = '$cid'";
+		$result = mysql_query($sql);
+		$count = mysql_num_rows($result);
+		if($count < 1) {
+			if($check == 'false') {
+				$newHiddenCourse = new HiddenCourse();
+				$newHiddenCourse->set('courseid', $cid);
+				$newHiddenCourse->save();
+			}
+			$json = array('status' => 'unpublished');
+		} else {
+			if($check == 'false') {
+				$row = mysql_fetch_assoc($result);
+				$id = $row['id'];
+				$sql = "DELETE FROM `hidden_courses` WHERE `id` = '$id'";
+				mysql_query($sql);
+			}
+			$json = array('status' => 'published');
+		}
+		header('Content-Type: application/json');
+		echo json_encode($json);
 	}
 }

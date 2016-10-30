@@ -8,6 +8,7 @@ RewriteEngine on
 RewriteRule ^$ app/controller/siteController.php?action=home [QSA,L]
 RewriteRule ^navigate/process/?$ app/controller/siteController.php?action=processNavigation [QSA,L]
 RewriteRule ^courses/?$ app/controller/siteController.php?action=courses [QSA,L]
+RewriteRule ^courses/publish/?$ app/controller/siteController.php?action=publish [QSA,L]
 RewriteRule ^lessons/?$ app/controller/siteController.php?action=lessons [QSA,L]
 RewriteRule ^accountInfo/?$ app/controller/siteController.php?action=accountInfo [QSA,L]
 RewriteRule ^accountInfo/process/?$ app/controller/siteController.php?action=processAccountInfo [QSA,L]
