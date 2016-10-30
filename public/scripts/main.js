@@ -9,6 +9,28 @@
 */
 $(document).ready(function() {
 	/*
+	* Function to send the user home.
+	*/
+	$("#home").click(function() {
+		location.href = BASE_URL;
+	});
+
+	/*
+	* Function to bring up the help menu.
+	* Right now just displays an alert to the user.
+	*/
+	$("#help").click(function() {
+		alert("Help");
+	});
+
+	/*
+	* Log the user out of the system
+	*/
+	$("#logout").click(function() {
+		location.href = BASE_URL + "/logout";
+	});
+
+	/*
 	* Function to allow the user to subscribe to a course.
 	*/
 	$("#subscribe").click(function() {
@@ -97,14 +119,6 @@ $(document).ready(function() {
 $(document).on('click', '.collapse li a', function() {
 	$(this).parent().children('ul').toggle();
 });
-
-/*
-* Function to bring up the help menu.
-* Right now just displays an alert to the user.
-*/
-const help = () => {
-	alert("Help");
-}
 
 /*
 * Function to send the user to a given page.
