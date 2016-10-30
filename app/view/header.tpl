@@ -9,15 +9,12 @@
 	<link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/styles/main.css">
 
 	<script src="<?= BASE_URL ?>/public/scripts/jquery.js"></script>
-<<<<<<< .merge_file_fmHGAa
 	<script src="<?= BASE_URL ?>/public/scripts/main.js"></script>
+	<script src="<?= BASE_URL ?>/public/scripts/bootstrap.min.js"></script>
+
 	<script type="text/javascript">
 		var BASE_URL = "<?= BASE_URL ?>";
 	</script>
-=======
-	<script src="<?= BASE_URL ?>/public/scripts/bootstrap.min.js"></script>
-	<!-- <script src="<?= BASE_URL ?>/public/scripts/main.js"></script> -->
->>>>>>> .merge_file_f95TI0
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -32,16 +29,6 @@
 	}
 ?>
 
-<<<<<<< .merge_file_fmHGAa
-	<div id="header">
-		<div class="headNav">
-			<form action="<?= BASE_URL ?>/search/" method="GET">
-				<input type="text" value="Search" name="mainSearch" />
-			</form>
-			<button id="home"> Home </button>
-			<button id="help"> Help </button>
-			<button id="logout"> Logout </button>
-=======
 	<nav id="nav-top" class="navbar navbar-default">
 		<div class="navbar-header pull-left">
 			<a class="navbar-brand" href="<?= BASE_URL ?>">
@@ -137,7 +124,6 @@
 					</div>
 				</form>
 			</div>
->>>>>>> .merge_file_f95TI0
 		</div>
 	</nav>
 

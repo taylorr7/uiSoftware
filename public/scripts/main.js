@@ -226,8 +226,6 @@ const deleteCourse = function() {
 	}
 }
 
-
-
 /*
 * Function to delete a lesson a user has created.
 */
