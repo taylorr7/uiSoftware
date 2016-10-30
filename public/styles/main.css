@@ -5,6 +5,7 @@ body {
 
 main.container {
 	background: white;
+	padding-bottom: 15px;
 	/* Margin for the fixed footer */
 	margin-bottom: 70px;
 }
