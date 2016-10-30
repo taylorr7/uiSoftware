@@ -34,7 +34,6 @@ class SiteController {
 				$this->processLogin($username, $password);
 				break;
 			case 'logout': $this->logout();	break;
-			case 'register': $this->register();	break;
 			case 'processRegister':
 				$firstname = htmlspecialchars($_POST['fname']);
 				$lastname = htmlspecialchars($_POST['lname']);
@@ -53,8 +52,8 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/home.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function processNavigation() {
@@ -76,8 +75,8 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/courses.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function lessons() {
@@ -85,8 +84,8 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/lessons.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function newCourse() {
@@ -100,6 +99,7 @@ class SiteController {
 		$pageName = 'New Course';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editcourse.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function newLesson() {
@@ -112,6 +112,7 @@ class SiteController {
 		$pageName = 'New Lesson';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editlesson.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function accountInfo() {
@@ -119,8 +120,8 @@ class SiteController {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/navigation.tpl';
 		include_once SYSTEM_PATH.'/view/accountInfo.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function processAccountInfo($fname, $lname, $uname, $pass, $email, $id) {
@@ -168,11 +169,6 @@ class SiteController {
 		session_destroy();
 		header('Location: '.BASE_URL);
 		exit();
-	}
-
-	public function register() {
-		$pageName = 'Registration';
-		include_once SYSTEM_PATH.'/view/register.tpl';
 	}
 
 	public function processRegister($fname, $lname, $uname, $pass, $email) {

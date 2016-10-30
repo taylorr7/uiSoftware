@@ -1,35 +1,39 @@
-	<?php
-		$uid = $_SESSION['id'];
-		$sql = "SELECT * FROM subscriptions WHERE userid = '$uid'";
-		$result = mysql_query($sql);
-	?>
+<?php
+	$uid = $_SESSION['id'];
+	$sql = "SELECT * FROM subscriptions WHERE userid = '$uid'";
+	$result = mysql_query($sql);
+?>
 
-	<div id="title">
-		<h3> Welcome Back, <?= $_SESSION['namefirst'] ?>! </h3>
-	</div>
+<div class="page-header">
+	<h2> Welcome Back, <?= $_SESSION['namefirst'] ?>! </h2>
+</div>
 
-	<div id="content">
-		<h3> Courses You Are Taking </h3>
 
-		<?php while($row = mysql_fetch_assoc($result)): ?>
+<h3> Courses You Are Taking </h3>
 
-			<?php
-				$sub = new Subscription($row);
-				$course = $sub->getCourse($sub->get('courseid'));
-				$user = $sub->getUser($course->get('userid'));
-			?>
+<ul class="list-group">
+	<?php while($row = mysql_fetch_assoc($result)): ?>
 
-			<div class="course">
-				<button onclick="subscribe('<?= BASE_URL ?>/subscribe')"> Unsubscribe </button>
-				<button href="<?= BASE_URL ?>/authors/view/<?= $user->get('username') ?>"> Author's Page </button>
-				<a href="<?= BASE_URL ?>/courses/view/<?= $course->get('id') ?>"><?= $course->get('coursename'); ?>&nbsp;&nbsp;&nbsp;Author: <?= $user->get('username') ?></a>
-				<p><?= $course->get('coursedescription'); ?></p>
-			</div>
+		<?php
+			$sub = new Subscription($row);
+			$course = $sub->getCourse($sub->get('courseid'));
+			$user = $sub->getUser($course->get('userid'));
+		?>
 
-		<?php endwhile; ?>
+		<li class="list-group-item">
+			<h4>
+				<a href="<?= BASE_URL ?>/courses/view/<?= $course->get('id') ?>">
+					<?= $course->get('coursename'); ?>
+				</a>
+				<small>
+					by
+					<a href="<?= BASE_URL ?>/authors/view/<?= $user->get('username') ?>">
+						<?= $user->get('username') ?>
+					</a>
+				</small>
+			</h4>
+			<p><?= $course->get('coursedescription'); ?></p>
+		</li>
 
-	</div>
-
-</body>
-
-</html>
+	<?php endwhile; ?>
+</ul>
