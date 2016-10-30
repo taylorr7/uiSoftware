@@ -124,6 +124,15 @@ class SiteController {
 		$pageName = 'Account Info';
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
+
+		Session::start();
+		$uid = $_SESSION['id'];
+		$sql = "SELECT * FROM users WHERE id = '$uid'";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		$email = $row['email'];
+		$hash = md5(strtolower(trim($email)));
+
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/accountInfo.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
@@ -155,7 +164,7 @@ class SiteController {
 		$result = mysql_query($sql);
 		$count = mysql_num_rows($result);
 		if ($count == 1) {
-			session_start();
+			Session::start();
 			$row = mysql_fetch_assoc($result);
 			$_SESSION['id'] = $row['id'];
 			$_SESSION['username'] = $row['username'];
@@ -189,7 +198,7 @@ class SiteController {
 			exit();
 		}
 	}
-	
+
 	public function publish($cid, $check) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);

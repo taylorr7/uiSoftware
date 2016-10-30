@@ -22,8 +22,8 @@
 <body>
 
 <?php
-	session_start();
-	if(!isset($_SESSION['username'])) {
+	Session::start();
+	if (!isset($_SESSION['username'])) {
 		header('Location: '.BASE_URL.'/login');
 		exit();
 	}

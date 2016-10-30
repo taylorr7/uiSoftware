@@ -1,12 +1,3 @@
-	<?php
-		$uid = $_SESSION['id'];
-		$sql = "SELECT * FROM users WHERE id = '$uid'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
-		$email = $row['email'];
-		$hash = md5(strtolower(trim($email)));
-	?>
-
 <div id="content">
 	<div id="title">
 		<h2> Account Information </h2>
