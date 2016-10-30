@@ -161,6 +161,13 @@ class SiteController {
 		mysql_select_db(DB_DATABASE);
 		$pageName = 'Search';
 		$qry = $index;
+
+		$sql = "SELECT * FROM users WHERE username = '$qry'";
+		$result1 = mysql_query($sql);
+
+		$sql = "SELECT * FROM courses WHERE INSTR(coursename, '{$qry}') > 0 OR INSTR(coursedescription, '{$qry}') > 0";
+		$result2 = mysql_query($sql);
+
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/search.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';

@@ -1,7 +1,5 @@
 <?php
-	$uid = $_SESSION['id'];
-	$sql = "SELECT * FROM lessons WHERE userid = '$uid'";
-	$result = mysql_query($sql);
+
 ?>
 
 <div class="page-header">

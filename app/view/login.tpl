@@ -20,7 +20,7 @@
 <body class="container banner" style="background-image: url('<?= BASE_URL ?>/public/media/banner.jpg')">
 
 <?php
-session_start();
+Session::start();
 if(isset($_SESSION['user'])) {
 	header('Location: '.BASE_URL);
 	exit();

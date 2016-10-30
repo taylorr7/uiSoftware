@@ -56,6 +56,11 @@ class SiteController {
 		$pageName = 'Home';
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
+
+		$uid = $_SESSION['id'];
+		$sql = "SELECT * FROM subscriptions WHERE userid = '$uid'";
+		$result = mysql_query($sql);
+
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/home.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
@@ -79,6 +84,11 @@ class SiteController {
 		$pageName = 'Courses';
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
+		
+		$uid = $_SESSION['id'];
+		$sql = "SELECT * FROM courses WHERE userid = '$uid'";
+		$result = mysql_query($sql);
+
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/courses.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
@@ -88,6 +98,11 @@ class SiteController {
 		$pageName = 'Lessons';
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
+
+		$uid = $_SESSION['id'];
+		$sql = "SELECT * FROM lessons WHERE userid = '$uid'";
+		$result = mysql_query($sql);
+
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/lessons.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
@@ -102,6 +117,16 @@ class SiteController {
 		$row['coursecontent'] = '';
 
 		$pageName = 'New Course';
+
+		$uid = $_SESSION['id'];
+		$sql = "SELECT lessonname FROM lessons WHERE userid = '$uid'";
+		$result = mysql_query($sql);
+		$lessonList = array();
+		$i = 0;
+		while ($lessons = mysql_fetch_array($result)) {
+			$lessonList[$i] = $lessons[0];
+			$i++;
+		}
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editcourse.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
@@ -178,7 +203,7 @@ class SiteController {
 	}
 
 	public function logout() {
-		session_start();
+		Session::start();
 		session_unset();
 		session_destroy();
 		header('Location: '.BASE_URL);

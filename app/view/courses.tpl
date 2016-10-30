@@ -1,9 +1,3 @@
-<?php
-	$uid = $_SESSION['id'];
-	$sql = "SELECT * FROM courses WHERE userid = '$uid'";
-	$result = mysql_query($sql);
-?>
-
 <div class="page-header">
 	<h2>
 		Your Courses
