@@ -65,7 +65,6 @@ class SiteController {
         $user->username = htmlspecialchars($newProperties['user']);
         $user->password = htmlspecialchars($newProperties['pass']);
         $user->email = htmlspecialchars($newProperties['email']);
-		echo var_dump($user);
         $user->save();
     }
 
@@ -83,7 +82,7 @@ class SiteController {
 	}
 
     public function processAccount($newProperties) {
-        updateUser(LoginSession::currentUser(), $newProperties);
+        $this->updateUser(LoginSession::currentUser(), $newProperties);
         header('Location: ' . BASE_URL . '/account');
 	}
 

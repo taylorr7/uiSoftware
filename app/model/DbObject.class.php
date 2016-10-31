@@ -26,7 +26,7 @@ abstract class DbObject implements IteratorAggregate {
         if (is_null($this->id)) {
 			$this->id = Db::instance()->insert($this->getTable(), (array)$this);
 		} else {
-			Db::instance()->update($this->getTable(), $this->$id, (array)$this);
+			Db::instance()->update($this->getTable(), $this->id, (array)$this);
 		}
     }
 
