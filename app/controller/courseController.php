@@ -95,23 +95,16 @@ class CourseController {
 	}
 
     public function loadCourse($cid, $lid) {
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-		$sql = "SELECT * FROM `courses` WHERE `id` = '$cid'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
-		$toc = $row['coursecontent'];
+		$course = Course::loadById($cid);
+		$toc = $course->coursecontent;
 		if($lid == "null") {
 			$content = "null";
 		} else if($lid == "home") {
-			$content = "Home Page!";
+			$content = "Welcome to {$course->coursename}!";
 		} else {
-			$sql = "SELECT * FROM `lessons` WHERE `lessonname` = '$lid'";
-			$result = mysql_query($sql);
-			$count = mysql_num_rows($result);
-			$row = mysql_fetch_assoc($result);
-			$content = $row['content'];
+			$content = Lesson::loadByName($lid)->content;
 		}
+
 		$json = array('toc' => $toc, 'content' => $content);
 		header('Content-Type: application/json');
 		echo json_encode($json);

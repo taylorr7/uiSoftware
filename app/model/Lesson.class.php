@@ -23,4 +23,13 @@ class Lesson extends DbObject {
 	public static function loadByUser($user) {
 		return Db::instance()->selectByProperty(self::DB_TABLE, 'userid', $user->id, __CLASS__);
 	}
+
+	public static function loadByName($name) {
+		$results = Db::instance()->selectByProperty(self::DB_TABLE, 'lessonname', $name, __CLASS__);
+		$numResults = count($results);
+		if ($numResults != 1) {
+			die("Found ${$numResults} lessons with name {$name}");
+		}
+		return $results[0];
+	}
 }
