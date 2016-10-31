@@ -32,8 +32,8 @@ class CourseController {
                 break;
 
             case 'loadCourse':
-				$cid = $_GET['courseid'];
-				$lid = $_GET['lessonid'];
+				$cid = $_GET['cid'];
+				$lid = $_GET['lid'];
 				$this->loadCourse($cid,$lid);
 				break;
 
@@ -98,7 +98,7 @@ class CourseController {
 		$course = Course::loadById($cid);
 		$toc = $course->coursecontent;
 		if($lid == "null") {
-			$content = "null";
+			$content = null;
 		} else if($lid == "home") {
 			$content = "Welcome to {$course->coursename}!";
 		} else {

@@ -2,6 +2,7 @@
 	<h2> <?= $course->coursename ?> </h2>
 </div>
 
+<h3> Table of Contents </h3>
 <div id="navigation" class="courseNav">
 </div>
 
