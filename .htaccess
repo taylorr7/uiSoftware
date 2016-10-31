@@ -42,7 +42,7 @@ RewriteRule ^courses/edit/process/(\d*)/?$ app/controller/contentController.php?
 
 RewriteRule ^lessons/edit/(\d*)/?$ app/controller/contentController.php?action=newLesson&lid=$1 [QSA,L]
 
-RewriteRule ^lessons/new/?$ app/controller/contentController.php?action=newLesson [QSA,L]
+RewriteRule ^lessons/new/?$ app/controller/siteController.php?action=newLesson [QSA,L]
 
 RewriteRule ^lessons/edit/process/(\d*)/?$ app/controller/contentController.php?action=processLesson&lid=$1 [QSA,L]
 
