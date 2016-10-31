@@ -2,63 +2,59 @@
 
 class User extends DbObject {
 	const DB_TABLE = 'users';
-	
-	protected $id;
-	protected $username;
-	protected $password;
-	protected $firstname;
-	protected $lastname;
-	protected $email;
-	
-	public function __construct($args = array()) {
-		$defaultArgs = array(
-				'id' => null,
-				'username' => '',
-				'password' => '',
-				'firstname' => null,
-				'lastname' => null,
-				'email' => null
-			);
-		$args += $defaultArgs;
-		$this->id = $args['id'];
-		$this->username = $args['username'];
-		$this->password = $args['password'];
-		$this->firstname = $args['namefirst'];
-		$this->lastname = $args['namelast'];
-		$this->email = $args['email'];
+
+	public $username;
+	public $password;
+	public $namefirst;
+	public $namelast;
+	public $email;
+
+	protected function getTable() {
+		return self::DB_TABLE;
 	}
-	
-	public function save() {
-		$db = Db::instance();
-		$db_properties = array(
-				'username' => $this->username,
-				'password' => $this->password,
-				'firstname' => $this->firstname,
-				'lastname' => $this->lastname,
-				'email' => $this->email
-			);
-		$db->store($this, __CLASS__, self::DB_TABLE, $db_properties);
+
+	public function getGravatarHash() {
+		return md5(strtolower(trim($this->$email)));
 	}
-	
+
 	public static function loadById($id) {
-		$db = Db::instance();
-		$obj = $db->fetchById($id, __CLASS__, self::DB_TABLE);
-		return $obj;
+		$results = Db::instance()->selectById(self::DB_TABLE, $id, __CLASS__);
+		$numResults = count($results);
+		if ($numResults != 1) {
+			die("Found ${$numResults} users with id {$id}");
+		}
+		return $results[0];
 	}
-	
-	public static function loadByUsername($username = null) {
-		if($username == null) {
-			return null;
+
+	public static function loadByUsername($username) {
+		$results = Db::instance()->selectByProperty(self::DB_TABLE, 'username', $username, __CLASS__);
+		$numResults = count($results);
+		if ($numResults != 1) {
+			die("Found ${$numResults} users with username {$id}");
 		}
-		$query = sprintf(" SELECT id FROM %s WHERE username = '%s' ", self::DB_TABLE, $username);
-		$db = Db::instance();
-		$result = $db->lookup($query);
-		if(!mysql_num_rows($result)) {
-			return null;
-		} else {
-			$row = mysql_fetch_assoc($result);
-			$obj = self::loadById($row['id']);
-			return ($obj);
+		return $results[0];
+	}
+
+	public static function loadByCredentials($username, $password) {
+		$results = Db::instance()->selectByProperties(
+			self::DB_TABLE,
+			array('username' => $username, 'password' => $password),
+			__CLASS__);
+
+		$numResults = count($results);
+		if ($numResults > 1) {
+			die("Found ${$numResults} users with same credentials");
+		} else if ($numResults == 1) {
+			return $results[0];
 		}
+		return null;
+	}
+
+	public static function search($qry) {
+		return Db::instance()->search(
+			self::DB_TABLE,
+			array('namefirst', 'username', 'email', 'namelast'),
+			$qry,
+			__CLASS__);
 	}
 }

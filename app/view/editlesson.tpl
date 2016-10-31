@@ -12,11 +12,11 @@
 <div id="content">
 
 	<h3 class="courseCreator">
-		<form id="lessonCreator" action="<?= BASE_URL ?>/lessons/edit/process/<?= $row['id'] ?>" method="POST">
+		<form id="lessonCreator" action="<?= BASE_URL ?>/lessons/edit/process/<?= $lesson->id ?>" method="POST">
 			<label>Lesson Name: <br>
-			<input type="text" name="lname" value="<?= $row['lessonname'] ?>"></label> <br><br>
+			<input type="text" name="lname" value="<?= $lesson->lessonname ?>"></label> <br><br>
 			<label>Lesson Content: <br>
-			<textarea name="content" class="courseContent" id="lessonContent"><?= $row['content'] ?></textarea></label> <br>
+			<textarea name="content" class="courseContent" id="lessonContent"><?= $lesson->content ?></textarea></label> <br>
 			<input name="save" type="submit" value="Save Lesson">
 			<input name="delete" type="submit" value="Delete Lesson">
 		</form>

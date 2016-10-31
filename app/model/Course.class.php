@@ -2,39 +2,47 @@
 
 class Course extends DbObject {
 	const DB_TABLE = 'courses';
-	
-	protected $id;
-	protected $userid;
-	protected $coursename;
-	protected $coursedescription;
-	
-	public function __construct($args = array()) {
-		$defaultArgs = array(
-				'id' => null,
-				'userid' => '',
-				'coursename' => '',
-				'coursedescription' => ''
-			);
-		$args += $defaultArgs;
-		$this->id = $args['id'];
-		$this->userid = $args['userid'];
-		$this->coursename = $args['coursename'];
-		$this->coursedescription = $args['coursedescription'];
+
+	public $userid;
+	public $coursename;
+	public $coursedescription;
+	public $coursecontent;
+	public $published;
+
+	protected function getTable() {
+		return 'DB_TABLE';
 	}
-	
-	public function save() {
-		$db = Db::instance();
-		$db_properties = array(
-				'userid' => $this->userid,
-				'coursename' => $this->coursename,
-				'coursedescription' => $this->coursedescription
-			);
-		$db->store($this, __CLASS__, self::DB_TABLE, $db_properties);
+
+	public function getCreator() {
+		return User::loadById($this->userid);
 	}
-	
+
 	public static function loadById($id) {
-		$db = Db::instance();
-		$obj = $db->fetchById($id, __CLASS__, self::DB_TABLE);
-		return $obj;
+		$results = Db::instance()->selectById(self::DB_TABLE, $id, __CLASS__);
+		$numResults = count($results);
+		if ($numResults != 1) {
+			die("Found ${$numResults} courses with id {$id}");
+		}
+		return $results[0];
+	}
+
+	public static function loadByUser($user) {
+		return Db::instance()->selectByProperty(self::DB_TABLE, 'userid', $user->id, __CLASS__);
+	}
+
+	public static function loadPublished() {
+		return array_filter(
+			Db::instance()->selectAll(self::DB_TABLE, __CLASS__),
+			function($item) {
+				return $item->published;
+			});
+	}
+
+	public static function search($qry) {
+		return Db::instance()->search(
+			self::DB_TABLE,
+			array('coursename', 'coursedescription'),
+			$qry,
+			__CLASS__);
 	}
 }

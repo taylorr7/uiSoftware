@@ -3,21 +3,21 @@
 </div>
 
 <div id="content">
-	<?php while($row = mysql_fetch_assoc($result1)): ?>
+	<?php foreach($users as $u): ?>
 
 		<div class="course">
-			<a href="<?= BASE_URL ?>/authors/view/<?= $row['username'] ?>">User:&nbsp;&nbsp;&nbsp;<?= $row['username']; ?></a>
+			<a href="<?= BASE_URL ?>/authors/view/<?= $u->username ?>">User:&nbsp;&nbsp;&nbsp;<?= $u->username ?></a>
 		</div>
 
 	<?php
-		endwhile;
-		while($row = mysql_fetch_assoc($result2)):
+		endforeach;
+		foreach($courses as $c):
 	?>
 
 		<div class="course">
-			<a href="<?= BASE_URL ?>/courses/view/<?= $row['id']; ?>">Course:&nbsp;&nbsp;&nbsp;<?= $row['coursename']; ?></a>
-			<p><?= $row['coursedescription']; ?></p>
+			<a href="<?= BASE_URL ?>/courses/view/<?= $c->id ?>">Course:&nbsp;&nbsp;&nbsp;<?= $c->coursename ?></a>
+			<p><?= $c->coursedescription ?></p>
 		</div>
 
-	<?php endwhile; ?>
+	<?php endforeach; ?>
 </div>

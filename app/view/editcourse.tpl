@@ -4,18 +4,18 @@
 
 <div class="row">
 	<div class="col-sm-8 col-xs-12">
-		<form id="courseCreator" action="<?= BASE_URL ?>/courses/edit/process/<?= $row['id'] ?>" method="POST">
+		<form id="courseCreator" action="<?= BASE_URL ?>/courses/edit/process/<?= $course->id ?>" method="POST">
 			<div class="form-group">
 				<label for="cname">Course Name</label>
-				<input type="text" name="cname" value="<?= $row['coursename'] ?>" class="form-control" placeholder="Course Name" required autofocus>
+				<input type="text" name="cname" value="<?= $course->coursename ?>" class="form-control" placeholder="Course Name" required autofocus>
 			</div>
 			<div class="form-group">
 				<label for="cdescription">Course Description</label>
-				<textarea name="cdescription" value="<?= $row['coursedescription'] ?>" class="form-control" placeholder="Course Description" required></textarea>
+				<textarea name="cdescription" rows="5" class="form-control" placeholder="Course Description" required><?= $course->coursedescription ?></textarea>
 			</div>
 			<div class="form-group">
 				<label for="ccontent">Course Content</label>
-				<textarea name="ccontent" value="<?= $row['coursecontent'] ?>" class="form-control" placeholder="Course Content" required></textarea>
+				<textarea name="ccontent" rows="10" class="form-control" placeholder="Course Content" required><?= $course->coursecontent ?></textarea>
 			</div>
 		</form>
 

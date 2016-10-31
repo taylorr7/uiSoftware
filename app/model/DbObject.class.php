@@ -1,38 +1,44 @@
 <?php
 
-class DbObject {
-	protected $modified = false;
-	
-	public function getModified() {
-		return $this->modified;
-	}
-	
-	public function setModified($modified = false) {
-		$this->modified = $modified;
-	}
-    
-    public function get($field = null) {
-        if($field == null) {
-            return null;
+// This class is the base class for objects representing database tables
+abstract class DbObject implements IteratorAggregate {
+    public $id = null;
+
+    // Gets the table name that the class represents
+    protected abstract function getTable();
+
+    // Creates a new DBObject and sets the given properties
+    public function __construct($args = array()) {
+        $this->update($args);
+    }
+
+    // Sets the properties and value given to the DBObject
+    public function update($newValues) {
+        foreach ($this as $column => $value) {
+            if (array_key_exists($column, $newValues)) {
+                $this->$column = $newValues[$column];
+            }
+        }
+    }
+
+    // Saves the item to the database
+    public function save() {
+        if (is_null($this->id)) {
+			$this->id = Db::instance()->insert($this->getTable(), (array)$this);
+		} else {
+			Db::instance()->update($this->getTable(), $this->$id, (array)$this);
 		}
-        return ($this->$field);
     }
-    
-    public function getId() {
-        return ($this->id);   
+
+    public function delete() {
+        if (!is_null($this->$id)) {
+            Db::instance()->deleteById($this->$id);
+        }
     }
-    
-    public function set($field = null, $val = null) {
-        if($field == null) {
-            return null;
-		}
-        
-        $this->$field = $val;
-        $this->modified = true;
-    }
-    
-    public function setId($val) {
-        $this->id = $val;
-        $this->modified = true;
+
+    // Gets the iterator of the DBObject's public properties
+    public function getIterator()
+    {
+        return new ArrayIterator($this);
     }
 }

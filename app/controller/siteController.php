@@ -4,264 +4,104 @@ include_once '../global.php';
 
 $action = $_GET['action'];
 
-$pc = new SiteController();
-$pc->route($action);
+$sc = new SiteController();
+$sc->route($action);
 
 class SiteController {
+	public function checkLoginStatus() {
+		if (!LoginSession::isLoggedIn()) {
+			header('Location: ' . BASE_URL . '/login');
+			exit();
+		}
+	}
+
 	public function route($action) {
 		switch($action) {
-			case 'home':	$this->home(); break;
-			case 'courses':	$this->courses(); break;
-			case 'lessons':	$this->lessons(); break;
-			case 'newCourse':	$this->newCourse(); break;
-			case 'newLesson':	$this->newLesson(); break;
-			case 'accountInfo':	$this->accountInfo(); break;
+			case 'home':
+				$this->checkLoginStatus();
+				$this->home();
+				break;
 
-			case 'processNavigation': $this->processNavigation(); break;
-			case 'processAccountInfo':
-				$firstname = htmlspecialchars($_POST['fname']);
-				$lastname = htmlspecialchars($_POST['lname']);
-				$username = htmlspecialchars($_POST['user']);
-				$password = htmlspecialchars($_POST['pass']);
-				$email = htmlspecialchars($_POST['email']);
-				$id = htmlspecialchars($_POST['id']);
-				$this->processAccountInfo($firstname, $lastname, $username, $password, $email, $id);
-				break;
-			case 'login':	$this->login();	break;
-			case 'processLogin':
-				$username = $_POST['user'];
-				$password = $_POST['pass'];
-				$this->processLogin($username, $password);
-				break;
-			case 'logout': $this->logout();	break;
 			case 'processRegister':
-				$firstname = htmlspecialchars($_POST['fname']);
-				$lastname = htmlspecialchars($_POST['lname']);
-				$username = htmlspecialchars($_POST['user']);
-				$password = htmlspecialchars($_POST['pass']);
-				$email = htmlspecialchars($_POST['email']);
-				$this->processRegister($firstname, $lastname, $username, $password, $email);
-				break;
-			case 'publish':
-				$id = $_POST['name'];
-				$check = $_POST['check'];
-				$this->publish($id, $check);
+				$this->processRegister($_POST);
 				break;
 
-			default: header('Location: '.BASE_URL); exit();
+			case 'account':
+				$this->checkLoginStatus();
+				$this->account();
+				break;
+
+            case 'processAccount':
+				$this->checkLoginStatus();
+                $this->processAccount($_POST);
+                break;
+
+			case 'viewAuthor':
+				$this->checkLoginStatus();
+				$authorName = htmlspecialchars($_GET['aname']);
+				$this->viewAuthor($authorName);
+				break;
+
+			case 'search':
+				$this->checkLoginStatus();
+				$qry = htmlspecialchars($_GET['s']);
+				$this->search($qry);
+				break;
 		}
 	}
 
 	public function home() {
+		$user = LoginSession::currentUser();
+		$subscriptions = Subscription::loadByUser($user);
 		$pageName = 'Home';
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-
-		Session::start();
-		$uid = $_SESSION['id'];
-		$sql = "SELECT * FROM subscriptions WHERE userid = '$uid'";
-		$result = mysql_query($sql);
-
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/home.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
-	public function processNavigation() {
-		if (isset($_POST['courses'])) {
-			header('Location: '.BASE_URL.'/courses');
-		} else if (isset($_POST['lessons'])) {
-			header('Location: '.BASE_URL.'/lessons');
-		} else if (isset($_POST['newCourse'])) {
-			header('Location: '.BASE_URL.'/courses/new');
-		} else if (isset($_POST['newLesson'])) {
-			header('Location: '.BASE_URL.'/lessons/new');
-		} else if (isset($_POST['accountInfo'])) {
-			header('Location: '.BASE_URL.'/accountInfo');
-		}
+	private function updateUser($user, $newProperties) {
+        $user->namefirst = htmlspecialchars($newProperties['fname']);
+        $user->namelast = htmlspecialchars($newProperties['lname']);
+        $user->username = htmlspecialchars($newProperties['user']);
+        $user->password = htmlspecialchars($newProperties['pass']);
+        $user->email = htmlspecialchars($newProperties['email']);
+		echo var_dump($user);
+        $user->save();
+    }
+
+    public function processRegister($newProperties) {
+        $this->updateUser(new User(), $newProperties);
+		header('Location: '. BASE_URL);
 	}
 
-	public function courses() {
-		$pageName = 'Courses';
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-
-		Session::start();
-		$uid = $_SESSION['id'];
-		$sql = "SELECT * FROM courses WHERE userid = '$uid'";
-		$result = mysql_query($sql);
-
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/courses.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-	}
-
-	public function lessons() {
-		$pageName = 'Lessons';
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-
-		Session::start();
-		$uid = $_SESSION['id'];
-		$sql = "SELECT * FROM lessons WHERE userid = '$uid'";
-		$result = mysql_query($sql);
-
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/lessons.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-	}
-
-	public function newCourse() {
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-		if (isset($_GET['cid'])) {
-			$pageName = 'Edit Course';
-			$cid = $_GET['cid'];
-			$sql = "SELECT * FROM courses WHERE id = '$cid'";
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-		} else {
-			$pageName = 'New Course';
-			$row['id'] = null;
- 	  	$row['coursename'] = '';
- 	 	  $row['coursedescription'] = '';
-  		$row['coursecontent'] = '';
-		}
-
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/editcourse.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-	}
-
-	public function newLesson() {
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-		if (isset($_GET['lid'])) {
-			$pageName = 'Edit Lesson';
-			$sql = "SELECT * FROM lessons WHERE id = '$lid'";
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-		} else {
-			$pageName = 'New Lesson';
-			$row['id'] = null;
-			Session::start();
- 	  	$row['userid'] = $_SESSION['id'];
- 	 	  $row['lessonname'] = '';
-  		$row['content'] = '';
-		}
-
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/editlesson.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-	}
-
-	public function accountInfo() {
+	public function account() {
+        $user = LoginSession::currentUser();
 		$pageName = 'Account Info';
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-
-		Session::start();
-		$uid = $_SESSION['id'];
-		$sql = "SELECT * FROM users WHERE id = '$uid'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
-		$email = $row['email'];
-		$hash = md5(strtolower(trim($email)));
-
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/accountInfo.tpl';
+		include_once SYSTEM_PATH.'/view/account.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
-	public function processAccountInfo($fname, $lname, $uname, $pass, $email, $id) {
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-		$sql = "UPDATE `users` SET `namefirst` = '$fname', `namelast` = '$lname', `username` = '$uname',
-				`password` = '$pass', `email` = '$email' WHERE `users`.`id` = '$id'";
-		if(mysql_query($sql) === TRUE) {
-			header('Location: '.BASE_URL.'/accountInfo');
-			exit();
-		} else {
-			header('Location: '.BASE_URL.'/accountInfo');
-			exit();
-		}
+    public function processAccount($newProperties) {
+        updateUser(LoginSession::currentUser(), $newProperties);
+        header('Location: ' . BASE_URL . '/account');
 	}
 
-	public function login() {
-		$pageName = 'Login';
-		Session::start();
-		if (isset($_SESSION['user'])) {
-			header('Location: '.BASE_URL);
-			exit();
-		}
-		include_once SYSTEM_PATH.'/view/login.tpl';
+	public function viewAuthor($authorName) {
+        $user = LoginSession::currentUser();
+		$author = User::loadByUsername($authorName);
+		$pageName = $authorName;
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/author.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
-
-	public function processLogin($u, $p) {
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-		$sql = "SELECT * FROM users WHERE username = '$u' and password = '$p'";
-		$result = mysql_query($sql);
-		$count = mysql_num_rows($result);
-		if ($count == 1) {
-			Session::start();
-			$row = mysql_fetch_assoc($result);
-			$_SESSION['id'] = $row['id'];
-			$_SESSION['username'] = $row['username'];
-			$_SESSION['namefirst'] = $row['namefirst'];
-			header('Location: '.BASE_URL);
-			exit();
-		} else {
-			header('Location: '.BASE_URL);
-			exit();
-		}
-	}
-
-	public function logout() {
-		Session::start();
-		session_unset();
-		session_destroy();
-		header('Location: '.BASE_URL);
-		exit();
-	}
-
-	public function processRegister($fname, $lname, $uname, $pass, $email) {
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-		$sql = "INSERT INTO `users` (`id`, `namefirst`, `namelast`, `username`, `password`, `email`)
-			VALUES (NULL, '$fname', '$lname', '$uname', '$pass', '$email')";
-		if (mysql_query($sql) === TRUE) {
-			header('Location: '.BASE_URL);
-			exit();
-		} else {
-			header('Location: '.BASE_URL.'/register');
-			exit();
-		}
-	}
-
-	public function publish($cid, $check) {
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-		$sql = "SELECT * FROM `hidden_courses` WHERE `courseid` = '$cid'";
-		$result = mysql_query($sql);
-		$count = mysql_num_rows($result);
-		if($count < 1) {
-			if($check == 'false') {
-				$newHiddenCourse = new HiddenCourse();
-				$newHiddenCourse->set('courseid', $cid);
-				$newHiddenCourse->save();
-			}
-			$json = array('status' => 'unpublished');
-		} else {
-			if($check == 'false') {
-				$row = mysql_fetch_assoc($result);
-				$id = $row['id'];
-				$sql = "DELETE FROM `hidden_courses` WHERE `id` = '$id'";
-				mysql_query($sql);
-			}
-			$json = array('status' => 'published');
-		}
-		header('Content-Type: application/json');
-		echo json_encode($json);
+	public function search($qry) {
+        $user = LoginSession::currentUser();
+		$users = User::search($qry);
+		$courses = Course::search($qry);
+		$pageName = 'Search';
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/search.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 }

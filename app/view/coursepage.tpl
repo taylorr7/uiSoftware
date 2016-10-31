@@ -1,5 +1,5 @@
 <div id="title">
-	<h2> <?= $cname ?> </h2>
+	<h2> <?= $course->coursename ?> </h2>
 </div>
 
 <div id="navigation" class="courseNav">
