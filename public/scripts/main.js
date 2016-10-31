@@ -8,70 +8,6 @@
 * default and is cleared when the user clicks it.
 */
 $(document).ready(function() {
-	/*
-	* Function to send the user home.
-	*/
-	$("#home").click(function() {
-		location.href = BASE_URL;
-	});
-
-	/*
-	* Function to bring up the help menu.
-	* Right now just displays an alert to the user.
-	*/
-	$("#help").click(function() {
-		alert("Help");
-	});
-
-	/*
-	* Log the user out of the system
-	*/
-	$("#logout").click(function() {
-		location.href = BASE_URL + "/logout";
-	});
-
-	/*
-	* Unsubscribe the user from the author's course
-	*/
-	$("#unsubscribe").click(function() {
-		location.href = BASE_URL + "/subscribe";
-	});
-
-	/*
-	* Function to allow the user to subscribe to a course.
-	*/
-	$("#subscribe").click(function() {
-		if (buttonObject.innerText == "Subscribe") {
-			alert("You are now subscribed to this course!");
-			buttonObject.innerText = "Unsubscribe";
-		} else {
-			alert("You are no longer subscribed to this course!");
-			buttonObject.innerText = "Subscribe";
-		}
-	});
-
-	/*
-	* Function to allow the user to publish a course.
-	*/
-	$("#publish").click(function() {
-		if (buttonObject.innerText == "Publish") {
-			alert("This course has been published!");
-			buttonObject.innerText = "Unpublish";
-		} else {
-			alert("This course has been unpublished!");
-			buttonObject.innerText = "Publish";
-		}
-	});
-
-	/*
-	* Function to add a new chapter to a course.
-	*/
-	$("#addChapter").click(function() {
-		var appendText = "";
-		var name = prompt("What is the name of this chapter?");
-		appendText = "\n~CHAPTER:name-"+name+":~\n";
-		document.getElementById('courseContent').value += appendText;
-	});
 
 	/*
 	* Function to add a new quiz to a lesson.
@@ -139,22 +75,6 @@ $(document).ready(function() {
 	});
 });
 
-/*
-* Function to collapse lists of lists.
-* Used in the navigation bar on the course page.
-*/
-$(document).on('click', '.collapse li a', function() {
-	$(this).parent().children('ul').toggle();
-});
-
-/*
-* Function to send the user to a given page.
-* Used to turn buttons into a navigation tool.
-*/
-const sendToPage = (destination) => {
-	destinationString = destination;
-	location.href = destinationString;
-}
 
 /*
 * Function used to validate the input sent
@@ -162,7 +82,7 @@ const sendToPage = (destination) => {
 */
 const validateForm = () => {
 	const errColor = "#ffad99";
-	
+
 	const {user, pass, passV, fname, lname, email} = document.forms.register;
 
 	if(!user.value) {
@@ -283,49 +203,5 @@ const validateQuestion = function() {
 		alert("Correct!");
 	} else {
 		alert("Incorrect");
-	}
-}
-
-/*
-* Function to reset the search form.
-*/
-const resetForm = function() {
-	$('input[type=checkbox]').each(function() { this.checked = false; });
-}
-
-/*
-* Function to save a course a user has created.
-*/
-const saveCourse = function(id) {
-	if(id === null || id === '') {
-		document.getElementById('opp').value = "New";
-	} else {
-		document.getElementById('opp').value = "Save";
-	}
-	answer = confirm("Are you sure?");
-	if(answer) {
-		document.getElementById('courseCreator').submit();
-	}
-}
-
-/*
-* Function to delete a course a user has created.
-*/
-const deleteCourse = function() {
-	document.getElementById('opp').value = "Delete";
-	answer = confirm("Are you sure?");
-	if(answer) {
-		document.getElementById('courseCreator').submit();
-	}
-}
-
-/*
-* Function to delete a lesson a user has created.
-*/
-const deleteLesson = function() {
-	document.getElementById('opp').value = "Delete";
-	answer = confirm("Are you sure?");
-	if(answer) {
-		document.getElementById('lessonCreator').submit();
 	}
 }
