@@ -186,58 +186,6 @@ class SiteController {
 		}
 	}
 
-	public function login() {
-		$pageName = 'Login';
-		Session::start();
-		if (isset($_SESSION['user'])) {
-			header('Location: '.BASE_URL);
-			exit();
-		}
-		include_once SYSTEM_PATH.'/view/login.tpl';
-	}
-
-	public function processLogin($u, $p) {
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-		$sql = "SELECT * FROM users WHERE username = '$u' and password = '$p'";
-		$result = mysql_query($sql);
-		$count = mysql_num_rows($result);
-		if ($count == 1) {
-			Session::start();
-			$row = mysql_fetch_assoc($result);
-			$_SESSION['id'] = $row['id'];
-			$_SESSION['username'] = $row['username'];
-			$_SESSION['namefirst'] = $row['namefirst'];
-			header('Location: '.BASE_URL);
-			exit();
-		} else {
-			header('Location: '.BASE_URL);
-			exit();
-		}
-	}
-
-	public function logout() {
-		Session::start();
-		session_unset();
-		session_destroy();
-		header('Location: '.BASE_URL);
-		exit();
-	}
-
-	public function processRegister($fname, $lname, $uname, $pass, $email) {
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-		$sql = "INSERT INTO `users` (`id`, `namefirst`, `namelast`, `username`, `password`, `email`)
-			VALUES (NULL, '$fname', '$lname', '$uname', '$pass', '$email')";
-		if (mysql_query($sql) === TRUE) {
-			header('Location: '.BASE_URL);
-			exit();
-		} else {
-			header('Location: '.BASE_URL.'/register');
-			exit();
-		}
-	}
-
 	public function publish($cid, $check) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
 		mysql_select_db(DB_DATABASE);
