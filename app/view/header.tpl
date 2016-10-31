@@ -38,21 +38,21 @@
 					</a>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li>
-							<a href="<?= BASE_URL ?>/accountInfo">
+							<a href="<?= BASE_URL ?>/account">
 								<span class="glyphicon glyphicon-cog"></span>
-								Edit Profile
+								Edit Account
 							</a>
 						</li>
 						<li>
 							<a href="<?= BASE_URL ?>/courses/personal">
 								<span class="glyphicon glyphicon-book"></span>
-								Your Courses
+								Personal Courses
 							</a>
 						</li>
 						<li>
 							<a href="<?= BASE_URL ?>/lessons/personal">
 								<span class="glyphicon glyphicon-list-alt"></span>
-								Your Lessons
+								Personal Lessons
 							</a>
 						</li>
 						<li>

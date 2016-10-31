@@ -50,7 +50,7 @@
 				<div id="register" class="tab-pane fade">
 					<h3>Register</h3>
 
-					<form id="login" action="<?= BASE_URL ?>/login/process" method="POST">
+					<form id="login" action="<?= BASE_URL ?>/register/process" method="POST">
 						<div class="form-group">
 							<label for="user">Username</label>
 							<input type="text" name="user" class="form-control" id="user" placeholder="Username" required>

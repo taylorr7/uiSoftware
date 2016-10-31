@@ -45,7 +45,7 @@ RewriteRule ^courses/publish/?$ app/controller/courseController.php?action=publi
 
 
 # Lesson
-RewriteRule ^lessons/personal?$ app/controller/lessonController.php?action=pesonalLessons [QSA,L]
+RewriteRule ^lessons/personal?$ app/controller/lessonController.php?action=personalLessons [QSA,L]
 
 RewriteRule ^lessons/new/?$ app/controller/lessonController.php?action=newLesson [QSA,L]
 

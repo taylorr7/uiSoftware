@@ -1,21 +1,21 @@
 <div id="title">
-	<h2> <?= $user ?>'s Page </h2>
+	<h2> <?= $author->username ?>'s Page </h2>
 </div>
 
 <div id="content">
 	<img id="profile" src="<?= BASE_URL ?>/public/media/default.jpg">
-	<h3> <?= $user ?>'s Courses </h3>
+	<h3> <?= $author->username ?>'s Courses </h3>
 	<br>
 
-	<?php while($row = mysql_fetch_assoc($result)): ?>
+	<?php foreach(Course::loadByUser($author) as $course): ?>
 
 		<div class="course">
-			<button id="unsubscribe"> Unsubscribe </button>
-			<a href="<?= BASE_URL ?>/courses/view/<?= $row['id']; ?>"><?= $row['coursename']; ?></a>
-			<p><?= $row['coursedescription']; ?></p>
+			<!-- <button id="unsubscribe"> Unsubscribe </button> -->
+			<a href="<?= BASE_URL ?>/courses/view/<?= $course->id ?>"><?= $course->coursename ?></a>
+			<p><?= $course->coursedescription ?></p>
 		</div>
 
-	<?php endwhile; ?>
+	<?php endforeach; ?>
 
 </div>
 

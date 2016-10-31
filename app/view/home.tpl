@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h2> Welcome Back, <?= $user->username ?>! </h2>
+	<h2> Welcome Back, <?= $user->namefirst ?>! </h2>
 </div>
 
 <h3> Courses You Are Taking </h3>

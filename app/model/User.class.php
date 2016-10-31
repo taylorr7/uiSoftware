@@ -10,7 +10,7 @@ class User extends DbObject {
 	public $email;
 
 	protected function getTable() {
-		return 'DB_TABLE';
+		return self::DB_TABLE;
 	}
 
 	public function getGravatarHash() {
@@ -52,7 +52,7 @@ class User extends DbObject {
 
 	public static function search($qry) {
 		return Db::instance()->search(
-			DB_TABLE,
+			self::DB_TABLE,
 			array('namefirst', 'username', 'email', 'namelast'),
 			$qry,
 			__CLASS__);

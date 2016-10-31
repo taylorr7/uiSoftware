@@ -23,10 +23,10 @@ abstract class DbObject implements IteratorAggregate {
 
     // Saves the item to the database
     public function save() {
-        if (is_null($this->$id)) {
-			$this->$id = Db::instance()->insert($this->getTable(), $this);
+        if (is_null($this->id)) {
+			$this->id = Db::instance()->insert($this->getTable(), (array)$this);
 		} else {
-			Db::instance()->update($this->getTable(), $this->$id, $this);
+			Db::instance()->update($this->getTable(), $this->$id, (array)$this);
 		}
     }
 

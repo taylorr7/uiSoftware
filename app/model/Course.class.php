@@ -40,7 +40,7 @@ class Course extends DbObject {
 
 	public static function search($qry) {
 		return Db::instance()->search(
-			DB_TABLE,
+			self::DB_TABLE,
 			array('coursename', 'coursedescription'),
 			$qry,
 			__CLASS__);

@@ -103,8 +103,10 @@ class Db
 
     public static function insert($db_table, $properties) {
         $columns = implode(array_keys($properties), ', ');
-        $values = implode(arrary_map(self::escape, array_values($properties)), ', ');
-        $query = 'INSERT INTO {$db_table} ({$columns}) VALUES ({$values});';
+        $values = implode(array_map(function($val) {
+            return self::escape($val);
+        }, array_values($properties)), ', ');
+        $query = "INSERT INTO {$db_table} ({$columns}) VALUES ({$values});";
         self::query($query);
         return mysql_insert_id();
     }

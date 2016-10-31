@@ -28,7 +28,7 @@ class CourseController {
 
             case 'viewCourse':
                 $cid = $_GET['cid'];
-                $this->viewCourse();
+                $this->viewCourse($cid);
                 break;
 
             case 'loadCourse':
@@ -83,7 +83,7 @@ class CourseController {
     public function viewCourse($cid) {
 		$user = LoginSession::currentUser();
 		$course = Course::loadById($cid);
-        if (!$course->publish && $course->userid != $user->id) {
+        if (!$course->published && $course->userid != $user->id) {
             header("HTTP/1.1 403 Forbidden" );
             exit();
         }
@@ -119,18 +119,18 @@ class CourseController {
 
 
 	public function newCourse() {
-		$user = LoginSession.currentUser();
+		$user = LoginSession::currentUser();
 		$course = new Course();
 		$pageName = 'New Course';
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/coursepage.tpl';
+		include_once SYSTEM_PATH.'/view/editcourse.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function editCourse($cid) {
-		$user = LoginSession.currentUser();
-		$course = Course.loadById($cid);
-        if ($course->userid != $user->getId()) {
+		$user = LoginSession::currentUser();
+		$course = Course::loadById($cid);
+        if ($course->userid != $user->id) {
             // User does not own course to edit
             header("HTTP/1.1 403 Forbidden" );
             exit();
@@ -138,12 +138,12 @@ class CourseController {
 
 		$pageName = 'Edit Course';
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/coursepage.tpl';
+		include_once SYSTEM_PATH.'/view/editcourse.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
     }
 
     public function processCourse($cid, $coursename, $coursedescription, $coursecontent) {
-		$user = LoginSession.currentUser();
+		$user = LoginSession::currentUser();
 		if (is_null($cid)) {
 			$course = new Course();
 		} else {
@@ -161,7 +161,7 @@ class CourseController {
     }
 
 	public function publish($cid, $check) {
-        $user = LoginSession.currentUser();
+        $user = LoginSession::currentUser();
 		$course = Course.loadById($cid);
         if ($course->userid != $user->id) {
             // User does not own course to edit

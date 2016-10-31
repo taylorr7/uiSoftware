@@ -12,7 +12,7 @@ class Lesson extends DbObject {
 	}
 
 	public static function loadById($id) {
-		$results = Db::instance()->selectById(DB_TABLE, $id, __CLASS__);
+		$results = Db::instance()->selectById(self::DB_TABLE, $id, __CLASS__);
 		$numResults = count($results);
 		if ($numResults != 1) {
 			die("Found ${$numResults} lessons with id {$id}");
@@ -21,6 +21,6 @@ class Lesson extends DbObject {
 	}
 
 	public static function loadByUser($user) {
-		Db::instance()->selectByProperty(DB_TABLE, 'userid', $user->getId(), __CLASS__);
+		return Db::instance()->selectByProperty(self::DB_TABLE, 'userid', $user->id, __CLASS__);
 	}
 }

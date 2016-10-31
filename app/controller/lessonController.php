@@ -10,7 +10,7 @@ $lc->route($action);
 
 class LessonController {
 	public function checkLoginStatus() {
-		if (!LoginSession::isLoggedIn) {
+		if (!LoginSession::isLoggedIn()) {
 			header('Location: ' . BASE_URL . '/login');
 			exit();
 		}
@@ -31,18 +31,18 @@ class LessonController {
                 $this->editLesson($lid);
                 break;
 
-            case 'processCourse':
+            case 'processLesson':
                 $lid = isset($_GET['lid']) ? $_GET['lid'] : null;
                 $lname = htmlspecialchars($_POST['lessonname']);
                 $lcontent = htmlspecialchars($_POST['content']);
-                $this->processCourse($cid, $lname, $lcontent);
+                $this->processLesson($cid, $lname, $lcontent);
                 break;
 		}
 	}
 
 	public function personalLessons() {
-		$user = LoginSession.currentUser();
-		$courses = Lesson.loadByUser($user);
+		$user = LoginSession::currentUser();
+		$lessons = Lesson::loadByUser($user);
 		$pageName = 'Personal Lessons';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/lessons.tpl';
@@ -50,37 +50,37 @@ class LessonController {
 	}
 
 	public function newLesson() {
-		$user = LoginSession.currentUser();
+		$user = LoginSession::currentUser();
 		$lesson = new Lesson();
 		$pageName = 'New Lesson';
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/lessonpage.tpl';
+		include_once SYSTEM_PATH.'/view/editlesson.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function editLesson($lid) {
-		$user = LoginSession.currentUser();
-		$lesson = Lesson.loadById($lid);
+		$user = LoginSession::currentUser();
+		$lesson = Lesson::loadById($lid);
         if ($lesson->userid != $user->id) {
-            // User does not own course to edit
+            // User does not own lesson to edit
             header("HTTP/1.1 403 Forbidden" );
             exit();
         }
 
 		$pageName = 'Edit Lesson';
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/lessonpage.tpl';
+		include_once SYSTEM_PATH.'/view/editlesson.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
     }
 
-	public function processCourse($lid, $lessonname, $content) {
-		$user = LoginSession.currentUser();
+	public function processLesson($lid, $lessonname, $content) {
+		$user = LoginSession::currentUser();
 		if (is_null($lid)) {
 			$lesson = new Lesson();
 		} else {
 			$lesson = Lesson.loadById($lid);
 			if ($lesson->userid != $user->id) {
-	            // User does not own course to edit
+	            // User does not own lesson to edit
 	            header("HTTP/1.1 403 Forbidden" );
 	            exit();
 	        }
