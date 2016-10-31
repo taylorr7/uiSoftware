@@ -1,9 +1,5 @@
 <?php
 
-class Db {
-
-}
-
 // This class was taken and modified from the one provided for the Hokie Gear site
 class Db
 {
@@ -43,9 +39,9 @@ class Db
     }
 
     private static function generateQueryClause($properties, $delimiter) {
-        $whereClauses = array_map(function($item) {
+        $whereClauses = array_map(function($item) use ($properties) {
             $val = self::escape($properties[$item]);
-            return '{$item} = {$val}';
+            return "{$item} = {$val}";
         }, array_keys($properties));
 
         return implode($whereClauses, $delimiter);
@@ -58,7 +54,7 @@ class Db
         return $result;
     }
 
-    private static function select($query, $class_name = null) {
+    public static function select($query, $class_name = null) {
         $result = self::query($query);
         $items = array();
         while ($item = mysql_fetch_object($result, $class_name)) {
@@ -68,10 +64,27 @@ class Db
         return $items;
     }
 
+    public static function selectAll($db_table, $class_name = null) {
+        return self::select("SELECT * FROM {$db_table};", $class_name);
+    }
+
+    public static function search($db_table, $properties, $qry, $class_name = null) {
+        $whereClause = implode(array_map(function($item) use ($qry) {
+            return "INSTR({$item}, '{$qry}') > 0";
+        }, $properties), " OR ");
+
+        $orderByClause = implode(array_map(function($item) use ($qry) {
+            return "INSTR({$item}, '{$qry}') DESC";
+        }, $properties), ", ");
+
+        $query = "SELECT * FROM {$db_table} WHERE {$whereClause} ORDER BY {$orderByClause};";
+        return self::select($query, $class_name);
+    }
+
     public static function selectByProperties($db_table, $properties, $class_name = null) {
         $whereClause = self::generateQueryClause($properties, " AND ");
         $query = "SELECT * FROM {$db_table} WHERE {$whereClause};";
-        self::select($query, $class_name);
+        return self::select($query, $class_name);
     }
 
     public static function selectByProperty($db_table, $column, $val, $class_name = null) {

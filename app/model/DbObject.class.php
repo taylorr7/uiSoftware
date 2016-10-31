@@ -2,7 +2,7 @@
 
 // This class is the base class for objects representing database tables
 abstract class DbObject implements IteratorAggregate {
-    private $id = null;
+    public $id = null;
 
     // Gets the table name that the class represents
     protected abstract function getTable();
@@ -11,10 +11,6 @@ abstract class DbObject implements IteratorAggregate {
     public function __construct($args = array()) {
         $this->update($args);
     }
-
-	public function getId() {
-		return $id;
-	}
 
     // Sets the properties and value given to the DBObject
     public function update($newValues) {

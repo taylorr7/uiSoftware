@@ -6,7 +6,6 @@ class LoginSession
     // Starts the session if necessary
     private static function startSession() {
         if (session_status() == PHP_SESSION_NONE) {
-        {
             session_start();
         }
     }
@@ -15,7 +14,7 @@ class LoginSession
     public static function logIn($username, $password)
     {
         // Load the user from the database
-        $user = User::loadUser($username, $password);
+        $user = User::loadByCredentials($username, $password);
         if ($user) {
             // Valid credentials
             self::startSession();

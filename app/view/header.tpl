@@ -21,8 +21,6 @@
 
 <body>
 
-	<?= Session::redirect() ?>
-
 	<nav id="nav-top" class="navbar navbar-default">
 		<div class="navbar-header pull-left">
 			<a class="navbar-brand" href="<?= BASE_URL ?>">
@@ -35,7 +33,7 @@
 				<li>
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
 						<span class="glyphicon glyphicon-user"></span>
-						<?= $_SESSION['username']; ?>
+						<?= $user->username ?>
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-right">
@@ -46,13 +44,13 @@
 							</a>
 						</li>
 						<li>
-							<a href="<?= BASE_URL ?>/courses">
+							<a href="<?= BASE_URL ?>/courses/personal">
 								<span class="glyphicon glyphicon-book"></span>
 								Your Courses
 							</a>
 						</li>
 						<li>
-							<a href="<?= BASE_URL ?>/lessons">
+							<a href="<?= BASE_URL ?>/lessons/personal">
 								<span class="glyphicon glyphicon-list-alt"></span>
 								Your Lessons
 							</a>
@@ -85,7 +83,7 @@
 
 			<div class="collapse navbar-collapse" id="navbar-collapse-bottom">
 				<ul class="nav navbar-nav">
-					<li><a href="#">View Courses</a></li>
+					<li><a href="<?= BASE_URL ?>/courses">View Courses</a></li>
 					<li>
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
 							Create New &hellip; <span class="caret"></span>

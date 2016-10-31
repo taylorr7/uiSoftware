@@ -5,8 +5,8 @@ class User extends DbObject {
 
 	public $username;
 	public $password;
-	public $firstname;
-	public $lastname;
+	public $namefirst;
+	public $namelast;
 	public $email;
 
 	protected function getTable() {
@@ -18,7 +18,7 @@ class User extends DbObject {
 	}
 
 	public static function loadById($id) {
-		$results = Db::instance()->selectById(DB_TABLE, $id, __CLASS__);
+		$results = Db::instance()->selectById(self::DB_TABLE, $id, __CLASS__);
 		$numResults = count($results);
 		if ($numResults != 1) {
 			die("Found ${$numResults} users with id {$id}");
@@ -27,7 +27,7 @@ class User extends DbObject {
 	}
 
 	public static function loadByUsername($username) {
-		$results = Db::instance()->selectByProperty(DB_TABLE, 'username', $username, __CLASS__);
+		$results = Db::instance()->selectByProperty(self::DB_TABLE, 'username', $username, __CLASS__);
 		$numResults = count($results);
 		if ($numResults != 1) {
 			die("Found ${$numResults} users with username {$id}");
@@ -35,9 +35,9 @@ class User extends DbObject {
 		return $results[0];
 	}
 
-	public static function loadByCredentials($username, $passwaord) {
+	public static function loadByCredentials($username, $password) {
 		$results = Db::instance()->selectByProperties(
-			DB_TABLE,
+			self::DB_TABLE,
 			array('username' => $username, 'password' => $password),
 			__CLASS__);
 
@@ -48,5 +48,13 @@ class User extends DbObject {
 			return $results[0];
 		}
 		return null;
+	}
+
+	public static function search($qry) {
+		return Db::instance()->search(
+			DB_TABLE,
+			array('namefirst', 'username', 'email', 'namelast'),
+			$qry,
+			__CLASS__);
 	}
 }

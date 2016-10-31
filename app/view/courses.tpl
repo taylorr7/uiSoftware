@@ -1,6 +1,6 @@
 <div class="page-header">
 	<h2>
-		Your Courses
+		<?= $pageName ?>
 		<a class="btn btn-primary pull-right" href="<?= BASE_URL ?>/courses/new" role="button">
 			<span class="glyphicon glyphicon-plus"></span>
 			New Course
@@ -9,33 +9,36 @@
 </div>
 
 <ul class="list-group">
-	<?php while($row = mysql_fetch_assoc($result)): ?>
-
+	<?php foreach($courses as $course):
+		$creator = $course->getCreator();
+		$isPersonal = $creator->id == $user->id;
+	?>
 		<li class="list-group-item">
 			<h4>
-				<a href="<?= BASE_URL ?>/courses/view/<?= $row['id']; ?>">
-					<?= $row['coursename']; ?>
-				</a>
+				<a href="<?= BASE_URL ?>/courses/view/<?= $course->id ?>"><?= $course->coursename ?></a>
+				<small>
+					by
+					<a href="<?= BASE_URL ?>/authors/view/<?= $creator->username ?>">
+						<?= $creator->username ?>
+					</a>
+				</small>
 			</h4>
-			<p><?= $row['coursedescription']; ?></p>
+			<p><?= $course->coursedescription; ?></p>
 
-			<div class="btn-group">
-				<a class="btn btn-default" href="<?= BASE_URL ?>/courses/view/<?= $row['id']; ?>" role="button">
-					<span class="glyphicon glyphicon-eye-open"></span>
-					View
-				</a>
-				<a class="btn btn-default" href="<?= BASE_URL ?>/courses/edit/<?= $row['id']; ?>" role="button">
-					<span class="glyphicon glyphicon-edit"></span>
-					Edit
-				</a>
-				<a class="btn btn-default publish" name="<?= $row['id'] ?>" role="button">
-					<span class="glyphicon glyphicon-edit"></span>
-					Unpublish
-				</a>
-			</div>
+			<?php if($isPersonal): ?>
+				<div class="btn-group">
+					<a class="btn btn-default" href="<?= BASE_URL ?>/courses/edit/<?= $course->id ?>" role="button">
+						<span class="glyphicon glyphicon-edit"></span>
+						Edit
+					</a>
+					<a class="btn btn-default publish" name="<?= $course->id ?>" role="button">
+						<span class="glyphicon glyphicon-edit"></span>
+						Unpublish
+					</a>
+				</div>
+			<?php endif; ?>
 		</li>
-
-	<?php endwhile; ?>
+	<?php endforeach; ?>
 </ul>
 
 <script src="<?= BASE_URL ?>/public/scripts/publish.js" type="text/javascript"></script>

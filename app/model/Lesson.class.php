@@ -19,4 +19,8 @@ class Lesson extends DbObject {
 		}
 		return $results[0];
 	}
+
+	public static function loadByUser($user) {
+		Db::instance()->selectByProperty(DB_TABLE, 'userid', $user->getId(), __CLASS__);
+	}
 }

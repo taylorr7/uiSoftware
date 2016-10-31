@@ -12,43 +12,43 @@ RewriteRule ^login/process/?$ app/controller/loginController.php?action=processL
 RewriteRule ^logout/?$ app/controller/loginController.php?action=logout [QSA,L]
 
 
-# Account
-RewriteRule ^register/process/?$ app/controller/loginController.php?action=processRegister [QSA,L]
+# Site
+RewriteRule ^$ app/controller/siteController.php?action=home [QSA,L]
+
+RewriteRule ^register/process/?$ app/controller/siteController.php?action=processRegister [QSA,L]
 
 RewriteRule ^account/?$ app/controller/siteController.php?action=account [QSA,L]
 
 RewriteRule ^account/process/?$ app/controller/siteController.php?action=processAccount [QSA,L]
 
+RewriteRule ^authors/view/(\w+)/?$ app/controller/siteController.php?action=viewAuthor&aname=$1 [QSA,L]
 
-# Site
-RewriteRule ^$ app/controller/siteController.php?action=home [QSA,L]
-
-RewriteRule ^navigate/process/?$ app/controller/siteController.php?action=processNavigation [QSA,L]
-
-RewriteRule ^courses/?$ app/controller/siteController.php?action=courses [QSA,L]
-
-RewriteRule ^courses/publish/?$ app/controller/siteController.php?action=publish [QSA,L]
-
-RewriteRule ^lessons/?$ app/controller/siteController.php?action=lessons [QSA,L]
+RewriteRule ^search/?$ app/controller/siteController.php?action=search [QSA,L]
 
 
-# Content
-RewriteRule ^authors/view/(\w+)/?$ app/controller/contentController.php?action=viewAuthor&aname=$1 [QSA,L]
+# Course
+RewriteRule ^courses/?$ app/controller/courseController.php?action=courses [QSA,L]
 
-RewriteRule ^courses/view/(\d+)/?$ app/controller/contentController.php?action=viewCourse&cid=$1 [QSA,L]
+RewriteRule ^courses/personal?$ app/controller/courseController.php?action=personalCourses [QSA,L]
 
-RewriteRule ^courses/view/(\d+)/load/?$ app/controller/contentController.php?action=loadCourse [QSA,L]
+RewriteRule ^courses/view/(\d+)/?$ app/controller/courseController.php?action=viewCourse&cid=$1 [QSA,L]
 
-RewriteRule ^courses/new/?$ app/controller/siteController.php?action=newCourse [QSA,L]
+RewriteRule ^courses/view/(\d+)/load/?$ app/controller/courseController.php?action=loadCourse [QSA,L]
 
-RewriteRule ^courses/edit/(\d*)/?$ app/controller/siteController.php?action=newCourse&cid=$1 [QSA,L]
+RewriteRule ^courses/new/?$ app/controller/courseController.php?action=newCourse [QSA,L]
 
-RewriteRule ^courses/edit/process/(\d*)/?$ app/controller/contentController.php?action=processCourse&cid=$1 [QSA,L]
+RewriteRule ^courses/edit/(\d+)/?$ app/controller/courseController.php?action=editCourse&cid=$1 [QSA,L]
 
-RewriteRule ^lessons/edit/(\d*)/?$ app/controller/contentController.php?action=newLesson&lid=$1 [QSA,L]
+RewriteRule ^courses/edit/process/(\d*)/?$ app/controller/courseController.php?action=processCourse&cid=$1 [QSA,L]
 
-RewriteRule ^lessons/new/?$ app/controller/contentController.php?action=newLesson [QSA,L]
+RewriteRule ^courses/publish/?$ app/controller/courseController.php?action=publish [QSA,L]
 
-RewriteRule ^lessons/edit/process/(\d*)/?$ app/controller/contentController.php?action=processLesson&lid=$1 [QSA,L]
 
-RewriteRule ^search/?$ app/controller/contentController.php?action=search [QSA,L]
+# Lesson
+RewriteRule ^lessons/personal?$ app/controller/lessonController.php?action=pesonalLessons [QSA,L]
+
+RewriteRule ^lessons/new/?$ app/controller/lessonController.php?action=newLesson [QSA,L]
+
+RewriteRule ^lessons/edit/(\d*)/?$ app/controller/lessonController.php?action=editLesson&lid=$1 [QSA,L]
+
+RewriteRule ^lessons/edit/process/(\d*)/?$ app/controller/lessonController.php?action=processLesson&lid=$1 [QSA,L]
