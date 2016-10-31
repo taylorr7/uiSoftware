@@ -144,6 +144,7 @@ class SiteController {
 		} else {
 			$pageName = 'New Lesson';
 			$row['id'] = null;
+			Session::start();
  	  	$row['userid'] = $_SESSION['id'];
  	 	  $row['lessonname'] = '';
   		$row['content'] = '';
