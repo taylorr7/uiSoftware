@@ -14,7 +14,7 @@ class User extends DbObject {
 	}
 
 	public function getGravatarHash() {
-		return md5(strtolower(trim($this->$email)));
+		return md5(strtolower(trim($this->email)));
 	}
 
 	public static function loadById($id) {

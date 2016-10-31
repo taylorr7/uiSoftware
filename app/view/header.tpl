@@ -8,13 +8,15 @@
 	<link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/styles/bootstrap-theme.min.css">
 	<link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/styles/main.css">
 
+	<script type="text/javascript">
+		const BASE_URL = "<?= BASE_URL ?>";
+	</script>
 	<script src="<?= BASE_URL ?>/public/scripts/jquery.js"></script>
 	<script src="<?= BASE_URL ?>/public/scripts/main.js"></script>
 	<script src="<?= BASE_URL ?>/public/scripts/bootstrap.min.js"></script>
+	<script src="<?= BASE_URL ?>/public/scripts/gravatar.js" type="text/javascript"></script>
+	<script src="https://en.gravatar.com/<?= $user->getGravatarHash() ?>.json?callback=findProfile" type="text/javascript"></script>
 
-	<script type="text/javascript">
-		var BASE_URL = "<?= BASE_URL ?>";
-	</script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -32,7 +34,7 @@
 			<ul class="nav navbar-nav">
 				<li>
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-						<span class="glyphicon glyphicon-user"></span>
+						<img id="profile" class="profile" src="<?= BASE_URL ?>/public/media/default.jpg">
 						<?= $user->username ?>
 						<span class="caret"></span>
 					</a>

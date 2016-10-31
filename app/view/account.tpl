@@ -17,6 +17,3 @@
 				</form>
 		</div>
 	</div>
-
-<script src="<?= BASE_URL ?>/public/scripts/gravatar.js" type="text/javascript"></script>
-<script src="https://en.gravatar.com/<?= $hash ?>.json?callback=findProfile" type="text/javascript"></script>
