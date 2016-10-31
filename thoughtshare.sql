@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2016 at 05:42 PM
+-- Generation Time: Oct 31, 2016 at 08:49 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -31,34 +31,17 @@ CREATE TABLE `courses` (
   `userid` int(11) NOT NULL,
   `coursename` varchar(30) NOT NULL,
   `coursedescription` text NOT NULL,
-  `coursecontent` text NOT NULL
+  `coursecontent` text NOT NULL,
+  `published` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `coursecontent`) VALUES
-(1, 2, 'Calculus 1', 'This course is an introduction to calculus. The course begins with a review of functions and basic arithmetic then transitions into an introduction to limits. Derivatives are then introduced and their applications are studied. The course ends with a brief introduction to anti-derivatives and definite integrals.', '~CHAPTER:name-Derivatives:~\r\n\r\n~LESSON:name-Power Rule:~'),
-(2, 3, 'Calculus 2', 'This course is an introduction to integral calculus. The course begins with a review of antiderivatives then transitions into an introduction to definite integrals. Indefinite integrals are then introduced and their applications are studied. The course ends with a brief introduction to summations and infinite series.', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `hidden_courses`
---
-
-CREATE TABLE `hidden_courses` (
-  `id` int(11) NOT NULL,
-  `courseid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `hidden_courses`
---
-
-INSERT INTO `hidden_courses` (`id`, `courseid`) VALUES
-(18, 1);
+INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `coursecontent`, `published`) VALUES
+(1, 2, 'Calculus 1', 'This course is an introduction to calculus. The course begins with a review of functions and basic arithmetic then transitions into an introduction to limits. Derivatives are then introduced and their applications are studied. The course ends with a brief introduction to anti-derivatives and definite integrals.', '~CHAPTER:name-Derivatives:~\r\n\r\n~LESSON:name-Power Rule:~', 1),
+(2, 3, 'Calculus 2', 'This course is an introduction to integral calculus. The course begins with a review of antiderivatives then transitions into an introduction to definite integrals. Indefinite integrals are then introduced and their applications are studied. The course ends with a brief introduction to summations and infinite series.', '', 1);
 
 -- --------------------------------------------------------
 
@@ -120,7 +103,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `namefirst`, `namelast`, `username`, `password`, `email`) VALUES
-(2, 'Taylor', 'Rydahl', 'taylorr7', 'password', 'taylorr7@vt.edu'),
+(2, 'Taylor', 'Rydahl', 'taylorr7', '', 'taylorr7@vt.edu'),
 (3, 'John', 'Smith', 'jsmith', 'password', 'jsmith@gmail.com'),
 (4, 'jane', 'smith', 'jsmith2', 'password', 'jsmith2@gmail.com'),
 (5, 'John', 'Man', 'johnm', 'pass', 'johnm@gmail.com');
@@ -133,12 +116,6 @@ INSERT INTO `users` (`id`, `namefirst`, `namelast`, `username`, `password`, `ema
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `hidden_courses`
---
-ALTER TABLE `hidden_courses`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -171,11 +148,6 @@ ALTER TABLE `users`
 ALTER TABLE `courses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `hidden_courses`
---
-ALTER TABLE `hidden_courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
---
 -- AUTO_INCREMENT for table `lessons`
 --
 ALTER TABLE `lessons`
@@ -189,7 +161,7 @@ ALTER TABLE `subscriptions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
