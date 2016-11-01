@@ -146,16 +146,18 @@ class CourseController {
 
     public function processCourse($cid, $coursename, $coursedescription, $coursecontent) {
 		$user = LoginSession::currentUser();
-		if (is_null($cid)) {
-			$course = new Course();
-		} else {
+		if ($cid) {
 			$course = Course::loadById($cid);
 			if ($course->userid != $user->id) {
-	            // User does not own course to edit
-	            header("HTTP/1.1 403 Forbidden" );
-	            exit();
-	        }
+				// User does not own course to edit
+				header("HTTP/1.1 403 Forbidden" );
+				exit();
+			}
+		} else {
+			$course = new Course();
+			$course->published = false;
 		}
+		$course->userid = $user->id;
         $course->coursename = $coursename;
         $course->coursedescription = $coursedescription;
         $course->coursecontent = $coursecontent;
