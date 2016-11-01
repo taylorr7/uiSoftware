@@ -1,5 +1,7 @@
 $(document).ready(function(){
   var url = window.location.href;
+  var endIndex = url.search("courses");
+  url = url.substr(0, endIndex+7);
   
 	$('.publish').each(function(){	
 		var name = $(this).attr('name');
