@@ -7,7 +7,7 @@
 * The text in the search bar is set to "Search" by
 * default and is cleared when the user clicks it.
 */
-$(document).ready(function() {
+$(document).ready(() => {
 
 	/*
 	* Function to add a new quiz to a lesson.
@@ -30,22 +30,18 @@ $(document).ready(function() {
 	/*
 	* Function to add a new link to a lesson.
 	*/
-	$("#uploadLink").click(function() {
-		var appendText = "";
-		var name = prompt("What should this link say?");
-		var url = prompt("Where do you want this link to go?");
-		appendText = "\n~LINK:name-"+name+":url-"+url+":~\n";
-		document.getElementById('lessonContent').value += appendText;
+	$("#uploadLink").click(() => {
+		const name = prompt("What should this link say?");
+		const url = prompt("Where do you want this link to go?");
+		$('#lessonContent').get(0).value += `\n~LINK:name-${name}:url-${url}:~\n`;
 	});
 
 	/*
 	* Function to add a new image to a lesson.
 	*/
-	$("#uploadImage").click(function() {
-		var appendText = "";
-		var url = prompt("What is the image url?");
-		appendText = "\n~IMAGE:url-"+url+":~\n";
-		document.getElementById('lessonContent').value += appendText;
+	$("#uploadImage").click(() => {
+		const url = prompt("What is the image url?");
+		$('#lessonContent').get(0).value += `\n~IMAGE:url-${url}:~\n`;
 	});
 
 

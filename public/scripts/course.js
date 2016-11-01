@@ -95,9 +95,9 @@ const parseLesson = function(lessonString) {
 * Function used to check if a question posted on a lesson
 * is correct.
 */
-const validateQuestion = function() {
-	userAnswer = $('input[name="answer"]:checked').val();
-	if(userAnswer == "correct") {
+const validateQuestion = () => {
+	const userAnswer = $('input[name="answer"]:checked').val();
+	if(userAnswer === "correct") {
 		alert("Correct!");
 	} else {
 		alert("Incorrect");
