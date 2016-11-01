@@ -43,3 +43,9 @@ header #logo {
 .courseContent {
 	margin: 10px;
 }
+
+#account-profile {
+	margin: 1rem;
+	width: 100%;
+	max-width: 128px;
+}
