@@ -12,7 +12,7 @@
 
 	<script src="<?= BASE_URL ?>/public/scripts/jquery.js"></script>
 	<script src="<?= BASE_URL ?>/public/scripts/bootstrap.min.js"></script>
-	<!-- <script src="<?= BASE_URL ?>/public/scripts/main.js"></script> -->
+	<script src="<?= BASE_URL ?>/public/scripts/login.js"></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -50,7 +50,7 @@
 				<div id="register" class="tab-pane fade">
 					<h3>Register</h3>
 
-					<form id="login" action="<?= BASE_URL ?>/register/process" method="POST">
+					<form id="register" action="<?= BASE_URL ?>/register/process" method="POST" onsubmit="return validateForm()">
 						<div class="form-group">
 							<label for="user">Username</label>
 							<input type="text" name="user" class="form-control" id="user" placeholder="Username" required>
