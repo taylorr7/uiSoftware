@@ -98,6 +98,7 @@ class SiteController {
         $user = LoginSession::currentUser();
 		$users = User::search($qry);
 		$courses = Course::search($qry);
+		$numResults = count($users) + count($courses);
 		$pageName = 'Search';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/search.tpl';
