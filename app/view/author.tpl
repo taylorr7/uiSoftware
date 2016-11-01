@@ -1,20 +1,18 @@
-<div id="title">
-	<h2> <?= $author->username ?>'s Page </h2>
+<div class="page-header">
+	<h2><?= $author->username ?>'s Page</h2>
 </div>
 
-<div id="content">
-	<img id="profile" src="<?= BASE_URL ?>/public/media/default.jpg">
-	<h3> <?= $author->username ?>'s Courses </h3>
-	<br>
+<h3><?= $author->username ?>'s Courses</h3>
+<ul class="list-group">
+	<?php foreach(Course::loadByUser($author) as $course):
+		$creator = $course->getCreator(); ?>
 
-	<?php foreach(Course::loadByUser($author) as $course): ?>
-
-		<div class="course">
-			<!-- <button id="unsubscribe"> Unsubscribe </button> -->
-			<a href="<?= BASE_URL ?>/courses/view/<?= $course->id ?>"><?= $course->coursename ?></a>
+		<li class="list-group-item">
+			<h4>
+				<a href="<?= BASE_URL ?>/courses/view/<?= $course->id ?>"><?= $course->coursename ?></a>
+			</h4>
 			<p><?= $course->coursedescription ?></p>
-		</div>
+		</li>
 
 	<?php endforeach; ?>
-
-</div>
+</ul>
