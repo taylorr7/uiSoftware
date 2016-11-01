@@ -114,6 +114,11 @@ class CourseController {
 	public function newCourse() {
 		$user = LoginSession::currentUser();
 		$course = new Course();
+		$lessonArray = Lesson::loadByUser($user);
+		$lessonList = array();
+		for($i = 0; $i < count($lessonArray); $i++) {
+			array_push($lessonList, $lessonArray[$i]->lessonname);
+		}
 		$pageName = 'New Course';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editcourse.tpl';
@@ -128,7 +133,11 @@ class CourseController {
             header("HTTP/1.1 403 Forbidden" );
             exit();
         }
-
+		$lessonArray = Lesson::loadByUser($user);
+		$lessonList = array();
+		for($i = 0; $i < count($lessonArray); $i++) {
+			array_push($lessonList, $lessonArray[$i]->lessonname);
+		}
 		$pageName = 'Edit Course';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editcourse.tpl';

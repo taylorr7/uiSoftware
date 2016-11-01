@@ -53,7 +53,7 @@ $(document).ready(function() {
 	* Function to add a new lesson to a course.
 	*/
 	$("#addLesson").click(function() {
-		var lessons = document.getElementById("addLesson").value
+		var lessons = JSON.parse(document.getElementById("addLesson").value);
 		var appendText = "";
 		var promptText = "Enter the number of the lesson you would like to add:\n";
 		for (i = 0; i < lessons.length; i++) {
@@ -65,6 +65,6 @@ $(document).ready(function() {
 		} else {
 			appendText += "\n~LESSON:name-null:~";
 		}
-		document.getElementById('courseContent').value += appendText;
+		$('[name = ccontent]').get(0).value += appendText;
 	});
 });

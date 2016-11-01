@@ -25,7 +25,7 @@
 	<aside class="col-sm-4 col-xs-12">
 		<h5>Design Tools</h5>
 
-		<button id="addLesson" class="btn btn-default" value="(<?= htmlspecialchars(json_encode($lessonList)) ?>)">
+		<button id="addLesson" class="btn btn-default" value="<?= htmlspecialchars(json_encode($lessonList)) ?>">
 			Add an Existing Lesson
 		</button>
 
