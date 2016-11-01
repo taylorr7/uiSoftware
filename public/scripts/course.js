@@ -36,7 +36,7 @@ const parseCourse = function(courseString, currentLesson = null) {
 			var nameStart = courseArr[i].search('name-');
 			var nameEnd = courseArr[i].search(':$');
 			var chapterName = courseArr[i].substr(nameStart+5, nameEnd-nameStart-5);
-			courseContent += "<li><a>" + chapterName + "</a><ul class=\"notActive\">";
+			courseContent += "<li>" + chapterName + "<ul class=\"notActive\">";
 		} else if(courseArr[i].startsWith("LESSON:")) {
 			var nameStart = courseArr[i].search('name-');
 			var nameEnd = courseArr[i].search(':$');
