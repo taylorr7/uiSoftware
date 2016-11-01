@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2016 at 08:49 PM
+-- Generation Time: Nov 01, 2016 at 06:18 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -41,7 +41,9 @@ CREATE TABLE `courses` (
 
 INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `coursecontent`, `published`) VALUES
 (1, 2, 'Calculus 1', 'This course is an introduction to calculus. The course begins with a review of functions and basic arithmetic then transitions into an introduction to limits. Derivatives are then introduced and their applications are studied. The course ends with a brief introduction to anti-derivatives and definite integrals.', '~CHAPTER:name-Derivatives:~\r\n\r\n~LESSON:name-Power Rule:~', 1),
-(2, 3, 'Calculus 2', 'This course is an introduction to integral calculus. The course begins with a review of antiderivatives then transitions into an introduction to definite integrals. Indefinite integrals are then introduced and their applications are studied. The course ends with a brief introduction to summations and infinite series.', '', 1);
+(2, 3, 'Calculus 2', 'This course is an introduction to integral calculus. The course begins with a review of antiderivatives then transitions into an introduction to definite integrals. Indefinite integrals are then introduced and their applications are studied. The course ends with a brief introduction to summations and infinite series.', '~CHAPTER:name-Chapter 1:~\r\n~LESSON:name-Product Rule:~\r\n~LESSON:name-Chain Rule:~', 1),
+(3, 3, 'My Other Calculus Course', 'This is just a copy of the same course.', '~CHAPTER:name-Chapter 1:~\r\n~LESSON:name-Product Rule:~\r\n~LESSON:name-Chain Rule:~', 1),
+(4, 4, 'Course I Am Working On', 'This is a course I am still working on so it shouldn''t be published!', '\r\n~LESSON:name-Quotient Rule:~', 0);
 
 -- --------------------------------------------------------
 
@@ -62,7 +64,10 @@ CREATE TABLE `lessons` (
 
 INSERT INTO `lessons` (`id`, `userid`, `lessonname`, `content`) VALUES
 (1, 2, 'Power Rule', 'The Power Rule is a useful tool for determining the derivatives of functions. The rule itself is simple, given any function of the form f(x) = x^c, we can evaluate its derivative to be f-(x) = c x^(c-1). As an example, consider f(x) = x^2. We can use the Power Rule to quickly evaluate its derivative as f-(x) = 2x. \r\n\r\n~IMAGE:url-&lt;BASE_URL&gt;.-/public/media/mapleGraph.png-:~ \r\n\r\nAs you can see from the graph, the function and its derivative are related. As the slope of the function increases, the value of the derivative increases as well. \r\n\r\n~QUIZ:name-What is the derivative of 6x^2?:answer-24x:correctAnswer-12x:answer-6x:answer-6:~'),
-(4, 2, 'New Lesson', 'Let us make a new lesson.');
+(4, 2, 'New Lesson', 'Let us make a new lesson.'),
+(5, 3, 'Product Rule', 'If you define a function f as the product of two functions, g and h, you can define the derivative of f or f'' as (g'')h + g(h'').\r\n\r\n\r\n~QUIZ:name-What is the derivative of xcos(x)?:answer-cos(x):correctAnswer-cos(x) - xsin(x):answer-4:~\r\n'),
+(6, 3, 'Chain Rule', 'To find the derivative of a function f, defined as the composition of two functions, g and h, we define f'' as g''(h)*h''.\r\n\r\n\r\n~QUIZ:name-What is the derivative of cos(x^2)?:answer-14:correctAnswer--2xsin(x^2):~\r\n\r\nThis is the chain rule of derivatives :)'),
+(7, 4, 'Quotient Rule', 'For a function f, defined as the quotient of two functions g and h, we define the derivative of f, or f'' as [g''(h) - g(h'')] / [h^2].');
 
 -- --------------------------------------------------------
 
@@ -103,9 +108,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `namefirst`, `namelast`, `username`, `password`, `email`) VALUES
-(2, 'Taylor', 'Rydahl', 'taylorr7', '', 'taylorr7@vt.edu'),
+(2, 'Taylor', 'Rydahl', 'taylorr7', 'password', 'taylorr7@vt.edu'),
 (3, 'John', 'Smith', 'jsmith', 'password', 'jsmith@gmail.com'),
-(4, 'jane', 'smith', 'jsmith2', 'password', 'jsmith2@gmail.com'),
+(4, 'Jane', 'Smith', 'jsmith2', 'password', 'jsmith2@gmail.com'),
 (5, 'John', 'Man', 'johnm', 'pass', 'johnm@gmail.com');
 
 --
@@ -146,12 +151,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `lessons`
 --
 ALTER TABLE `lessons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `subscriptions`
 --
