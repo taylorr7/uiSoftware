@@ -7,7 +7,7 @@ class Subscription extends DbObject {
 	public $courseid;
 
 	protected function getTable() {
-		return 'DB_TABLE';
+		return self::DB_TABLE;
 	}
 
 	public function getCourse() {

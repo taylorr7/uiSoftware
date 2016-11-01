@@ -10,7 +10,7 @@ class Course extends DbObject {
 	public $published;
 
 	protected function getTable() {
-		return 'DB_TABLE';
+		return self::DB_TABLE;
 	}
 
 	public function getCreator() {

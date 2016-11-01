@@ -48,9 +48,9 @@ class CourseController {
 
             case 'processCourse':
                 $cid = isset($_GET['cid']) ? $_GET['cid'] : null;
-                $cname = htmlspecialchars($_POST['coursename']);
-                $cdescription = htmlspecialchars($_POST['coursedescription']);
-                $ccontent = htmlspecialchars($_POST['coursecontent']);
+                $cname = htmlspecialchars($_POST['cname']);
+                $cdescription = htmlspecialchars($_POST['cdescription']);
+                $ccontent = htmlspecialchars($_POST['ccontent']);
                 $this->processCourse($cid, $cname, $cdescription, $ccontent);
                 break;
 
@@ -140,7 +140,7 @@ class CourseController {
 		if (is_null($cid)) {
 			$course = new Course();
 		} else {
-			$course = Course.loadById($cid);
+			$course = Course::loadById($cid);
 			if ($course->userid != $user->id) {
 	            // User does not own course to edit
 	            header("HTTP/1.1 403 Forbidden" );
@@ -151,6 +151,7 @@ class CourseController {
         $course->coursedescription = $coursedescription;
         $course->coursecontent = $coursecontent;
         $course->save();
+		header('Location: ' . BASE_URL . '/courses/personal');
     }
 
 	public function publish($cid, $check) {

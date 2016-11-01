@@ -12,25 +12,19 @@ $(document).ready(function() {
 	/*
 	* Function to add a new quiz to a lesson.
 	*/
-	$("#uploadQuiz").click(function() {
-		var appendText = "";
-		var name = prompt("What do you want the question to be?");
-		var response = prompt("How many possible answers do you want there to be?");
-		var answers = [];
-		for (i = 0; i < parseInt(response); i++) {
-			answers[i] = prompt("What is the first possible answer?");
+	$("#uploadQuiz").click(() => {
+		const name = prompt("What do you want the question to be?");
+		const numQuestions = parseInt(prompt("How many possible answers do you want there to be?"));
+		const answers = [];
+		for (let i = 0; i < numQuestions; i++) {
+			answers.push(prompt("What is a possible answer?"));
 		}
-		correct = prompt("Which number answer was the correct one?");
-		appendText += "\n~QUIZ:name-"+name+":";
-		for (i = 0; i < parseInt(response); i++) {
-			if (i == parseInt(correct) - 1) {
-				appendText += "correctAnswer-"+answers[i]+":";
-			} else {
-				appendText += "answer-"+answers[i]+":";
-			}
-		}
-		appendText += "~\n";
-		document.getElementById('lessonContent').value += appendText;
+		const correct = parseInt(prompt("Which number answer was the correct one?"));
+		const answerText = answers.reduce((prev, cur, curIdx) => {
+			const answerType = curIdx == correct - 1 ? "correctAnswer" : "answer";
+			return `${prev}${answerType}-${cur}:`;
+		}, '');
+		$('#lessonContent').get(0).value += `\n~QUIZ:name-${name}:${answerText}~\n`;
 	});
 
 	/*

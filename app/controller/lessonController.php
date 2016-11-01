@@ -33,9 +33,9 @@ class LessonController {
 
             case 'processLesson':
                 $lid = isset($_GET['lid']) ? $_GET['lid'] : null;
-                $lname = htmlspecialchars($_POST['lessonname']);
+                $lname = htmlspecialchars($_POST['lname']);
                 $lcontent = htmlspecialchars($_POST['content']);
-                $this->processLesson($cid, $lname, $lcontent);
+                $this->processLesson($lid, $lname, $lcontent);
                 break;
 		}
 	}
@@ -75,18 +75,20 @@ class LessonController {
 
 	public function processLesson($lid, $lessonname, $content) {
 		$user = LoginSession::currentUser();
-		if (is_null($lid)) {
-			$lesson = new Lesson();
-		} else {
-			$lesson = Lesson.loadById($lid);
+		if ($lid) {
+			$lesson = Lesson::loadById($lid);
 			if ($lesson->userid != $user->id) {
 	            // User does not own lesson to edit
 	            header("HTTP/1.1 403 Forbidden" );
 	            exit();
 	        }
+		} else {
+			$lesson = new Lesson();
 		}
         $lesson->lessonname = $lessonname;
         $lesson->content = $content;
+		$lesson->userid = $user->id;
         $lesson->save();
+		header('Location: ' . BASE_URL . '/lessons/personal');		
     }
 }

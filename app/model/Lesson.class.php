@@ -8,7 +8,7 @@ class Lesson extends DbObject {
 	public $content;
 
 	protected function getTable() {
-		return 'DB_TABLE';
+		return self::DB_TABLE;
 	}
 
 	public static function loadById($id) {
