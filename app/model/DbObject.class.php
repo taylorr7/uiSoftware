@@ -30,6 +30,7 @@ abstract class DbObject implements IteratorAggregate {
 		}
     }
 
+    // Removes this object from the database
     public function delete() {
         if (!is_null($this->$id)) {
             Db::instance()->deleteById($this->$id);
