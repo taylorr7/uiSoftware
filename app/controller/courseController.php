@@ -156,33 +156,28 @@ class CourseController {
 
 	public function publish($cid, $check) {
         $user = LoginSession::currentUser();
-		$course = Course.loadById($cid);
+		$course = Course::loadById($cid);
         if ($course->userid != $user->id) {
             // User does not own course to edit
             header("HTTP/1.1 403 Forbidden" );
             exit();
         }
-
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die('Error: Could not connect to database.');
-		mysql_select_db(DB_DATABASE);
-		$sql = "SELECT * FROM `hidden_courses` WHERE `courseid` = '$cid'";
-		$result = mysql_query($sql);
-		$count = mysql_num_rows($result);
-		if($count < 1) {
-			if($check == 'false') {
-				$newHiddenCourse = new HiddenCourse();
-				$newHiddenCourse->set('courseid', $cid);
-				$newHiddenCourse->save();
+		if($check == 'false') {
+			if($course->published == 0) {
+				$course->update(array('published' => 1));
+				$course->save();
+				$json = array('status' => 'published');
+			} else {
+				$course->update(array('published' => 0));
+				$course->save();
+				$json = array('status' => 'unpublished');
 			}
-			$json = array('status' => 'unpublished');
 		} else {
-			if($check == 'false') {
-				$row = mysql_fetch_assoc($result);
-				$id = $row['id'];
-				$sql = "DELETE FROM `hidden_courses` WHERE `id` = '$id'";
-				mysql_query($sql);
+			if($course->published == 0) {
+				$json = array('status' => 'unpublished');
+			} else {
+				$json = array('status' => 'published');
 			}
-			$json = array('status' => 'published');
 		}
 		header('Content-Type: application/json');
 		echo json_encode($json);
