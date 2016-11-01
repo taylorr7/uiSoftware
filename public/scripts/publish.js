@@ -1,15 +1,15 @@
 $(document).ready(function(){
-  var url = window.location.href;
-  var endIndex = url.search("courses");
-  url = url.substr(0, endIndex+7);
+  const fullUrl = window.location.href;
+  const endIndex = fullUrl.search("courses");
+  const url = fullUrl.substr(0, endIndex+7);
   
 	$('.publish').each(function(){	
-		var name = $(this).attr('name');
+		const name = $(this).attr('name');
 		sendPost(name, "true", url);
 	});
 
   $('.publish').click(function(){
-	var name = $(this).attr('name');
+	const name = $(this).attr('name');
 	sendPost(name, "false", url);
   });
 });
