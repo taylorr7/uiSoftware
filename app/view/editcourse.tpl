@@ -17,9 +17,9 @@
 				<label for="ccontent">Course Content</label>
 				<textarea name="ccontent" rows="10" class="form-control" placeholder="Course Content" required><?= $course->coursecontent ?></textarea>
 			</div>
-		</form>
 
-		<button form="courseCreator" type="submit" name="save" class="btn btn-primary">Save Lesson</button>
+			<button type="submit" name="save" class="btn btn-primary">Save Course</button>
+		</form>
 	</div>
 
 	<aside class="col-sm-4 col-xs-12">
