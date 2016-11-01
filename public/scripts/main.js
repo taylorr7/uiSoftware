@@ -1,12 +1,9 @@
 /*
+* Steven Roberts
+* Hannah Roth
 * Taylor Rydahl
 */
 
-/*
-* Function to setup the search bar in the header.
-* The text in the search bar is set to "Search" by
-* default and is cleared when the user clicks it.
-*/
 $(document).ready(() => {
 
 	/*

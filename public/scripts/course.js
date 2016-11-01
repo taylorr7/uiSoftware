@@ -1,12 +1,33 @@
+/*
+* Steven Roberts
+* Hannah Roth
+* Taylor Rydahl
+*/
+
+/*
+* Loads the home page of the
+* course when the page loads.
+*/
 $(document).ready(() => {
     sendGet("home");
 });
 
+/*
+* Adds the appropriate events to the
+* table of contents to load the appropriate
+* lesson information when clicked.
+*/
 $(document).on('click', '.lesson', function() {
     const name = $(this).attr('name');
     sendGet(name);
 });
 
+/*
+* Sends a GET Ajax request to load course
+* information (table of contents) and 
+* lesson information (lesson content)
+* from the database.
+*/
 const sendGet = (lid) => {
     $.getJSON(`${window.location.href}/load`, {lid})
         .done((data) => {
