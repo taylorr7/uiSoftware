@@ -2,12 +2,21 @@
 
 include_once '../global.php';
 
+/*
+ * Get action to route to.
+ */
 $action = $_GET['action'];
 
 $sc = new SiteController();
 $sc->route($action);
 
+/*
+ * Class to control the site.
+ */
 class SiteController {
+	/*
+	 * Send not logged in user to login page.
+	 */
 	public function checkLoginStatus() {
 		if (!LoginSession::isLoggedIn()) {
 			header('Location: ' . BASE_URL . '/login');
@@ -15,6 +24,9 @@ class SiteController {
 		}
 	}
 
+	/*
+	 * Route to appropriate function.
+	 */
 	public function route($action) {
 		switch($action) {
 			case 'home':
@@ -22,19 +34,17 @@ class SiteController {
 				$this->home();
 				break;
 
-			case 'processRegister':
-				$this->processRegister($_POST);
-				break;
+			case 'processRegister':	$this->processRegister($_POST);	break;
 
 			case 'account':
 				$this->checkLoginStatus();
 				$this->account();
 				break;
 
-            case 'processAccount':
+      case 'processAccount':
 				$this->checkLoginStatus();
-                $this->processAccount($_POST);
-                break;
+        $this->processAccount($_POST);
+        break;
 
 			case 'viewAuthor':
 				$this->checkLoginStatus();
@@ -50,55 +60,81 @@ class SiteController {
 		}
 	}
 
+	/*
+	 * Function to send the user to the home page.
+	 */
 	public function home() {
 		$user = LoginSession::currentUser();
 		$subscriptions = Subscription::loadByUser($user);
+
 		$pageName = 'Home';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/home.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
+	/*
+	 * Function to update the user information.
+	 */
 	private function updateUser($user, $newProperties) {
-        $user->namefirst = htmlspecialchars($newProperties['fname']);
-        $user->namelast = htmlspecialchars($newProperties['lname']);
-        $user->username = htmlspecialchars($newProperties['user']);
-        $user->password = htmlspecialchars($newProperties['pass']);
-        $user->email = htmlspecialchars($newProperties['email']);
-        $user->save();
-    }
+    $user->namefirst = htmlspecialchars($newProperties['fname']);
+    $user->namelast = htmlspecialchars($newProperties['lname']);
+    $user->username = htmlspecialchars($newProperties['user']);
+    $user->password = htmlspecialchars($newProperties['pass']);
+    $user->email = htmlspecialchars($newProperties['email']);
+    $user->save();
+  }
 
-    public function processRegister($newProperties) {
-        $this->updateUser(new User(), $newProperties);
+	/*
+	 * Function to register a user.
+	 */
+  public function processRegister($newProperties) {
+    $this->updateUser(new User(), $newProperties);
 		header('Location: '. BASE_URL);
 	}
 
+	/*
+	 * Function to bring the user to their account page.
+	 */
 	public function account() {
-        $user = LoginSession::currentUser();
+    $user = LoginSession::currentUser();
+		
 		$pageName = 'Account Info';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/account.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
-    public function processAccount($newProperties) {
-        $this->updateUser(LoginSession::currentUser(), $newProperties);
-        header('Location: ' . BASE_URL . '/account');
+	/*
+	 * Function to update user account information.
+	 */
+  public function processAccount($newProperties) {
+    $this->updateUser(LoginSession::currentUser(), $newProperties);
+    header('Location: ' . BASE_URL . '/account');
 	}
 
+	/*
+	 * Function to view author page.
+	 */
 	public function viewAuthor($authorName) {
-        $user = LoginSession::currentUser();
+    $user = LoginSession::currentUser();
 		$author = User::loadByUsername($authorName);
+
 		$pageName = $authorName;
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/author.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
+
+	/*
+	 * Function to search.
+	 */
 	public function search($qry) {
-        $user = LoginSession::currentUser();
+    $user = LoginSession::currentUser();
 		$users = User::search($qry);
 		$courses = Course::search($qry);
 		$numResults = count($users) + count($courses);
+
 		$pageName = 'Search';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/search.tpl';
