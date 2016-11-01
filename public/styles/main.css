@@ -1,9 +1,10 @@
 body {
-	height: 100vh;
+	/* sky-blue background */
 	background: #bfdff5;
 }
 
 main.container {
+	/* Ensure all the main content is on a white background for visibility */
 	background: white;
 	padding-bottom: 15px;
 	/* Margin for the fixed footer */
@@ -17,16 +18,19 @@ main.container {
 }
 
 .nav.navbar-nav img {
+	/* Use some negative margin for the profile pic so it can be larger */
 	height: 2em;
 	margin-top: -.5rem;
 	margin-bottom: -.5rem;
 }
 
 #nav-top {
+	/* Remove space between top bar and banner */
 	margin-bottom: 0;
 }
 
 .banner {
+	/* Make the banner image cover the area */
 	background-size:     cover;
     background-repeat:   no-repeat;
     background-position: center center;
@@ -44,6 +48,7 @@ header #logo {
 	margin: 10px;
 }
 
+/* Gravatar profile pic */
 #account-profile {
 	margin: 1rem;
 	width: 100%;
