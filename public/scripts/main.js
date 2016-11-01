@@ -49,10 +49,10 @@ $(document).ready(() => {
 	* Function to add a new lesson to a course.
 	*/
 	$("#addLesson").click(function() {
-		var lessons = JSON.parse(document.getElementById("addLesson").value);
-		var appendText = "";
-		var promptText = "Enter the number of the lesson you would like to add:\n";
-		for (i = 0; i < lessons.length; i++) {
+		const lessons = JSON.parse(document.getElementById("addLesson").value);
+		let appendText = "";
+		let promptText = "Enter the number of the lesson you would like to add:\n";
+		for (let i = 0; i < lessons.length; i++) {
 			promptText += "\n" + i + ": " + lessons[i];
 		}
 		var response = prompt(promptText);
