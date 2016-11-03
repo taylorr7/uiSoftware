@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2016 at 05:32 PM
+-- Generation Time: Nov 03, 2016 at 07:17 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
-  `commenter_id` int(11) NOT NULL,
-  `comment_text` text NOT NULL,
-  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `commenterid` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -66,14 +66,14 @@ INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `cours
 
 CREATE TABLE `event` (
   `id` int(11) NOT NULL,
-  `event_type_id` int(11) NOT NULL,
-  `user_1_id` int(11) NOT NULL,
-  `user_2_id` int(11) DEFAULT NULL,
-  `course_1_id` int(11) DEFAULT NULL,
-  `course_2_id` int(11) DEFAULT NULL,
-  `data_1` text,
-  `data_2` text,
-  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `eventtypeid` int(11) NOT NULL,
+  `user1id` int(11) NOT NULL,
+  `user2id` int(11) DEFAULT NULL,
+  `course1id` int(11) DEFAULT NULL,
+  `course2id` int(11) DEFAULT NULL,
+  `data1` text,
+  `data2` text,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -131,8 +131,8 @@ INSERT INTO `lessons` (`id`, `userid`, `lessonname`, `content`) VALUES
 
 CREATE TABLE `subscriptions` (
   `id` int(11) NOT NULL,
-  `user_1_id` int(11) NOT NULL,
-  `user_2_id` int(11) NOT NULL
+  `user1id` int(11) NOT NULL,
+  `user2id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
