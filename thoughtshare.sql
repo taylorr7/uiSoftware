@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2016 at 06:19 PM
+-- Generation Time: Nov 03, 2016 at 05:32 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -19,6 +19,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `thoughtshare`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
+  `commenter_id` int(11) NOT NULL,
+  `comment_text` text NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -44,6 +57,47 @@ INSERT INTO `courses` (`id`, `userid`, `coursename`, `coursedescription`, `cours
 (2, 3, 'Calculus 2', 'This course is an introduction to integral calculus. The course begins with a review of antiderivatives then transitions into an introduction to definite integrals. Indefinite integrals are then introduced and their applications are studied. The course ends with a brief introduction to summations and infinite series.', '~CHAPTER:name-Chapter 1:~\r\n~LESSON:name-Product Rule:~\r\n~LESSON:name-Chain Rule:~', 1),
 (3, 3, 'My Other Calculus Course', 'This is just a copy of the same course.', '~CHAPTER:name-Chapter 1:~\r\n~LESSON:name-Product Rule:~\r\n~LESSON:name-Chain Rule:~', 1),
 (4, 4, 'Course I Am Working On', 'This is a course I am still working on so it shouldn''t be published!', '\r\n~LESSON:name-Quotient Rule:~', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event`
+--
+
+CREATE TABLE `event` (
+  `id` int(11) NOT NULL,
+  `event_type_id` int(11) NOT NULL,
+  `user_1_id` int(11) NOT NULL,
+  `user_2_id` int(11) DEFAULT NULL,
+  `course_1_id` int(11) DEFAULT NULL,
+  `course_2_id` int(11) DEFAULT NULL,
+  `data_1` text,
+  `data_2` text,
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_types`
+--
+
+CREATE TABLE `event_types` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `event_types`
+--
+
+INSERT INTO `event_types` (`id`, `name`) VALUES
+(1, 'new_course'),
+(2, 'edit_course'),
+(3, 'new_lesson'),
+(4, 'edit_lesson'),
+(5, 'lesson_comment'),
+(6, 'subscribe');
 
 -- --------------------------------------------------------
 
@@ -77,16 +131,9 @@ INSERT INTO `lessons` (`id`, `userid`, `lessonname`, `content`) VALUES
 
 CREATE TABLE `subscriptions` (
   `id` int(11) NOT NULL,
-  `userid` int(11) NOT NULL,
-  `courseid` int(11) NOT NULL
+  `user_1_id` int(11) NOT NULL,
+  `user_2_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `subscriptions`
---
-
-INSERT INTO `subscriptions` (`id`, `userid`, `courseid`) VALUES
-(1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -118,9 +165,27 @@ INSERT INTO `users` (`id`, `namefirst`, `namelast`, `username`, `password`, `ema
 --
 
 --
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `event`
+--
+ALTER TABLE `event`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `event_types`
+--
+ALTER TABLE `event_types`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -148,10 +213,25 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `event`
+--
+ALTER TABLE `event`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `event_types`
+--
+ALTER TABLE `event_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `lessons`
 --
