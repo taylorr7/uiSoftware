@@ -1,4 +1,5 @@
-<div class="page-header">
+<div class="page-header clearfix">
+	<img id="account-profile" class="profile pull-right" src="<?= $author->getProfileUrl() ?>">
 	<h2><?= $author->username ?>'s Page</h2>
 </div>
 

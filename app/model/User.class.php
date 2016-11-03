@@ -18,17 +18,17 @@ class User extends DbObject {
 	}
 
 	/*
-	* Function to return the Gravatar
-	* hash based on the user email.
+	* Function to return the Gravatar url
 	*/
-	public function getGravatarHash() {
-		return md5(strtolower(trim($this->email)));
+	public function getProfileUrl() {
+		$hash = md5(strtolower(trim($this->email)));
+		return "https://www.gravatar.com/avatar/{$hash}.jpg?s=256";
 	}
 
 	/*
 	* Function to return the User object associated
 	* with the given id.
-	*/	
+	*/
 	public static function loadById($id) {
 		$results = Db::instance()->selectById(self::DB_TABLE, $id, __CLASS__);
 		$numResults = count($results);
@@ -41,7 +41,7 @@ class User extends DbObject {
 	/*
 	* Function to return the User object associated
 	* with the given username.
-	*/	
+	*/
 	public static function loadByUsername($username) {
 		$results = Db::instance()->selectByProperty(self::DB_TABLE, 'username', $username, __CLASS__);
 		$numResults = count($results);
@@ -54,7 +54,7 @@ class User extends DbObject {
 	/*
 	* Function to return the User object associated
 	* with the given username and password.
-	*/	
+	*/
 	public static function loadByCredentials($username, $password) {
 		$results = Db::instance()->selectByProperties(
 			self::DB_TABLE,
@@ -73,7 +73,7 @@ class User extends DbObject {
 	/*
 	* Function to search the User table for the user with
 	* the given credentials.
-	*/	
+	*/
 	public static function search($qry) {
 		return Db::instance()->search(
 			self::DB_TABLE,

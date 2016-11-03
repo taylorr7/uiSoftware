@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="col-sm-4 col-sm-push-8 col-xs-12 text-center">
-		<img id="account-profile" class="profile" src="<?= BASE_URL ?>/public/media/default.jpg">
+		<img id="account-profile" class="profile" src="<?= $user->getProfileUrl() ?>">
 		<p>
 			<a href="https://en.gravatar.com/connect/" class="btn btn-default" role="button">Change Profile</a>
 		</p>

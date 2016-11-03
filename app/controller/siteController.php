@@ -65,7 +65,7 @@ class SiteController {
 	 */
 	public function home() {
 		$user = LoginSession::currentUser();
-		$subscriptions = Subscription::loadByUser($user);
+		$subscriptions = array();//Subscription::loadByUser($user);
 
 		$pageName = 'Home';
 		include_once SYSTEM_PATH.'/view/header.tpl';
@@ -98,7 +98,7 @@ class SiteController {
 	 */
 	public function account() {
     $user = LoginSession::currentUser();
-		
+
 		$pageName = 'Account Info';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/account.tpl';
