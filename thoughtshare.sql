@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2016 at 07:17 PM
+-- Generation Time: Nov 03, 2016 at 07:24 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
+  `courseid` int(11) NOT NULL,
   `commenterid` int(11) NOT NULL,
   `content` text NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

@@ -12,12 +12,12 @@ class Comment extends DbObject {
 		return self::DB_TABLE;
 	}
 
-	// Loads the user who created the course
+	// Loads the user who created the comment
 	public function getCommenter() {
 		return User::loadById($this->commenterid);
 	}
 
-	// Static helper function that loads course by id
+	// Static helper function that loads comment by id
 	public static function loadById($id) {
 		$results = Db::instance()->selectById(self::DB_TABLE, $id, __CLASS__);
 		$numResults = count($results);
@@ -25,5 +25,11 @@ class Comment extends DbObject {
 			die("Found ${$numResults} comments with id {$id}");
 		}
 		return $results[0];
+	}
+
+	// Static helper function that loads comment by id
+	public static function loadByCourse($courseId) {
+		return Db::instance()->select(
+            "SELECT * FROM {self::DB_TABLE} WHERE courseid = '{$courseId}' ORDER BY timestamp");
 	}
 }
