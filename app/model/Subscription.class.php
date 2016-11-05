@@ -30,7 +30,7 @@ class Subscription extends DbObject {
 		$results = Db::instance()->selectById(self::DB_TABLE, $id, __CLASS__);
 		$numResults = count($results);
 		if ($numResults != 1) {
-			die("Found ${$numResults} subscriptions with id {$id}");
+			die("Found {$numResults} subscriptions with id {$id}");
 		}
 		return $results[0];
 	}

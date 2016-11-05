@@ -9,6 +9,10 @@ class User extends DbObject {
 	public $namelast;
 	public $email;
 
+	public function asLink() {
+		return sprintf('<a href="%s/authors/view/%2$s">%2$s</a>', BASE_URL, $this->username);
+	}
+
 	/*
 	* Function to return the User
 	* table.
@@ -33,7 +37,7 @@ class User extends DbObject {
 		$results = Db::instance()->selectById(self::DB_TABLE, $id, __CLASS__);
 		$numResults = count($results);
 		if ($numResults != 1) {
-			die("Found ${$numResults} users with id {$id}");
+			die("Found {$numResults} users with id {$id}");
 		}
 		return $results[0];
 	}
@@ -46,7 +50,7 @@ class User extends DbObject {
 		$results = Db::instance()->selectByProperty(self::DB_TABLE, 'username', $username, __CLASS__);
 		$numResults = count($results);
 		if ($numResults != 1) {
-			die("Found ${$numResults} users with username {$id}");
+			die("Found {$numResults} users with username {$id}");
 		}
 		return $results[0];
 	}
@@ -63,7 +67,7 @@ class User extends DbObject {
 
 		$numResults = count($results);
 		if ($numResults > 1) {
-			die("Found ${$numResults} users with same credentials");
+			die("Found {$numResults} users with same credentials");
 		} else if ($numResults == 1) {
 			return $results[0];
 		}

@@ -65,7 +65,7 @@ class SiteController {
 	 */
 	public function home() {
 		$user = LoginSession::currentUser();
-		$subscriptions = array();//Subscription::loadByUser($user);
+		$events = Event::getFeedEvents($user, 10);
 
 		$pageName = 'Home';
 		include_once SYSTEM_PATH.'/view/header.tpl';

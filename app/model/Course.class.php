@@ -14,6 +14,10 @@ class Course extends DbObject {
 		return self::DB_TABLE;
 	}
 
+	public function asLink() {
+		return sprintf("<a href=\"%s/courses/view/%d\">%s</a>", BASE_URL, $this->id, $this->coursename);
+	}
+
 	// Loads the user who created the course
 	public function getCreator() {
 		return User::loadById($this->userid);
@@ -24,7 +28,7 @@ class Course extends DbObject {
 		$results = Db::instance()->selectById(self::DB_TABLE, $id, __CLASS__);
 		$numResults = count($results);
 		if ($numResults != 1) {
-			die("Found ${$numResults} courses with id {$id}");
+			die("Found {$numResults} courses with id {$id}");
 		}
 		return $results[0];
 	}
@@ -36,11 +40,7 @@ class Course extends DbObject {
 
 	// Static helper function that loads all published courses
 	public static function loadPublished() {
-		return array_filter(
-			Db::instance()->selectAll(self::DB_TABLE, __CLASS__),
-			function($item) {
-				return $item->published;
-			});
+		return Db::instance()->selectByProperty(self::DB_TABLE, 'published', 1, __CLASS__);
 	}
 
 	// Static helper function that searches all courses

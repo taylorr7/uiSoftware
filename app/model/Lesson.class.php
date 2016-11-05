@@ -18,7 +18,7 @@ class Lesson extends DbObject {
 		$results = Db::instance()->selectById(self::DB_TABLE, $id, __CLASS__);
 		$numResults = count($results);
 		if ($numResults != 1) {
-			die("Found ${$numResults} lessons with id {$id}");
+			die("Found {$numResults} lessons with id {$id}");
 		}
 		return $results[0];
 	}
@@ -33,7 +33,7 @@ class Lesson extends DbObject {
 		$results = Db::instance()->selectByProperty(self::DB_TABLE, 'lessonname', $name, __CLASS__);
 		$numResults = count($results);
 		if ($numResults != 1) {
-			die("Found ${$numResults} lessons with name {$name}");
+			die("Found {$numResults} lessons with name {$name}");
 		}
 		return $results[0];
 	}

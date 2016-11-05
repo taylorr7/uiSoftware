@@ -4,12 +4,17 @@ class Comment extends DbObject {
 	const DB_TABLE = 'comments';
 
 	// The database columns
+	public $courseid;
 	public $commenterid;
 	public $content;
 	public $timestamp;
 
 	protected function getTable() {
 		return self::DB_TABLE;
+	}
+
+	public function getCourse() {
+		return Course::loadById($this->courseid);
 	}
 
 	// Loads the user who created the comment
@@ -22,15 +27,16 @@ class Comment extends DbObject {
 		$results = Db::instance()->selectById(self::DB_TABLE, $id, __CLASS__);
 		$numResults = count($results);
 		if ($numResults != 1) {
-			die("Found ${$numResults} comments with id {$id}");
+			die("Found {$numResults} comments with id {$id}");
 		}
 		return $results[0];
 	}
 
 	// Static helper function that loads comment by id
 	public static function loadByCourse($courseId) {
+		$table = self::DB_TABLE;
 		return Db::instance()->select(
-            "SELECT * FROM {self::DB_TABLE} WHERE courseid = '{$courseId}' ORDER BY timestamp",
+            "SELECT * FROM {$table} WHERE courseid = '{$courseId}' ORDER BY timestamp",
 			__CLASS__);
 	}
 }

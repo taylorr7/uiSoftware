@@ -174,24 +174,30 @@ class CourseController {
 	 * Function to process course.
 	 */
   public function processCourse($cid, $coursename, $coursedescription, $coursecontent) {
-		$user = LoginSession::currentUser();
-		if ($cid) {
-			$course = Course::loadById($cid);
-			if ($course->userid != $user->id) {
-				// User does not own course to edit
-				header("HTTP/1.1 403 Forbidden" );
-				exit();
-			}
-		} else {
-			$course = new Course();
-			$course->published = false;
+	$user = LoginSession::currentUser();
+	if ($cid) {
+		$course = Course::loadById($cid);
+		if ($course->userid != $user->id) {
+			// User does not own course to edit
+			header("HTTP/1.1 403 Forbidden" );
+			exit();
 		}
-		$course->userid = $user->id;
+	} else {
+		$course = new Course();
+		$course->published = false;
+	}
+	$course->userid = $user->id;
     $course->coursename = $coursename;
     $course->coursedescription = $coursedescription;
     $course->coursecontent = $coursecontent;
-		$course->save();
-		header('Location: ' . BASE_URL . '/courses/personal');
+	$course->save();
+
+	$event = $cid ? new EditCourseEvent() : new NewCourseEvent();
+	$event->user1id = $user->id;
+	$event->data = $course->id;
+	$event->save();
+
+	header('Location: ' . BASE_URL . '/courses/personal');
   }
 
 	/*

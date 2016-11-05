@@ -61,8 +61,14 @@ class Db
     public static function select($query, $class_name = null) {
         $result = self::query($query);
         $items = array();
-        while ($item = mysql_fetch_object($result, $class_name)) {
-            $items[] = $item;
+        if (is_null($class_name)) {
+            while ($item = mysql_fetch_array($result)) {
+                $items[] = $item;
+            }
+        } else {
+            while ($item = mysql_fetch_object($result, $class_name)) {
+                $items[] = $item;
+            }
         }
 
         return $items;
