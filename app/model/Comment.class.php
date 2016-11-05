@@ -30,6 +30,7 @@ class Comment extends DbObject {
 	// Static helper function that loads comment by id
 	public static function loadByCourse($courseId) {
 		return Db::instance()->select(
-            "SELECT * FROM {self::DB_TABLE} WHERE courseid = '{$courseId}' ORDER BY timestamp");
+            "SELECT * FROM {self::DB_TABLE} WHERE courseid = '{$courseId}' ORDER BY timestamp",
+			__CLASS__);
 	}
 }
