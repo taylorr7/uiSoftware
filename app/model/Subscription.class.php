@@ -3,8 +3,8 @@
 class Subscription extends DbObject {
 	const DB_TABLE = 'subscriptions';
 
-	public $userid;
-	public $courseid;
+	public $user1id;
+	public $user2id;
 
 	/*
 	* Function to return the Subscription
@@ -14,12 +14,12 @@ class Subscription extends DbObject {
 		return self::DB_TABLE;
 	}
 
-	/*
-	* Function to return the Course object associated
-	* with this Subscription.
-	*/
-	public function getCourse() {
-		return Course::loadById($this->courseid);
+	public function getSubscriber() {
+		return User::loadById($user1id);
+	}
+
+	public function getSubscribee() {
+		return User::loadById($user2id);
 	}
 
 	/*
@@ -40,6 +40,6 @@ class Subscription extends DbObject {
 	* with the given user id.
 	*/
 	public static function loadByUser($user) {
-		return Db::instance()->selectByProperty(self::DB_TABLE, 'userid', $user->id, __CLASS__);
+		return Db::instance()->selectByProperty(self::DB_TABLE, 'user1id', $user->id, __CLASS__);
 	}
 }
