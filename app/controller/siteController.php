@@ -170,6 +170,11 @@ class SiteController {
 				$sub->user2id = $author;
 				$sub->save();
 				$json = array('status' => 'subscribed');
+				
+				$event = new SubscribeEvent();
+				$event->user1id = $user->id;
+				$event->user2id = $author->id;
+				$event->save();
 			}
 		} else {
 			if (count($results) == 1) {
