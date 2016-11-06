@@ -62,7 +62,7 @@ class SiteController {
 				//$authorId = $_POST['name'];
 				//$check = $_POST['check'];
 				//$this->subscribe($authorId, $check);
-				$this->subscribe(3, 'false');
+				$this->subscribe('3', 'false');
 				break;
 		}
 	}
@@ -156,18 +156,20 @@ class SiteController {
 	 * Function to subscribe.
 	 */
 	public function subscribe($authorId, $check) {
-		$user = LoginSession::currentUser();
+		//$user = LoginSession::currentUser();
+		$user = User::loadById('2');
 		$author = User::loadById($authorId);
 		$results = Subscription::loadBySubscription($user, $author);
 		if ($check == 'false') {
 			if (count($results) == 1) {
 				$sub = $results[0];
-				$sub->delete();
+				$sub2 = Subscription::loadById($sub->id);
+				$sub2->delete();
 				$json = array('status' => 'unsubscribed');
 			} else {
 				$sub = new Subscription();
-				$sub->user1id = $user;
-				$sub->user2id = $author;
+				$sub->user1id = $user->id;
+				$sub->user2id = $author->id;
 				$sub->save();
 				$json = array('status' => 'subscribed');
 				
