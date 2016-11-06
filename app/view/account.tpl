@@ -41,12 +41,12 @@
 			</div>
 			<div class="form-group">
 				<label for="education_type">Education Type</label><br>
-				<input type="radio" name="education_type" value="none"> None<br>
-				<input type="radio" name="education_type" value="hs"> High School Graduate<br>
-				<input type="radio" name="education_type" value="ad"> Associate Degree</div>
-				<input type="radio" name="education_type" value="bd"> Bachelor's Degree</div>
-				<input type="radio" name="education_type" value="md"> Master's Degree</div>
-				<input type="radio" name="education_type" value="dd"> Doctorate Degree</div>
+				<input type="radio" name="education_type" value="no" <?= User::isSelected("no") ?>> None<br>
+				<input type="radio" name="education_type" value="hs" <?= User::isSelected("hs") ?>> High School Graduate<br>
+				<input type="radio" name="education_type" value="ad" <?= User::isSelected("ad") ?>> Associate Degree</div>
+				<input type="radio" name="education_type" value="bd" <?= User::isSelected("bd") ?>> Bachelor's Degree</div>
+				<input type="radio" name="education_type" value="md" <?= User::isSelected("md") ?>> Master's Degree</div>
+				<input type="radio" name="education_type" value="dd" <?= User::isSelected("dd") ?>> Doctorate Degree</div>
 				<br><br>
 			<button type="submit" name="submit" class="btn btn-primary">Update Information</button>
 		</form>

@@ -86,4 +86,13 @@ class User extends DbObject {
 			$qry,
 			__CLASS__);
 	}
+
+	/*
+	* Function to determine the education level of the user.
+	*/
+	public static function isSelected($value) {
+		if (strcmp($value, LoginSession::currentUser()->education_type) == 0) {
+			echo "checked";
+		}
+	}
 }
