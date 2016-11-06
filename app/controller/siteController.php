@@ -59,10 +59,9 @@ class SiteController {
 				break;
 				
 			case 'subscribe':
-				//$authorId = $_POST['name'];
-				//$check = $_POST['check'];
-				//$this->subscribe($authorId, $check);
-				$this->subscribe('3', 'false');
+				$authorId = $_POST['name'];
+				$check = $_POST['check'];
+				$this->subscribe($authorId, $check);
 				break;
 		}
 	}
@@ -156,8 +155,7 @@ class SiteController {
 	 * Function to subscribe.
 	 */
 	public function subscribe($authorId, $check) {
-		//$user = LoginSession::currentUser();
-		$user = User::loadById('2');
+		$user = LoginSession::currentUser();
 		$author = User::loadById($authorId);
 		$results = Subscription::loadBySubscription($user, $author);
 		if ($check == 'false') {
