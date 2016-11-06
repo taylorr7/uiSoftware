@@ -25,6 +25,8 @@ RewriteRule ^authors/view/(\w+)/?$ app/controller/siteController.php?action=view
 
 RewriteRule ^search/?$ app/controller/siteController.php?action=search [QSA,L]
 
+RewriteRule ^authors/subscribe/?$ app/controller/siteController.php?action=subscribe [QSA,L]
+
 
 # Course
 RewriteRule ^courses/?$ app/controller/courseController.php?action=courses [QSA,L]
