@@ -8,6 +8,7 @@ class User extends DbObject {
 	public $namefirst;
 	public $namelast;
 	public $email;
+	public $education_type;
 
 	public function asLink() {
 		return sprintf('<a href="%s/authors/view/%2$s">%2$s</a>', BASE_URL, $this->username);

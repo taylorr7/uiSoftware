@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.5.2
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 06, 2016 at 12:27 AM
+-- Host: localhost
+-- Generation Time: Nov 06, 2016 at 01:46 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -156,18 +156,19 @@ CREATE TABLE `users` (
   `namelast` varchar(20) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
-  `email` varchar(45) NOT NULL
+  `email` varchar(45) NOT NULL,
+  `education_type` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `namefirst`, `namelast`, `username`, `password`, `email`) VALUES
-(2, 'Taylor', 'Rydahl', 'taylorr7', 'password', 'taylorr7@vt.edu'),
-(3, 'John', 'Smith', 'jsmith', 'password', 'jsmith@gmail.com'),
-(4, 'Jane', 'Smith', 'jsmith2', 'password', 'jsmith2@gmail.com'),
-(5, 'John', 'Man', 'johnm', 'pass', 'johnm@gmail.com');
+INSERT INTO `users` (`id`, `namefirst`, `namelast`, `username`, `password`, `email`, `education_type`) VALUES
+(2, 'Taylor', 'Rydahl', 'taylorr7', 'password', 'taylorr7@vt.edu', 'bd'),
+(3, 'John', 'Smith', 'jsmith', 'password', 'jsmith@gmail.com', 'bd'),
+(4, 'Jane', 'Smith', 'jsmith2', 'password', 'jsmith2@gmail.com', 'dd'),
+(5, 'John', 'Man', 'johnm', 'pass', 'johnm@gmail.com', 'no');
 
 --
 -- Indexes for dumped tables

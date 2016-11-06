@@ -82,6 +82,8 @@ class SiteController {
     $user->username = htmlspecialchars($newProperties['user']);
     $user->password = htmlspecialchars($newProperties['pass']);
     $user->email = htmlspecialchars($newProperties['email']);
+		$user->education_type = htmlspecialchars($newProperties['education_type']);
+
     $user->save();
   }
 
