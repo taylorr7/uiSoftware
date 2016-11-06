@@ -90,7 +90,7 @@ class User extends DbObject {
 	/*
 	* Function to determine the education level of the user.
 	*/
-	public static function isSelected($value) {
+	public static function isChecked($value) {
 		if (strcmp($value, LoginSession::currentUser()->education_type) == 0) {
 			echo "checked";
 		}
