@@ -57,7 +57,7 @@ class SiteController {
 				$qry = htmlspecialchars($_GET['s']);
 				$this->search($qry);
 				break;
-				
+
 			case 'subscribe':
 				$authorId = $_POST['name'];
 				$check = $_POST['check'];
@@ -126,7 +126,7 @@ class SiteController {
 	 */
 	public function viewAuthor($authorName) {
     $user = LoginSession::currentUser();
-		$events = Event::getFeedEvents($user, 10);
+		$events = Event::getUserEvents($user, 10);
 		$author = User::loadByUsername($authorName);
 
 		$pageName = $authorName;
@@ -149,7 +149,7 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/search.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
-	
+
 	/*
 	 * Function to subscribe.
 	 */
@@ -169,7 +169,7 @@ class SiteController {
 				$sub->user2id = $author->id;
 				$sub->save();
 				$json = array('status' => 'subscribed');
-				
+
 				$event = new SubscribeEvent();
 				$event->user1id = $user->id;
 				$event->user2id = $author->id;

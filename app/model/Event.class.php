@@ -59,7 +59,7 @@ abstract class Event extends DbObject {
 		return self::getEventSubclass($results[0]);
 	}
 
-    public static function getUserEvents($user, $limit = null) {
+  public static function getUserEvents($user, $limit = null) {
 		$table = self::DB_TABLE;
 		$query = "SELECT * FROM {$table} WHERE user1id='{$user->id}' ORDER BY timestamp DESC";
 		if (!is_null($limit)) {
@@ -68,23 +68,23 @@ abstract class Event extends DbObject {
 		$query .= ";";
 		$results = Db::instance()->select($query);
 		return array_map(array(__CLASS__, 'getEventSubclass'), $results);
-    }
+  }
 
-    public static function getFeedEvents($user, $limit = null) {
+  public static function getFeedEvents($user, $limit = null) {
 		$table = self::DB_TABLE;
-        $query = "SELECT * FROM {$table} WHERE user1id='{$user->id}' OR user2id='{$user->id}'";
-        $subscriptions = Subscription::loadByUser($user);
-        $subscriptionsClause = array_reduce($subscriptions, function($carry, $item) {
-            $subscribeeId = $item->getSubscribee()->id;
-            return "{$carry} OR user1id='{$subscribeeId}' OR user2id='{$subscribeeId}'";
-        });
+    $query = "SELECT * FROM {$table} WHERE user1id='{$user->id}' OR user2id='{$user->id}'";
+    $subscriptions = Subscription::loadByUser($user);
+    $subscriptionsClause = array_reduce($subscriptions, function($carry, $item) {
+      $subscribeeId = $item->getSubscribee()->id;
+        return "{$carry} OR user1id='{$subscribeeId}' OR user2id='{$subscribeeId}'";
+    });
 		$orderByClause = " ORDER BY timestamp DESC";
-        $query .= $subscriptionsClause . $orderByClause;
+    $query .= $subscriptionsClause . $orderByClause;
 		if (!is_null($limit)) {
 			$query .= " LIMIT " . $limit;
 		}
 		$query .= ";";
-        $results = Db::instance()->select($query);
-        return array_map(array(__CLASS__, 'getEventSubclass'), $results);
-    }
+    $results = Db::instance()->select($query);
+    return array_map(array(__CLASS__, 'getEventSubclass'), $results);
+  }
 }
