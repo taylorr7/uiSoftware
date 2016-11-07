@@ -119,13 +119,28 @@ class CourseController {
 		$toc = $course->coursecontent;
 		if ($lid == "null") {
 			$content = null;
+			$comments = null;
 		} else if ($lid == "home") {
 			$content = "Welcome to {$course->coursename}!";
+			$comments = null;
+		} else if ($lid == "comment") {
+			$content = "Comments";
+			$results = Comment::loadByCourse($cid);
+			if(count($results) == 0 ){
+				$comments = null;
+			} else {
+				$comments = array();
+				for($i = 0; $i < count($results); $i++) {
+					$commenterName = User::loadById($results[$i]->commenterid)->username;
+					array_push($comments, array('commenterName' => $commenterName, 'content' => $results[$i]->content, 'timestamp' => $results[$i]->timestamp));
+				}
+			}
 		} else {
 			$content = Lesson::loadByName($lid)->content;
+			$comments = null;
 		}
 
-		$json = array('toc' => $toc, 'content' => $content);
+		$json = array('toc' => $toc, 'content' => $content, 'comments' => $comments);
 		header('Content-Type: application/json');
 		echo json_encode($json);
 	}
