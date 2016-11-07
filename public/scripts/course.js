@@ -28,7 +28,9 @@ $(document).on('click', '.lesson', function() {
 */
 $(document).on('click', '.comment', function() {
 	const comment = $('.commentText').val();
-	sendComment(comment);
+	if(comment != "") {
+		sendComment(comment);
+	}
 });
 
 /*
