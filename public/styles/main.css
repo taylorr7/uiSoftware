@@ -54,3 +54,8 @@ header #logo {
 	width: 100%;
 	max-width: 128px;
 }
+
+.comment-profile {
+	margin-right: 1rem;
+	height: 40px;
+}

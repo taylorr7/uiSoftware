@@ -35,7 +35,7 @@ $(document).on('click', '.comment', function() {
 
 /*
 * Sends a GET Ajax request to load course
-* information (table of contents) and 
+* information (table of contents) and
 * lesson information (lesson content)
 * from the database.
 */
@@ -145,19 +145,25 @@ const parseLesson = function(lessonString) {
 * Function used to read an array of comments and add it to
 * the page.
 */
-const parseComment = function(commentArray) {
-	let commentContent = "";
+const parseComment = (commentArray) => {
+	let commentContent;
 	if(commentArray === null) {
 		commentContent = "No Comments Found!";
 	} else {
-		for(let i = 0; i < commentArray.length; i++)
-		{
-			commentContent += "<div>" + commentArray[i].commenterName + " Commented : " + commentArray[i].content + "<br>" + commentArray[i].timestamp + "</div><br>";
-		}
+        commentContent = commentArray.map((i) =>`
+            <div class="clearfix">
+                <img src="${i.url}" class="comment-profile pull-left"/>
+                <blockquote class="pull-left">
+                    ${i.content}
+                    <footer>${i.commenterName} at ${i.timestamp}</footer>
+                </blockquote>
+            </div>
+        `).join('');
 	}
-	commentContent += "<br><textarea rows=5 cols=75 class='commentText'></textarea><br>";
-	commentContent += "<a class=\"btn btn-default comment\" role=\"button\"><span class=\"glyphicon glyphicon-edit\"></span> Post Comment </a>"
-	document.getElementById('content').innerHTML = commentContent;
+
+    const textarea = '<textarea rows="5" class="commentText form-control"></textarea>';
+    const postButton = '<a class="btn btn-default comment" role="button"><span class="glyphicon glyphicon-send"></span> Post Comment </a>';
+    $('#content').html(`${commentContent} ${textarea} <br/> ${postButton}`);
 }
 
 /*
