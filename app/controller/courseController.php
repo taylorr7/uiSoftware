@@ -268,7 +268,7 @@ class CourseController {
 		$event = new CourseCommentEvent();
 		$event->user1id = $user->id;
 		$event->user2id = $course->userid;
-		$event->data = $cid;
+		$event->data = $newComment->id;
 		$event->save();
 		
 		$json = array('status' => 'Success');
