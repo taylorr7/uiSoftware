@@ -1,10 +1,12 @@
 <div class="page-header clearfix">
 	<img id="account-profile" class="profile pull-right" src="<?= $author->getProfileUrl() ?>">
 	<h2><?= $author->username ?>'s Page</h2>
-	<a class="btn btn-default subscribe" name="<?= $author->id ?>" role="button">
-		<span class="glyphicon glyphicon-edit"></span>
-		Subscribe
-	</a>
+	<?php if($author->id != LoginSession::currentUser()->id): ?>
+		<a class="btn btn-default subscribe" name="<?= $author->id ?>" role="button">
+				<span class="glyphicon glyphicon-edit"></span>
+				Subscribe
+		</a>
+	<?php endif; ?>
 </div>
 
 <h3><?= $author->username ?>'s Courses</h3>
