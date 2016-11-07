@@ -119,9 +119,8 @@ class SiteController {
 	 * Function to view author page.
 	 */
 	public function viewAuthor($authorName) {
-		$events = Event::getFeedEvents($user, 10);
-
     $user = LoginSession::currentUser();
+		$events = Event::getFeedEvents($user, 10);
 		$author = User::loadByUsername($authorName);
 
 		$pageName = $authorName;
