@@ -60,7 +60,6 @@ const sendComment = (content) => {
 	$.getJSON(`${window.location.href}/comment`, {content})
 		.done((data) => {
 			if(data.status === "Success") {
-				alert("Comment Posted!");
 				$('.commentText').val("");
 				sendGet('comment');
 			}
