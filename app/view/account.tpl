@@ -14,7 +14,7 @@
 
 
 	<div class="col-sm-8 col-sm-pull-4 col-xs-12">
-		<form id="update" action="<?= BASE_URL ?>/account/process" onsubmit="return validateForm()" method="POST">
+		<form id="account" action="<?= BASE_URL ?>/account/process" method="POST" onsubmit="return validateForm()">
 			<div class="form-group">
 				<label for="user">Username</label><br>
 				<input type="hidden" name="user" value="<?= $user->username ?>">
@@ -25,10 +25,9 @@
 				<input type="password" name="pass" value="<?= $user->password ?>" class="form-control" placeholder="Password" required>
 			</div>
 			<div class="form-group">
-				<label for="passV">Confirm Password</label>
-				<input type="password" name="passV" value="<?= $user->password ?>" class="form-control" placeholder="Password" required>
+				<label for="passV">Re-Enter Password</label>
+				<input type="password" name="vpass" value="<?= $user->password ?>" class="form-control" placeholder="Password" required>
 			</div>
-			<!-- TODO: Verify that password1 == password2 -->
 			<div class="form-group">
 				<label for="fname">First Name</label>
 				<input type="text" name="fname" value="<?= $user->namefirst ?>" class="form-control" placeholder="First Name" required>
