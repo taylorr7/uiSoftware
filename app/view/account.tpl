@@ -43,11 +43,11 @@
 				<label for="education_type">Education Type</label><br>
 				<input type="radio" name="education_type" value="no" <?= User::isChecked("no") ?>> None<br>
 				<input type="radio" name="education_type" value="hs" <?= User::isChecked("hs") ?>> High School Graduate<br>
-				<input type="radio" name="education_type" value="ad" <?= User::isChecked("ad") ?>> Associate Degree</div>
-				<input type="radio" name="education_type" value="bd" <?= User::isChecked("bd") ?>> Bachelor's Degree</div>
-				<input type="radio" name="education_type" value="md" <?= User::isChecked("md") ?>> Master's Degree</div>
-				<input type="radio" name="education_type" value="dd" <?= User::isChecked("dd") ?>> Doctorate Degree</div>
-				<br><br>
+				<input type="radio" name="education_type" value="ad" <?= User::isChecked("ad") ?>> Associate Degree<br>
+				<input type="radio" name="education_type" value="bd" <?= User::isChecked("bd") ?>> Bachelor's Degree<br>
+				<input type="radio" name="education_type" value="md" <?= User::isChecked("md") ?>> Master's Degree<br>
+				<input type="radio" name="education_type" value="dd" <?= User::isChecked("dd") ?>> Doctorate Degree<br>
+			</div>
 			<button type="submit" name="submit" class="btn btn-primary">Update Information</button>
 		</form>
 	</div>
