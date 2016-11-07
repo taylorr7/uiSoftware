@@ -23,6 +23,15 @@ $(document).on('click', '.lesson', function() {
 });
 
 /*
+* Adds the appropriate event to the comment
+* button.
+*/
+$(document).on('click', '.comment', function() {
+	const comment = $('.commentText').val();
+	sendComment(comment);
+});
+
+/*
 * Sends a GET Ajax request to load course
 * information (table of contents) and 
 * lesson information (lesson content)
@@ -40,6 +49,22 @@ const sendGet = (lid) => {
 				parseLesson(data.content);
 			}
         });
+};
+
+
+/*
+* Sends a GET Ajax request to post a comment
+* to the database.
+*/
+const sendComment = (content) => {
+	$.getJSON(`${window.location.href}/comment`, {content})
+		.done((data) => {
+			if(data.status === "Success") {
+				alert("Comment Posted!");
+				$('.commentText').val("");
+				sendGet('comment');
+			}
+		});
 };
 
 
@@ -115,6 +140,10 @@ const parseLesson = function(lessonString) {
 	document.getElementById('content').innerHTML = lessonContent;
 }
 
+/*
+* Function used to read an array of comments and add it to
+* the page.
+*/
 const parseComment = function(commentArray) {
 	let commentContent = "";
 	if(commentArray === null) {
@@ -125,7 +154,8 @@ const parseComment = function(commentArray) {
 			commentContent += "<div>" + commentArray[i].commenterName + " Commented : " + commentArray[i].content + "<br>" + commentArray[i].timestamp + "</div><br>";
 		}
 	}
-	commentContent += "<br><textarea rows=5 cols=75></textarea>";
+	commentContent += "<br><textarea rows=5 cols=75 class='commentText'></textarea><br>";
+	commentContent += "<a class=\"btn btn-default comment\" role=\"button\"><span class=\"glyphicon glyphicon-edit\"></span> Post Comment </a>"
 	document.getElementById('content').innerHTML = commentContent;
 }
 

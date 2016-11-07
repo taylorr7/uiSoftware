@@ -1,3 +1,5 @@
+<script src="<?= BASE_URL ?>/public/scripts/login.js"></script>
+
 <div class="page-header">
 	<h2><?= $pageName ?></h2>
 </div>
