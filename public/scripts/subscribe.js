@@ -24,7 +24,7 @@ $(document).ready(() => {
             },
             "json"
         );
-    }
+    };
 
     /*
      * Checks the current subscribed status of
@@ -32,7 +32,7 @@ $(document).ready(() => {
      */
     $('.subscribe').each(function() {
         const name = $(this).attr('name');
-        sendPost(name, "true");
+        sendPost(name, true);
     });
 
     /*
@@ -41,6 +41,6 @@ $(document).ready(() => {
      */
     $('.subscribe').click(function() {
         const name = $(this).attr('name');
-        sendPost(name, "false");
+        sendPost(name, false);
     });
 });
