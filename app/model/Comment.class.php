@@ -16,6 +16,10 @@ class Comment extends DbObject {
 	public function getCourse() {
 		return Course::loadById($this->courseid);
 	}
+	
+	public function getPrettyDate() {
+		return date("F j, Y, g:i a", strtotime($this->timestamp));
+	}
 
 	// Loads the user who created the comment
 	public function getCommenter() {

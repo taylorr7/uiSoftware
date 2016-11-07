@@ -137,8 +137,10 @@ class CourseController {
 			} else {
 				$comments = array();
 				for($i = 0; $i < count($results); $i++) {
-					$commenterName = User::loadById($results[$i]->commenterid)->username;
-					array_push($comments, array('commenterName' => $commenterName, 'content' => $results[$i]->content, 'timestamp' => $results[$i]->timestamp));
+					$commenter = User::loadById($results[$i]->commenterid);
+					$commenterName = $commenter->username;
+					$commenterUrl = $commenter->getProfileUrl();
+					array_push($comments, array('commenterName' => $commenterName, 'content' => $results[$i]->content, 'url' => $commenterUrl, 'timestamp' => $results[$i]->getPrettyDate()));
 				}
 			}
 		} else {
