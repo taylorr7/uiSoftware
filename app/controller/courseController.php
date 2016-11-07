@@ -67,6 +67,12 @@ class CourseController {
 				$check = $_POST['check'];
 				$this->publish($id, $check);
 				break;
+				
+			case 'comment':
+				$cid = $_GET['cid'];
+				$content = $_GET['content'];
+				$this->comment($cid, $content);
+				break;
 		}
 	}
 
@@ -243,6 +249,21 @@ class CourseController {
 				$json = array('status' => 'published');
 			}
 		}
+		header('Content-Type: application/json');
+		echo json_encode($json);
+	}
+	
+	/*
+	 * Function to comment on a course.
+	 */
+	public function comment($cid, $content) {
+		$user = LoginSession::currentUser();
+		$newComment = new Comment();
+		$newComment->courseid = $cid;
+		$newComment->commenterid = $user->id;
+		$newComment->content = $content;
+		$newComment->save();
+		$json = array('status' => 'Success');
 		header('Content-Type: application/json');
 		echo json_encode($json);
 	}

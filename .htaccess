@@ -37,6 +37,8 @@ RewriteRule ^courses/view/(\d+)/?$ app/controller/courseController.php?action=vi
 
 RewriteRule ^courses/view/(\d+)/load/?$ app/controller/courseController.php?action=loadCourse&cid=$1 [QSA,L]
 
+RewriteRule ^courses/view/(\d+)/comment/?$ app/controller/courseController.php?action=comment&cid=$1 [QSA,L]
+
 RewriteRule ^courses/new/?$ app/controller/courseController.php?action=newCourse [QSA,L]
 
 RewriteRule ^courses/edit/(\d+)/?$ app/controller/courseController.php?action=editCourse&cid=$1 [QSA,L]
@@ -44,6 +46,7 @@ RewriteRule ^courses/edit/(\d+)/?$ app/controller/courseController.php?action=ed
 RewriteRule ^courses/edit/process/(\d*)/?$ app/controller/courseController.php?action=processCourse&cid=$1 [QSA,L]
 
 RewriteRule ^courses/publish/?$ app/controller/courseController.php?action=publish [QSA,L]
+
 
 
 # Lesson
