@@ -10,12 +10,12 @@ class CourseCommentEvent extends Event {
     public function getDescription() {
         $user1Link = $this->getUser1()->asLink();
         $user2Link = $this->getUser2()->asLink();
-        $comment = Comment::loadById($this->data1);
+        $comment = Comment::loadById($this->data);
         $courseLink = $comment->getCourse()->asLink();
         return <<<HTML
 {$user1Link} commented on {$user2Link}'s course {$courseLink}:
 <blockquote>
-    {$comment->text}
+    {$comment->content}
 </blockquote>
 HTML;
     }

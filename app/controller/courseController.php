@@ -263,6 +263,14 @@ class CourseController {
 		$newComment->commenterid = $user->id;
 		$newComment->content = $content;
 		$newComment->save();
+		
+		$course = Course::loadById($cid);
+		$event = new CourseCommentEvent();
+		$event->user1id = $user->id;
+		$event->user2id = $course->userid;
+		$event->data = $cid;
+		$event->save();
+		
 		$json = array('status' => 'Success');
 		header('Content-Type: application/json');
 		echo json_encode($json);
