@@ -22,6 +22,10 @@ $(document).on('click', '.lesson', function() {
     sendGet(name);
 });
 
+/*
+* Adds the appropriate event to the comment
+* button.
+*/
 $(document).on('click', '.comment', function() {
 	const comment = $('.commentText').val();
 	sendComment(comment);
