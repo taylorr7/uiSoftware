@@ -34,6 +34,8 @@ const sendGet = (lid) => {
             parseCourse(data.toc);
 			if(data.content === null) {
 				parseLesson("Lesson Not Found.");
+			} else if(data.content === "Comments") {
+				parseComment(data.comments);
 			} else {
 				parseLesson(data.content);
 			}
@@ -66,6 +68,7 @@ const parseCourse = function(courseString, currentLesson = null) {
 		}
 	}
 	courseContent += "</ul>";
+	courseContent += "<li><a name='comment' class='lesson'> Course Comments </a></li>";
 	document.getElementById('navigation').innerHTML = courseContent;
 }
 
@@ -110,6 +113,20 @@ const parseLesson = function(lessonString) {
 		}
 	}
 	document.getElementById('content').innerHTML = lessonContent;
+}
+
+const parseComment = function(commentArray) {
+	let commentContent = "";
+	if(commentArray === null) {
+		commentContent = "No Comments Found!";
+	} else {
+		for(let i = 0; i < commentArray.length; i++)
+		{
+			commentContent += "<div>" + commentArray[i].commenterName + " Commented : " + commentArray[i].content + "<br>" + commentArray[i].timestamp + "</div><br>";
+		}
+	}
+	commentContent += "<br><textarea rows=5 cols=75></textarea>";
+	document.getElementById('content').innerHTML = commentContent;
 }
 
 /*

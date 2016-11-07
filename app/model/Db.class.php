@@ -131,7 +131,7 @@ class Db
     // Deletes rows that match properties
     public static function deleteByProperties($db_table, $properties) {
         $whereClause = self::generateQueryClause($properties, " AND ");
-        $query = "DELETE * FROM {$db_table} WHERE {$whereClause};";
+        $query = "DELETE FROM {$db_table} WHERE {$whereClause};";
         self::query($query);
     }
 

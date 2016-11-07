@@ -42,4 +42,12 @@ class Subscription extends DbObject {
 	public static function loadByUser($user) {
 		return Db::instance()->selectByProperty(self::DB_TABLE, 'user1id', $user->id, __CLASS__);
 	}
+
+	/*
+	* Function to return the Subscription objects associated
+	* with the given subscriber and subscribee.
+	*/
+	public static function loadBySubscription($user1, $user2) {
+		return Db::instance()->selectByProperties(self::DB_TABLE, array('user1id' => $user1->id, 'user2id' => $user2->id), __CLASS__);
+	}
 }

@@ -57,6 +57,12 @@ class SiteController {
 				$qry = htmlspecialchars($_GET['s']);
 				$this->search($qry);
 				break;
+				
+			case 'subscribe':
+				$authorId = $_POST['name'];
+				$check = $_POST['check'];
+				$this->subscribe($authorId, $check);
+				break;
 		}
 	}
 
@@ -142,5 +148,41 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/search.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
+	}
+	
+	/*
+	 * Function to subscribe.
+	 */
+	public function subscribe($authorId, $check) {
+		$user = LoginSession::currentUser();
+		$author = User::loadById($authorId);
+		$results = Subscription::loadBySubscription($user, $author);
+		if ($check == 'false') {
+			if (count($results) == 1) {
+				$sub = $results[0];
+				$sub2 = Subscription::loadById($sub->id);
+				$sub2->delete();
+				$json = array('status' => 'unsubscribed');
+			} else {
+				$sub = new Subscription();
+				$sub->user1id = $user->id;
+				$sub->user2id = $author->id;
+				$sub->save();
+				$json = array('status' => 'subscribed');
+				
+				$event = new SubscribeEvent();
+				$event->user1id = $user->id;
+				$event->user2id = $author->id;
+				$event->save();
+			}
+		} else {
+			if (count($results) == 1) {
+				$json = array('status' => 'subscribed');
+			} else {
+				$json = array('status' => 'unsubscribed');
+			}
+		}
+		header('Content-Type: application/json');
+		echo json_encode($json);
 	}
 }
