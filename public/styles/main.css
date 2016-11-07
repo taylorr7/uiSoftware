@@ -32,12 +32,12 @@ main.container {
 .banner {
 	/* Make the banner image cover the area */
 	background-size:     cover;
-    background-repeat:   no-repeat;
-    background-position: center center;
+  background-repeat:   no-repeat;
+  background-position: center center;
 }
 
 header #logo {
-	margin: 3rem 2rem 7rem;
+	margin: 3rem 2rem;
 }
 
 .courseNav {
