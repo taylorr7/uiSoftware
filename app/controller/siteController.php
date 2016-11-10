@@ -69,6 +69,9 @@ class SiteController {
 				$check = $_POST['check'];
 				$this->subscribe($authorId, $check);
 				break;
+				
+			case 'manage':
+				$this->manage();
 		}
 	}
 
@@ -94,7 +97,12 @@ class SiteController {
     $user->username = htmlspecialchars($newProperties['user']);
     $user->password = htmlspecialchars($newProperties['pass']);
     $user->email = htmlspecialchars($newProperties['email']);
+	if($newProperties['education_type'] != null) {
 		$user->education_type = htmlspecialchars($newProperties['education_type']);
+	} else {
+		$user->education_type = "no";
+	}
+	$user->role = "registered";
 
     $user->save();
   }
@@ -200,5 +208,9 @@ class SiteController {
 		}
 		header('Content-Type: application/json');
 		echo json_encode($json);
+	}
+	
+	public function manage() {
+		$user = LoginSession::currentUser();
 	}
 }
