@@ -26,6 +26,11 @@
 			<a class="navbar-brand" href="<?= BASE_URL ?>">
 				<span class="glyphicon glyphicon-home"></span>
 			</a>
+			<?php if(LoginSession::currentUser()->role == "admin"): ?>
+				<a class="navbar-brand" href="<?= BASE_URL ?>/manage">
+					<span class="glyphicon glyphicon-user"></span>
+				</a>
+			<?php endif; ?>
 		</div>
 
 		<div class="navbar-header pull-right">
@@ -37,12 +42,6 @@
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-right">
-						<li>
-							<a href="<?= BASE_URL ?>/authors/view/<?= $user->username ?>">
-								<span class="glyphicon glyphicon-user"></span>
-								View Profile
-							</a>
-						</li>
 						<li>
 							<a href="<?= BASE_URL ?>/account">
 								<span class="glyphicon glyphicon-cog"></span>

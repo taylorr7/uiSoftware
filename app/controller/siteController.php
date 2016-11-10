@@ -210,7 +210,20 @@ class SiteController {
 		echo json_encode($json);
 	}
 	
+	/*
+	* Function to view the user manager page for administrators.
+	*/
 	public function manage() {
 		$user = LoginSession::currentUser();
+		$users = User::search("");
+		if ($user->role != "admin") {
+			// User does not have permissions
+			header("HTTP/1.1 403 Forbidden" );
+			exit();
+		}
+		$pageName = 'User Manager';
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/manager.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 }
