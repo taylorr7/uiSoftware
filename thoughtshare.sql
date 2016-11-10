@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Nov 06, 2016 at 01:46 AM
+-- Host: 127.0.0.1
+-- Generation Time: Nov 10, 2016 at 06:46 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -33,6 +33,17 @@ CREATE TABLE `comments` (
   `content` text NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `courseid`, `commenterid`, `content`, `timestamp`) VALUES
+(1, 1, 2, 'Howdy!', '2016-11-07 18:36:56'),
+(2, 1, 2, 'This is cool', '2016-11-07 18:57:03'),
+(3, 1, 2, 'Test', '2016-11-07 19:00:25'),
+(4, 1, 3, 'adsofijsdf', '2016-11-07 19:11:20'),
+(5, 2, 3, 'hi\n', '2016-11-10 17:33:43');
 
 -- --------------------------------------------------------
 
@@ -82,7 +93,22 @@ CREATE TABLE `event` (
 INSERT INTO `event` (`id`, `eventtypeid`, `user1id`, `user2id`, `data`, `timestamp`) VALUES
 (1, 2, 2, NULL, 5, '2016-11-05 18:45:59'),
 (4, 3, 2, NULL, 8, '2016-11-05 23:12:46'),
-(5, 4, 2, NULL, 8, '2016-11-05 23:18:16');
+(5, 4, 2, NULL, 8, '2016-11-05 23:18:16'),
+(6, 6, 2, 2, NULL, '2016-11-07 17:41:52'),
+(16, 6, 2, 3, NULL, '2016-11-07 18:05:16'),
+(17, 6, 2, 3, NULL, '2016-11-07 18:05:19'),
+(18, 6, 2, 3, NULL, '2016-11-07 18:08:35'),
+(19, 6, 2, 3, NULL, '2016-11-07 18:08:37'),
+(20, 6, 2, 3, NULL, '2016-11-07 18:08:41'),
+(21, 6, 2, 3, NULL, '2016-11-07 18:36:33'),
+(22, 6, 2, 3, NULL, '2016-11-07 18:36:35'),
+(23, 5, 2, 2, 1, '2016-11-07 18:36:56'),
+(24, 5, 2, 2, 2, '2016-11-07 18:57:03'),
+(25, 5, 2, 2, 3, '2016-11-07 19:00:25'),
+(26, 5, 3, 2, 4, '2016-11-07 19:11:21'),
+(27, 6, 3, 2, NULL, '2016-11-10 15:59:39'),
+(28, 6, 3, 4, NULL, '2016-11-10 16:30:50'),
+(29, 5, 3, 3, 5, '2016-11-10 17:33:43');
 
 -- --------------------------------------------------------
 
@@ -144,6 +170,14 @@ CREATE TABLE `subscriptions` (
   `user2id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `subscriptions`
+--
+
+INSERT INTO `subscriptions` (`id`, `user1id`, `user2id`) VALUES
+(1, 3, 2),
+(2, 3, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -152,6 +186,7 @@ CREATE TABLE `subscriptions` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
+  `role` enum('unregistered','registered','admin') NOT NULL DEFAULT 'registered',
   `namefirst` varchar(20) NOT NULL,
   `namelast` varchar(20) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -164,11 +199,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `namefirst`, `namelast`, `username`, `password`, `email`, `education_type`) VALUES
-(2, 'Taylor', 'Rydahl', 'taylorr7', 'password', 'taylorr7@vt.edu', 'bd'),
-(3, 'John', 'Smith', 'jsmith', 'password', 'jsmith@gmail.com', 'bd'),
-(4, 'Jane', 'Smith', 'jsmith2', 'password', 'jsmith2@gmail.com', 'dd'),
-(5, 'John', 'Man', 'johnm', 'pass', 'johnm@gmail.com', 'no');
+INSERT INTO `users` (`id`, `role`, `namefirst`, `namelast`, `username`, `password`, `email`, `education_type`) VALUES
+(2, 'registered', 'Taylor', 'Rydahl', 'taylorr7', '123', 'taylorr7@vt.edu', 'md'),
+(3, 'registered', 'John', 'Smith', 'jsmith', 'password', 'bob@gmail.com', 'bd'),
+(4, 'registered', 'Jane', 'Smith', 'jsmith2', 'password', 'jsmith2@gmail.com', 'dd'),
+(5, 'registered', 'John', 'Man', 'johnm', 'pass', 'johnm@gmail.com', 'no');
 
 --
 -- Indexes for dumped tables
@@ -226,7 +261,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `courses`
 --
@@ -236,7 +271,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `event_types`
 --
@@ -251,12 +286,12 @@ ALTER TABLE `lessons`
 -- AUTO_INCREMENT for table `subscriptions`
 --
 ALTER TABLE `subscriptions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
