@@ -34,7 +34,15 @@ class LessonController {
 
       case 'newLesson': $this->newLesson(); break;
 
-      case 'editLesson': $lid = $_GET['lid']; $this->editLesson($lid); break;
+      case 'editLesson':
+				$lid = $_GET['lid'];
+				$this->editLesson($lid);
+				break;
+
+			case 'deleteLesson':
+				$lid = $_GET['lid'];
+				$this->deleteLesson($lid);
+				break;
 
       case 'processLesson':
           $lid = isset($_GET['lid']) ? $_GET['lid'] : null;
@@ -90,6 +98,14 @@ class LessonController {
 		include_once SYSTEM_PATH.'/view/editlesson.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
   }
+
+	/*
+	 * Function to delete a lesson.
+	 */
+	public function deleteLesson($lid) {
+		Db::deleteById("lessons", $lid);
+		header('Location: ' . BASE_URL . '/lessons');
+	}
 
 	/*
 	 * Function to process edit lesson.

@@ -49,6 +49,11 @@ class CourseController {
           $this->newCourse();
           break;
 
+			case 'deleteCourse':
+				$cid = $_GET['cid'];
+				$this->deleteCourse($cid);
+				break;
+
       case 'editCourse':
           $cid = $_GET['cid'];
           $this->editCourse($cid);
@@ -67,7 +72,7 @@ class CourseController {
 				$check = $_POST['check'];
 				$this->publish($id, $check);
 				break;
-				
+
 			case 'comment':
 				$cid = $_GET['cid'];
 				$content = $_GET['content'];
@@ -194,6 +199,14 @@ class CourseController {
   }
 
 	/*
+	 * Function to delete course.
+	 */
+	public function deleteCourse($cid) {
+		Db::deleteById("courses", $cid);
+		header('Location: ' . BASE_URL . '/courses');
+	}
+
+	/*
 	 * Function to process course.
 	 */
   public function processCourse($cid, $coursename, $coursedescription, $coursecontent) {
@@ -254,7 +267,7 @@ class CourseController {
 		header('Content-Type: application/json');
 		echo json_encode($json);
 	}
-	
+
 	/*
 	 * Function to comment on a course.
 	 */
@@ -265,14 +278,14 @@ class CourseController {
 		$newComment->commenterid = $user->id;
 		$newComment->content = $content;
 		$newComment->save();
-		
+
 		$course = Course::loadById($cid);
 		$event = new CourseCommentEvent();
 		$event->user1id = $user->id;
 		$event->user2id = $course->userid;
 		$event->data = $newComment->id;
 		$event->save();
-		
+
 		$json = array('status' => 'Success');
 		header('Content-Type: application/json');
 		echo json_encode($json);

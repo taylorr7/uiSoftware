@@ -52,6 +52,12 @@ class SiteController {
 				$this->viewAuthor($authorName);
 				break;
 
+			case 'deleteUser':
+				$this->checkLoginStatus();
+				$uid = htmlspecialchars($_GET['uid']);
+				$this->deleteUser($uid);
+				break;
+
 			case 'search':
 				$this->checkLoginStatus();
 				$qry = htmlspecialchars($_GET['s']);
@@ -135,6 +141,14 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/author.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
+	}
+
+	/*
+	 * Function to delete user.
+	 */
+	public function deleteUser($uid) {
+		Db::deleteById("users", $uid);
+		header('Location: ' . BASE_URL . '/users');
 	}
 
 	/*
