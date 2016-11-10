@@ -152,10 +152,10 @@ const parseComment = (commentArray) => {
 	} else {
         commentContent = commentArray.map((i) =>`
             <div class="clearfix">
-                <img src="${i.url}" class="comment-profile pull-left"/>
+                <img src="${i.url}" class="small-profile pull-left"/>
                 <blockquote class="pull-left">
                     ${i.content}
-                    <footer>${i.commenterName} at ${i.timestamp}</footer>
+                    <footer>${i.commenterName} on ${i.timestamp}</footer>
                 </blockquote>
             </div>
         `).join('');

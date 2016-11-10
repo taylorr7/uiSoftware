@@ -15,11 +15,26 @@ class Subscription extends DbObject {
 	}
 
 	public function getSubscriber() {
-		return User::loadById($user1id);
+		return User::loadById($this->user1id);
 	}
 
 	public function getSubscribee() {
-		return User::loadById($user2id);
+		return User::loadById($this->user2id);
+	}
+
+	public static function getSubscribersOf($user) {
+		$subsToUser = Db::instance()->selectByProperty(self::DB_TABLE, 'user2id', $user->id, __CLASS__);
+		return array_map(function($sub) {
+			return $sub->getSubscriber();
+		}, $subsToUser);
+	}
+
+
+	public static function getSubscribedToUsers($user) {
+		$subsToUser = Db::instance()->selectByProperty(self::DB_TABLE, 'user1id', $user->id, __CLASS__);
+		return array_map(function($sub) {
+			return $sub->getSubscribee();
+		}, $subsToUser);
 	}
 
 	/*
