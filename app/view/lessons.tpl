@@ -23,7 +23,7 @@
 					<span class="glyphicon glyphicon-edit"></span>
 					Edit
 				</a>
-				<a class="btn btn-default" role="button">
+				<a class="btn btn-default" href="<?= BASE_URL ?>/lessons/delete/<?= $lesson->id ?>" role="button">
 					<span class="glyphicon glyphicon-trash"></span>
 					Delete
 				</a>

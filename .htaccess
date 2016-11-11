@@ -21,6 +21,8 @@ RewriteRule ^account/?$ app/controller/siteController.php?action=account [QSA,L]
 
 RewriteRule ^account/process/?$ app/controller/siteController.php?action=processAccount [QSA,L]
 
+RewriteRule ^account/delete/(\d+)/?$ app/controller/siteController.php?action=deleteUser&uid=$1 [QSA,L]
+
 RewriteRule ^authors/view/(\w+)/?$ app/controller/siteController.php?action=viewAuthor&aname=$1 [QSA,L]
 
 RewriteRule ^search/?$ app/controller/siteController.php?action=search [QSA,L]
@@ -59,5 +61,7 @@ RewriteRule ^lessons/personal?$ app/controller/lessonController.php?action=perso
 RewriteRule ^lessons/new/?$ app/controller/lessonController.php?action=newLesson [QSA,L]
 
 RewriteRule ^lessons/edit/(\d*)/?$ app/controller/lessonController.php?action=editLesson&lid=$1 [QSA,L]
+
+RewriteRule ^lessons/delete/(\d*)/?$ app/controller/lessonController.php?action=deleteLesson&lid=$1 [QSA,L]
 
 RewriteRule ^lessons/edit/process/(\d*)/?$ app/controller/lessonController.php?action=processLesson&lid=$1 [QSA,L]
