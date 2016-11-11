@@ -51,7 +51,6 @@ class Db
 
     // Performs a database query
     private function query($query) {
-        echo $query;
         $result = mysql_query($query, $this->conn);
         if (!$result)
             die('Invalid query: ' . mysql_error());
