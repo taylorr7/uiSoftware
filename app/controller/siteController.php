@@ -69,7 +69,7 @@ class SiteController {
 				$check = $_POST['check'];
 				$this->subscribe($authorId, $check);
 				break;
-				
+
 			case 'manage':
 				$this->manage();
 		}
@@ -209,7 +209,7 @@ class SiteController {
 		header('Content-Type: application/json');
 		echo json_encode($json);
 	}
-	
+
 	/*
 	* Function to view the user manager page for administrators.
 	*/
