@@ -7,6 +7,7 @@ class User extends DbObject {
 	public $password;
 	public $namefirst;
 	public $namelast;
+	public $role;
 	public $email;
 	public $education_type;
 
