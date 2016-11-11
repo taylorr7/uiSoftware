@@ -49,7 +49,12 @@
 				<input type="radio" name="education_type" value="md" <?= User::isChecked("md") ?>> Master's Degree<br>
 				<input type="radio" name="education_type" value="dd" <?= User::isChecked("dd") ?>> Doctorate Degree<br>
 			</div>
-			<button type="submit" name="submit" class="btn btn-primary">Update Information</button>
+				<button type="submit" name="submit" class="btn btn-primary">Update Information</button>
 		</form>
+		<br>
+		<a class="btn btn-default" role="button">
+			<span class="glyphicon glyphicon-trash"></span>
+			Delete Account
+		</a>
 	</div>
 </div>

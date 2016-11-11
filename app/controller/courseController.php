@@ -202,7 +202,7 @@ class CourseController {
 	 * Function to delete course.
 	 */
 	public function deleteCourse($cid) {
-		Db::deleteById("courses", $cid);
+		Db::deleteById("'courses'", $cid);
 		header('Location: ' . BASE_URL . '/courses');
 	}
 

@@ -43,6 +43,8 @@ RewriteRule ^courses/new/?$ app/controller/courseController.php?action=newCourse
 
 RewriteRule ^courses/edit/(\d+)/?$ app/controller/courseController.php?action=editCourse&cid=$1 [QSA,L]
 
+RewriteRule ^courses/delete/(\d+)/?$ app/controller/courseController.php?action=deleteCourse&cid=$1 [QSA,L]
+
 RewriteRule ^courses/edit/process/(\d*)/?$ app/controller/courseController.php?action=processCourse&cid=$1 [QSA,L]
 
 RewriteRule ^courses/publish/?$ app/controller/courseController.php?action=publish [QSA,L]

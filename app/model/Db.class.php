@@ -142,6 +142,7 @@ class Db
 
     // Deletes row that has given id
     public static function deleteById($db_table, $id) {
-        return self::deleteByProperty($db_table, "id", $id);
+        return self::deleteByProperty($db_table, "'id'", $id);
+
     }
 }

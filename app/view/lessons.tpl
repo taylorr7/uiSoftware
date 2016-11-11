@@ -23,6 +23,10 @@
 					<span class="glyphicon glyphicon-edit"></span>
 					Edit
 				</a>
+				<a class="btn btn-default" role="button">
+					<span class="glyphicon glyphicon-trash"></span>
+					Delete
+				</a>
 			</div>
 		</li>
 
