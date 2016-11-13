@@ -103,8 +103,8 @@ class LessonController {
 	 * Function to delete a lesson.
 	 */
 	public function deleteLesson($lid) {
-		Db::deleteById("lessons", $lid);
-		header('Location: ' . BASE_URL . '/lessons');
+		Db::instance()->deleteById("lessons", $lid);
+		header('Location: ' . BASE_URL . '/lessons/personal');
 	}
 
 	/*

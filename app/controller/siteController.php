@@ -155,8 +155,8 @@ class SiteController {
 	 * Function to delete user.
 	 */
 	public function deleteUser($uid) {
-		Db::deleteById("users", $uid);
-		header('Location: ' . BASE_URL . '/users');
+		Db::instance()->deleteById("users", $uid);
+		header('Location: ' . BASE_URL);
 	}
 
 	/*
