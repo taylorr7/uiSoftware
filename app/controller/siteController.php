@@ -72,6 +72,7 @@ class SiteController {
 
 			case 'manage':
 				$this->manage();
+				break;
 				
 			case 'processManage':
 				$event = $_POST['type'];
