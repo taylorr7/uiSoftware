@@ -34,13 +34,13 @@
 					<span class="glyphicon glyphicon-pencil"></span>
 					Update Information
 				</a>
-				<?php if($nextUser->role != "admin"): ?>
+				<?php if(!$nextUser->isAdmin()): ?>
 					<a class="btn btn-default manage" name="Promote <?= $nextUser->id ?>" role="button">
 						<span class="glyphicon glyphicon-arrow-up"></span>
 						Promote to Admin
 					</a>
 				<?php endif; ?>
-				<?php if($nextUser->role == "admin"): ?>
+				<?php if($nextUser->isAdmin()): ?>
 					<a class="btn btn-default manage" name="Demote <?= $nextUser->id ?>" role="button">
 							<span class="glyphicon glyphicon-arrow-down"></span>
 							Demote to User
