@@ -62,12 +62,32 @@ $(document).ready(() => {
 	});
 
 	/*
-	* Function to confirm deletion.
+	* Function to confirm course deletion.
 	*/
-	$(".delete").click(function() {
-		var result = confirm("Are you sure?");
+	$(".delete-course").click(function() {
+		var result = confirm("Are you sure you want to delete this course?");
 		if (result) {
 			window.location = BASE_URL + "/courses/delete/" + $(this).attr("data-cid");
+		}
+	});
+
+	/*
+	* Function to confirm lesson deletion.
+	*/
+	$(".delete-lesson").click(function() {
+		var result = confirm("Are you sure you want to delete this lesson?");
+		if (result) {
+			window.location = BASE_URL + "/lessons/delete/" + $(this).attr("data-lid");
+		}
+	});
+
+	/*
+	* Function to confirm user deletion.
+	*/
+	$(".delete-account").click(function() {
+		var result = confirm("Are you sure you want to delete your account?");
+		if (result) {
+			window.location = BASE_URL + "/account/delete/" + $(this).attr("data-aid");
 		}
 	});
 });

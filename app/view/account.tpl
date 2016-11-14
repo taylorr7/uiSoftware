@@ -58,7 +58,7 @@
 				<button type="submit" name="submit" class="btn btn-primary">Update Information</button>
 		</form>
 		<br>
-		<a class="btn btn-default" href="<?= BASE_URL ?>/account/delete/<?= $user->id ?>" role="button">
+		<a class="btn btn-default delete-account" data-aid="<?= $user->id ?>" role="button">
 			<span class="glyphicon glyphicon-trash"></span>
 			Delete Account
 		</a>
