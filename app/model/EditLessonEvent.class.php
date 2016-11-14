@@ -2,6 +2,11 @@
 
 class EditLessonEvent extends Event {
 
+    public static function deleteByLesson($lesson) {
+		Db::instance()->deleteByProperties(self::DB_TABLE,
+            array('eventtypeid' => 4, 'data' => $lesson->id));
+    }
+
     function __construct($args = array()) {
         $this->eventtypeid = 4;
         parent::__construct($args);

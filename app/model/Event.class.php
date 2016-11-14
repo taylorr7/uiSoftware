@@ -59,6 +59,11 @@ abstract class Event extends DbObject {
 		return self::getEventSubclass($results[0]);
 	}
 
+	public static function deleteUsersEvents($user) {
+		Db::instance()->deleteByProperty(self::DB_TABLE, 'user1id', $user->id);
+		Db::instance()->deleteByProperty(self::DB_TABLE, 'user2id', $user->id);
+	}
+
   public static function getUserEvents($user, $limit = null) {
 		$table = self::DB_TABLE;
 		$query = "SELECT * FROM {$table} WHERE user1id='{$user->id}' ORDER BY timestamp DESC";

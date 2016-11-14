@@ -111,6 +111,8 @@ class LessonController {
             exit();
         }
 		$lesson->delete();
+		NewLessonEvent::deleteByLesson($lesson);
+		EditLessonEvent::deleteByLesson($lesson);
 		header('Location: ' . BASE_URL . '/lessons/personal');
 	}
 
