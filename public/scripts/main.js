@@ -11,12 +11,18 @@ $(document).ready(() => {
 	*/
 	$("#uploadQuiz").click(() => {
 		const name = prompt("What do you want the question to be?");
+		if (!name) exit();
 		const numQuestions = parseInt(prompt("How many possible answers do you want there to be?"));
+		if (!numQuestions) exit();
 		const answers = [];
 		for (let i = 0; i < numQuestions; i++) {
-			answers.push(prompt("What is a possible answer?"));
+			const answer = prompt("What is a possible answer?");
+			if (!answer) exit();
+			answers.push(answer);
 		}
+		if (!answers) exit();
 		const correct = parseInt(prompt("Which number answer was the correct one?"));
+		if (!correct) exit();
 		const answerText = answers.reduce((prev, cur, curIdx) => {
 			const answerType = curIdx == correct - 1 ? "correctAnswer" : "answer";
 			return `${prev}${answerType}-${cur}:`;
