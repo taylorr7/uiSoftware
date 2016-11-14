@@ -31,6 +31,8 @@ RewriteRule ^authors/subscribe/?$ app/controller/siteController.php?action=subsc
 
 RewriteRule ^manage/?$ app/controller/siteController.php?action=manage [QSA,L]
 
+RewriteRule ^manage/update?$ app/controller/siteController.php?action=processManage [QSA,L]
+
 
 # Course
 RewriteRule ^courses/?$ app/controller/courseController.php?action=courses [QSA,L]

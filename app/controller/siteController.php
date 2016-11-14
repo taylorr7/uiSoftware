@@ -72,6 +72,14 @@ class SiteController {
 
 			case 'manage':
 				$this->manage();
+				break;
+				
+			case 'processManage':
+				$event = $_POST['type'];
+				$uid = $_POST['value'];
+				$info = $_POST['info'];
+				$this->processManage($uid, $event, $info);
+				break;
 		}
 	}
 
@@ -225,5 +233,41 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/manager.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
+	}
+	
+	/*
+	* Function to update user information as posted by the
+	* administrators.
+	*/
+	public function processManage($uid, $event, $info) {
+		$admin = LoginSession::currentUser();
+		if ($admin->role != "admin") {
+			// User does not have permissions
+			header("HTTP/1.1 403 Forbidden" );
+			exit();
+		}
+		$user = User::loadById($uid);
+		if($event == "Update") {
+			$user->namefirst = $info[0];
+			$user->namelast = $info[1];
+			$user->email = $info[2];
+			$user->save();
+			$json = array('status' => 'success');	
+		} else if($event == "Delete") {
+			$user->delete();
+			$json = array('status' => 'success');
+		} else if($event == "Promote") {
+			$user->role = "admin";
+			$user->save();
+			$json = array('status' => 'success');
+		} else if($event == "Reset") {
+			$user->password = "default";
+			$user->save();
+			$json = array('status' => 'success');
+		} else {
+			$json = array('status' => 'failure');
+		}
+		header('Content-Type: application/json');
+		echo json_encode($json);
 	}
 }
