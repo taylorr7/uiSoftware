@@ -13,7 +13,7 @@
 	<div class="col-sm-8 col-xs-12">
 		<h3><?= $author->username ?>'s Courses</h3>
 		<ul class="list-group">
-			<?php foreach(Course::loadByUser($author) as $course):
+			<?php foreach(Course::loadByUser($author, true) as $course):
 				$creator = $course->getCreator(); ?>
 
 				<li class="list-group-item">

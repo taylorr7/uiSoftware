@@ -34,8 +34,12 @@ class Course extends DbObject {
 	}
 
 	// Static helper function that loads all courses creataed by user
-	public static function loadByUser($user) {
-		return Db::instance()->selectByProperty(self::DB_TABLE, 'userid', $user->id, __CLASS__);
+	public static function loadByUser($user, $publishedOnly = false) {
+		$props = array('userid' => $user->id);
+		if ($publishedOnly) {
+			$props['published'] = true;
+		}
+		return Db::instance()->selectByProperties(self::DB_TABLE, $props, __CLASS__);
 	}
 
 	// Static helper function that loads all published courses
