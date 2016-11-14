@@ -60,4 +60,14 @@ $(document).ready(() => {
 		}
 		$('[name = ccontent]').get(0).value += appendText;
 	});
+
+	/*
+	* Function to confirm deletion.
+	*/
+	$(".delete").click(function() {
+		var result = confirm("Are you sure?");
+		if (result) {
+			window.location = BASE_URL + "/courses/delete/" + $(this).attr("data-cid");
+		}
+	});
 });

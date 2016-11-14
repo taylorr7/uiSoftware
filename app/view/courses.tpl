@@ -34,7 +34,7 @@
 					<a class="btn btn-default publish" name="<?= $course->id ?>" role="button">
 						Unpublish
 					</a>
-					<a class="btn btn-default" href="<?= BASE_URL ?>/courses/delete/<?= $course->id ?>" role="button">
+					<a class="btn btn-default delete" data-cid="<?= $course->id ?>" role="button">
 						<span class="glyphicon glyphicon-trash"></span>
 						Delete
 					</a>
