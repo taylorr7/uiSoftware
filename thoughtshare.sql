@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2016 at 08:00 PM
+-- Generation Time: Nov 14, 2016 at 08:53 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -108,7 +108,9 @@ INSERT INTO `event` (`id`, `eventtypeid`, `user1id`, `user2id`, `data`, `timesta
 (26, 5, 3, 2, 4, '2016-11-07 19:11:21'),
 (27, 6, 3, 2, NULL, '2016-11-10 15:59:39'),
 (28, 6, 3, 4, NULL, '2016-11-10 16:30:50'),
-(29, 5, 3, 3, 5, '2016-11-10 17:33:43');
+(29, 5, 3, 3, 5, '2016-11-10 17:33:43'),
+(30, 4, 2, NULL, 1, '2016-11-14 19:52:06'),
+(31, 4, 2, NULL, 1, '2016-11-14 19:52:49');
 
 -- --------------------------------------------------------
 
@@ -151,7 +153,7 @@ CREATE TABLE `lessons` (
 --
 
 INSERT INTO `lessons` (`id`, `userid`, `lessonname`, `content`) VALUES
-(1, 2, 'Power Rule', 'The Power Rule is a useful tool for determining the derivatives of functions. The rule itself is simple, given any function of the form f(x) = x^c, we can evaluate its derivative to be f-(x) = c x^(c-1). As an example, consider f(x) = x^2. We can use the Power Rule to quickly evaluate its derivative as f-(x) = 2x. \r\n\r\n~IMAGE:url-&lt;BASE_URL&gt;.-/public/media/mapleGraph.png-:~ \r\n\r\nAs you can see from the graph, the function and its derivative are related. As the slope of the function increases, the value of the derivative increases as well. \r\n\r\n~QUIZ:name-What is the derivative of 6x^2?:answer-24x:correctAnswer-12x:answer-6x:answer-6:~'),
+(1, 2, 'Power Rule', 'The Power Rule is a useful tool for determining the derivatives of functions. The rule itself is simple, given any function of the form f(x) = x^c, we can evaluate its derivative to be f-(x) = c x^(c-1). As an example, consider f(x) = x^2. We can use the Power Rule to quickly evaluate its derivative as f-(x) = 2x. \r\n\r\n~IMAGE:url-&lt;BASE_URL&gt;/public/media/mapleGraph.png:~ \r\n\r\nAs you can see from the graph, the function and its derivative are related. As the slope of the function increases, the value of the derivative increases as well. \r\n\r\n~QUIZ:name-What is the derivative of 6x^2?:answer-24x:correctAnswer-12x:answer-6x:answer-6:~'),
 (4, 2, 'New Lesson', 'Let us make a new lesson.'),
 (5, 3, 'Product Rule', 'If you define a function f as the product of two functions, g and h, you can define the derivative of f or f'' as (g'')h + g(h'').\r\n\r\n\r\n~QUIZ:name-What is the derivative of xcos(x)?:answer-cos(x):correctAnswer-cos(x) - xsin(x):answer-4:~\r\n'),
 (6, 3, 'Chain Rule', 'To find the derivative of a function f, defined as the composition of two functions, g and h, we define f'' as g''(h)*h''.\r\n\r\n\r\n~QUIZ:name-What is the derivative of cos(x^2)?:answer-14:correctAnswer--2xsin(x^2):~\r\n\r\nThis is the chain rule of derivatives :)'),
@@ -272,7 +274,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `event_types`
 --
