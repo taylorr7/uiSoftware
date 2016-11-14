@@ -248,21 +248,26 @@ class SiteController {
 		}
 		$user = User::loadById($uid);
 		if($event == "Update") {
+			// Update the user's information.
 			$user->namefirst = $info[0];
 			$user->namelast = $info[1];
 			$user->email = $info[2];
 			$user->save();
 			$json = array('status' => 'success');	
 		} else if($event == "Delete") {
+			// Delete the user.
 			Event::deleteUsersEvents($user);
+			// Delete the user's subscriptions.
 			$userSubs = Subscription::loadByUser($user);
 			foreach($userSubs as $nextSub) {
 				$nextSub->delete();
 			}
+			// Delete the user's courses.
 			$userCourses= Course::loadByUser($user);
 			foreach($userCourses as $nextCourse) {
 				$nextCourse->delete();
 			}
+			// Delete the user's lessons.
 			$userLessons = Lesson::loadByUser($user);
 			foreach($userLessons as $nextLesson) {
 				$nextLesson->delete();
@@ -270,14 +275,17 @@ class SiteController {
 			$user->delete();
 			$json = array('status' => 'success');
 		} else if($event == "Promote") {
+			// Promote the user to admin.
 			$user->role = "admin";
 			$user->save();
 			$json = array('status' => 'success');
 		} else if($event == "Demote") {
+			// Demote the user to registered.
 			$user->role = "registered";
 			$user->save();
 			$json = array('status' => 'success');
 		} else if($event == "Reset") {
+			// Reset the user's password to 'default'.
 			$user->password = "default";
 			$user->save();
 			$json = array('status' => 'success');
