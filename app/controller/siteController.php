@@ -260,6 +260,10 @@ class SiteController {
 			$user->role = "admin";
 			$user->save();
 			$json = array('status' => 'success');
+		} else if($event == "Demote") {
+			$user->role = "registered";
+			$user->save();
+			$json = array('status' => 'success');
 		} else if($event == "Reset") {
 			$user->password = "default";
 			$user->save();

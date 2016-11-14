@@ -47,6 +47,9 @@ $(document).ready(() => {
 		} else if(name.startsWith("Promote")) {
 			type = "Promote";
 			value = name.substr(8);
+		} else if(name.startsWith("Demote")) {
+			type= "Demote";
+			value = name.substr(7);
 		} else if(name.startsWith("Reset")) {
 			type = "Reset";
 			value = name.substr(6);

@@ -18,24 +18,30 @@
 				Last Name: <input name="<?= $nextUser->id ?>lName" type="text" value="<?= $nextUser->namelast ?>">
 				Email: <input name="<?= $nextUser->id ?>email" type="text" value="<?= $nextUser->email ?>"> <br>
 			</p>
+			<a class="btn btn-default manage" name="Update <?= $nextUser->id ?>" role="button">
+				<span class="glyphicon glyphicon-edit"></span>
+				Update Information
+			</a>
 			<?php if($nextUser->role != "admin"): ?>
-				<a class="btn btn-default manage" name="Update <?= $nextUser->id ?>" role="button">
-						<span class="glyphicon glyphicon-edit"></span>
-						Update Information
-				</a>
 				<a class="btn btn-default manage" name="Promote <?= $nextUser->id ?>" role="button">
-						<span class="glyphicon glyphicon-edit"></span>
-						Promote to Admin
-				</a>
-				<a class="btn btn-default manage" name="Reset <?= $nextUser->id ?>" role="button">
-						<span class="glyphicon glyphicon-edit"></span>
-						Reset Password
-				</a>
-				<a class="btn btn-default manage" name="Delete <?= $nextUser->id ?>" role="button">
-						<span class="glyphicon glyphicon-edit"></span>
-						Delete User
+					<span class="glyphicon glyphicon-edit"></span>
+					Promote to Admin
 				</a>
 			<?php endif; ?>
+			<?php if($nextUser->role == "admin"): ?>
+				<a class="btn btn-default manage" name="Demote <?= $nextUser->id ?>" role="button">
+						<span class="glyphicon glyphicon-edit"></span>
+						Demote to User
+				</a>
+			<?php endif; ?>
+			<a class="btn btn-default manage" name="Reset <?= $nextUser->id ?>" role="button">
+				<span class="glyphicon glyphicon-edit"></span>
+				Reset Password
+			</a>
+			<a class="btn btn-default manage" name="Delete <?= $nextUser->id ?>" role="button">
+				<span class="glyphicon glyphicon-edit"></span>
+				Delete User
+			</a>
 		</li>
 	<?php endforeach; ?>
 </ul>
