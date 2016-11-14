@@ -86,7 +86,7 @@ class CourseController {
 	 */
 	public function courses() {
 		$user = LoginSession::currentUser();
-		$courses = Course::loadPublished();
+		$courses = Course::loadAll(!$user->isAdmin());
 		$pageName = 'Courses';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/courses.tpl';

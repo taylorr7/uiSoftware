@@ -43,8 +43,12 @@ class Course extends DbObject {
 	}
 
 	// Static helper function that loads all published courses
-	public static function loadPublished() {
-		return Db::instance()->selectByProperty(self::DB_TABLE, 'published', 1, __CLASS__);
+	public static function loadAll($publishedOnly = false) {
+		if ($publishedOnly) {
+			return Db::instance()->selectByProperty(self::DB_TABLE, 'published', 1, __CLASS__);
+		} else {
+			return Db::instance()->selectAll(self::DB_TABLE, __CLASS__);
+		}
 	}
 
 	// Static helper function that searches all courses
