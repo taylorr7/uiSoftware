@@ -72,9 +72,9 @@ $(document).ready(() => {
 	* Function to confirm course deletion.
 	*/
 	$(".delete-course").click(function() {
-		var result = confirm("Are you sure you want to delete this course?");
+		const result = confirm("Are you sure you want to delete this course?");
 		if (result) {
-			window.location = BASE_URL + "/courses/delete/" + $(this).attr("data-cid");
+			window.location = `${BASE_URL}/courses/delete/${$(this).attr("data-cid")}`;
 		}
 	});
 
@@ -82,9 +82,9 @@ $(document).ready(() => {
 	* Function to confirm lesson deletion.
 	*/
 	$(".delete-lesson").click(function() {
-		var result = confirm("Are you sure you want to delete this lesson?");
+		const result = confirm("Are you sure you want to delete this lesson?");
 		if (result) {
-			window.location = BASE_URL + "/lessons/delete/" + $(this).attr("data-lid");
+			window.location = `${BASE_URL}/lessons/delete/${$(this).attr("data-lid")}`;
 		}
 	});
 
@@ -92,9 +92,9 @@ $(document).ready(() => {
 	* Function to confirm user deletion.
 	*/
 	$(".delete-account").click(function() {
-		var result = confirm("Are you sure you want to delete your account?");
+		const result = confirm("Are you sure you want to delete your account?");
 		if (result) {
-			window.location = BASE_URL + "/account/delete/" + $(this).attr("data-aid");
+			window.location = `${BASE_URL}/account/delete/${$(this).attr("data-aid")}`;
 		}
 	});
 });

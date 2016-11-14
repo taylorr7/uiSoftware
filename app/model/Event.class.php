@@ -17,18 +17,22 @@ abstract class Event extends DbObject {
 		return self::DB_TABLE;
 	}
 
+	// The primary user associated with event
     public function getUser1() {
         return User::loadById($this->user1id);
     }
 
+	// The secondary user associated with event
     public function getUser2() {
         return User::loadById($this->user2id);
     }
 
+	// Formats the timestamp for web-friendly output
 	public function getPrettyDate() {
 		return date("F j, Y, g:i a", strtotime($this->timestamp));
 	}
 
+	// A static helper function that creates the proper event subclass
     private static function getEventSubclass($event) {
         switch ($event['eventtypeid']) {
             case 1:
@@ -59,11 +63,13 @@ abstract class Event extends DbObject {
 		return self::getEventSubclass($results[0]);
 	}
 
+	// Deletes all events associated with the given user
 	public static function deleteUsersEvents($user) {
 		Db::instance()->deleteByProperty(self::DB_TABLE, 'user1id', $user->id);
 		Db::instance()->deleteByProperty(self::DB_TABLE, 'user2id', $user->id);
 	}
 
+	// Gets events with given primary user
   public static function getUserEvents($user, $limit = null) {
 		$table = self::DB_TABLE;
 		$query = "SELECT * FROM {$table} WHERE user1id='{$user->id}' ORDER BY timestamp DESC";
@@ -75,6 +81,7 @@ abstract class Event extends DbObject {
 		return array_map(array(__CLASS__, 'getEventSubclass'), $results);
   }
 
+  // Get events of users and people he is subscribed to
   public static function getFeedEvents($user, $limit = null) {
 		$table = self::DB_TABLE;
     $query = "SELECT * FROM {$table} WHERE user1id='{$user->id}' OR user2id='{$user->id}'";

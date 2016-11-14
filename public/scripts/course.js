@@ -133,7 +133,14 @@ const parseLesson = function(lessonString) {
 			const nameStart = lessonArr[i].search('url-');
 			const nameEnd = lessonArr[i].search(':$');
 			const imgUrl = lessonArr[i].substr(nameStart+4, nameEnd-nameStart-4);
-			lessonContent += "<img src=\"" + imgUrl + "\"><br>";
+			if(imgUrl.startsWith("&lt;BASE_URL&gt;")) {
+				const baseUrl = `${window.location.href}`;
+				const urlEnd = baseUrl.search("/courses/");
+				const trueUrl = imgUrl.replace("&lt;BASE_URL&gt;", baseUrl.substr(0, urlEnd));
+				lessonContent += "<img src=\"" + trueUrl + "\"><br>";
+			} else {
+				lessonContent += "<img src=\"" + imgUrl + "\"><br>";
+			}	
 		} else {
 			lessonContent += "<p>" + lessonArr[i] + "</p><br>";
 		}
