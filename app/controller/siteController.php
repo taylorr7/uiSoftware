@@ -255,6 +255,14 @@ class SiteController {
 			$json = array('status' => 'success');	
 		} else if($event == "Delete") {
 			Event::deleteUsersEvents($user);
+			$userSubs = Subscription::loadByUser($user);
+			foreach($userSubs as $nextSub) {
+				$nextSub->delete();
+			}
+			$userCourses= Courses::loadByUser($user);
+			foreach($userCourses as $nextCourse) {
+				$nextCourse->delete();
+			}
 			$user->delete();
 			$json = array('status' => 'success');
 		} else if($event == "Promote") {
