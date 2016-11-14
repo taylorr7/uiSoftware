@@ -42,18 +42,12 @@
 			</div>
 			<div class="form-group">
 				<label for="education_type">Education Type</label><br>
-				<?php
-					function isChecked($user, $value) {
-						return strcmp($value, $user->education_type) == 0 ?
-							"checked" : "";
-					}
-				?>
-				<input type="radio" name="education_type" value="no" <?= isChecked($user, "no") ?>> None<br>
-				<input type="radio" name="education_type" value="hs" <?= isChecked($user, "hs") ?>> High School Graduate<br>
-				<input type="radio" name="education_type" value="ad" <?= isChecked($user, "ad") ?>> Associate Degree<br>
-				<input type="radio" name="education_type" value="bd" <?= isChecked($user, "bd") ?>> Bachelor's Degree<br>
-				<input type="radio" name="education_type" value="md" <?= isChecked($user, "md") ?>> Master's Degree<br>
-				<input type="radio" name="education_type" value="dd" <?= isChecked($user, "dd") ?>> Doctorate Degree<br>
+				<input type="radio" name="education_type" value="no" <?= User::isChecked($user, "no") ?>> None<br>
+				<input type="radio" name="education_type" value="hs" <?= User::isChecked($user, "hs") ?>> High School Graduate<br>
+				<input type="radio" name="education_type" value="ad" <?= User::isChecked($user, "ad") ?>> Associate Degree<br>
+				<input type="radio" name="education_type" value="bd" <?= User::isChecked($user, "bd") ?>> Bachelor's Degree<br>
+				<input type="radio" name="education_type" value="md" <?= User::isChecked($user, "md") ?>> Master's Degree<br>
+				<input type="radio" name="education_type" value="dd" <?= User::isChecked($user, "dd") ?>> Doctorate Degree<br>
 			</div>
 				<button type="submit" name="submit" class="btn btn-primary">Update Information</button>
 		</form>

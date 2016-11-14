@@ -119,4 +119,8 @@ class User extends DbObject {
 			$qry,
 			__CLASS__);
 	}
+
+	public function isChecked($user, $value) {
+		return strcmp($value, $user->education_type) == 0 ?	"checked" : "";
+	}
 }
