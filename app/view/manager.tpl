@@ -19,27 +19,27 @@
 				Email: <input name="<?= $nextUser->id ?>email" type="text" value="<?= $nextUser->email ?>"> <br>
 			</p>
 			<a class="btn btn-default manage" name="Update <?= $nextUser->id ?>" role="button">
-				<span class="glyphicon glyphicon-edit"></span>
+				<span class="glyphicon glyphicon-pencil"></span>
 				Update Information
 			</a>
 			<?php if($nextUser->role != "admin"): ?>
 				<a class="btn btn-default manage" name="Promote <?= $nextUser->id ?>" role="button">
-					<span class="glyphicon glyphicon-edit"></span>
+					<span class="glyphicon glyphicon-arrow-up"></span>
 					Promote to Admin
 				</a>
 			<?php endif; ?>
 			<?php if($nextUser->role == "admin"): ?>
 				<a class="btn btn-default manage" name="Demote <?= $nextUser->id ?>" role="button">
-						<span class="glyphicon glyphicon-edit"></span>
+						<span class="glyphicon glyphicon-arrow-down"></span>
 						Demote to User
 				</a>
 			<?php endif; ?>
 			<a class="btn btn-default manage" name="Reset <?= $nextUser->id ?>" role="button">
-				<span class="glyphicon glyphicon-edit"></span>
+				<span class="glyphicon glyphicon-refresh"></span>
 				Reset Password
 			</a>
 			<a class="btn btn-default manage" name="Delete <?= $nextUser->id ?>" role="button">
-				<span class="glyphicon glyphicon-edit"></span>
+				<span class="glyphicon glyphicon-trash"></span>
 				Delete User
 			</a>
 		</li>
