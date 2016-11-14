@@ -35,7 +35,9 @@ $(document).ready(() => {
 	*/
 	$("#uploadLink").click(() => {
 		const name = prompt("What should this link say?");
+		if (!name) exit();
 		const url = prompt("Where do you want this link to go?");
+		if (!url) exit();
 		$('#lessonContent').get(0).value += `\n~LINK:name-${name}:url-${url}:~\n`;
 	});
 
