@@ -254,6 +254,7 @@ class SiteController {
 			$user->save();
 			$json = array('status' => 'success');	
 		} else if($event == "Delete") {
+			Event::deleteUsersEvents($user);
 			$user->delete();
 			$json = array('status' => 'success');
 		} else if($event == "Promote") {
