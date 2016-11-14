@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2016 at 06:46 PM
+-- Generation Time: Nov 14, 2016 at 08:00 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -200,10 +200,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `namefirst`, `namelast`, `username`, `password`, `email`, `education_type`) VALUES
-(2, 'registered', 'Taylor', 'Rydahl', 'taylorr7', '123', 'taylorr7@vt.edu', 'md'),
+(2, 'registered', 'Taylor', 'Rydahl', 'taylorr7', 'password', 'taylorr7@vt.edu', 'md'),
 (3, 'registered', 'John', 'Smith', 'jsmith', 'password', 'bob@gmail.com', 'bd'),
 (4, 'registered', 'Jane', 'Smith', 'jsmith2', 'password', 'jsmith2@gmail.com', 'dd'),
-(5, 'registered', 'John', 'Man', 'johnm', 'pass', 'johnm@gmail.com', 'no');
+(5, 'registered', 'John', 'Man', 'johnm', 'pass', 'johnm@gmail.com', 'no'),
+(6, 'admin', 'Admin', 'Istrator', 'admin', 'admin', 'admin@istrator.com', 'no');
 
 --
 -- Indexes for dumped tables
@@ -291,7 +292,7 @@ ALTER TABLE `subscriptions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

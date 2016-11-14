@@ -55,8 +55,6 @@ $(document).ready(() => {
 		var response = prompt(promptText);
 		if (parseInt(response) < lessons.length) {
 			appendText += "\n~LESSON:name-"+lessons[parseInt(response)]+":~";
-		} else {
-			appendText += "\n~LESSON:name-null:~";
 		}
 		$('[name = ccontent]').get(0).value += appendText;
 	});
