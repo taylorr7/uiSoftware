@@ -10,13 +10,13 @@
 	?>
 		<li class="list-group-item">
 			<h4>
-				<?= $nextUser->username ?>
+				<?= $nextUser->username ?> <br>
+				<?= $nextUser->role ?>
 			</h4>
 			<p>
-				First Name: <?= $nextUser->namefirst ?>
-				Last Name: <?= $nextUser->namelast ?>
-				Email: <?= $nextUser->email ?>
-				Role: <?= $nextUser->role ?> <br>
+				First Name: <input name="<?= $nextUser->id ?>fName" type="text" value="<?= $nextUser->namefirst ?>">
+				Last Name: <input name="<?= $nextUser->id ?>lName" type="text" value="<?= $nextUser->namelast ?>">
+				Email: <input name="<?= $nextUser->id ?>email" type="text" value="<?= $nextUser->email ?>"> <br>
 			</p>
 			<?php if($nextUser->role != "admin"): ?>
 				<a class="btn btn-default manage" name="Update <?= $nextUser->id ?>" role="button">

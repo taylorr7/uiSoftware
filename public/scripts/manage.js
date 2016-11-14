@@ -12,10 +12,10 @@ $(document).ready(() => {
      * a button was clicked, to update the
      * appropriate information in the database.
      */
-    const sendPost = (type,value) => {
+    const sendPost = (type,value,info) => {
         $.post(
             `${BASE_URL}/manage/update`,
-            {type, value},
+            {type, value, info},
             (data) => {
                 if (data.status === 'success') {
 					alert("Operation Successful!");
@@ -36,9 +36,11 @@ $(document).ready(() => {
 		const name = $(this).attr('name');
 		let type = null;
 		let value = null;
+		let info = null;
 		if(name.startsWith("Update")) {
 			type = "Update";
 			value = name.substr(7);
+			info = [$('input[name="'+value+'fName"]').val(), $('input[name="'+value+'lName"]').val(), $('input[name="'+value+'email"]').val()];
 		} else if(name.startsWith("Delete")) {
 			type = "Delete";
 			value = name.substr(7);
@@ -49,6 +51,6 @@ $(document).ready(() => {
 			type = "Reset";
 			value = name.substr(6);
 		}
-        sendPost(type,value);
+        sendPost(type,value,info);
     });
 });

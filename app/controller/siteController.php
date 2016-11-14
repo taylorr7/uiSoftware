@@ -77,7 +77,8 @@ class SiteController {
 			case 'processManage':
 				$event = $_POST['type'];
 				$uid = $_POST['value'];
-				$this->processManage($uid, $event);
+				$info = $_POST['info'];
+				$this->processManage($uid, $event, $info);
 				break;
 		}
 	}
@@ -238,7 +239,7 @@ class SiteController {
 	* Function to update user information as posted by the
 	* administrators.
 	*/
-	public function processManage($uid, $event) {
+	public function processManage($uid, $event, $info) {
 		$admin = LoginSession::currentUser();
 		if ($admin->role != "admin") {
 			// User does not have permissions
@@ -247,6 +248,10 @@ class SiteController {
 		}
 		$user = User::loadById($uid);
 		if($event == "Update") {
+			$user->namefirst = $info[0];
+			$user->namelast = $info[1];
+			$user->email = $info[2];
+			$user->save();
 			$json = array('status' => 'success');	
 		} else if($event == "Delete") {
 			$user->delete();
