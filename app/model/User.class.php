@@ -31,6 +31,10 @@ class User extends DbObject {
 		return "https://www.gravatar.com/avatar/{$hash}.jpg?s=256";
 	}
 
+	public function isAdmin() {
+		return $this->role === "admin";
+	}
+
 	public function canViewSite() {
 		return $this->role !== "unregistered";
 	}

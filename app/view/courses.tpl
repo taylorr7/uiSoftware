@@ -11,7 +11,6 @@
 <ul class="list-group">
 	<?php foreach($courses as $course):
 		$creator = $course->getCreator();
-		$isPersonal = $creator->id == $user->id;
 	?>
 		<li class="list-group-item">
 			<h4>
@@ -25,7 +24,7 @@
 			</h4>
 			<p><?= $course->coursedescription; ?></p>
 
-			<?php if($isPersonal): ?>
+			<?php if($user->canModifyCourse($course)): ?>
 				<div class="btn-group">
 					<a class="btn btn-default" href="<?= BASE_URL ?>/courses/edit/<?= $course->id ?>" role="button">
 						<span class="glyphicon glyphicon-edit"></span>

@@ -73,7 +73,7 @@ class SiteController {
 			case 'manage':
 				$this->manage();
 				break;
-				
+
 			case 'processManage':
 				$event = $_POST['type'];
 				$uid = $_POST['value'];
@@ -224,7 +224,7 @@ class SiteController {
 	public function manage() {
 		$user = LoginSession::currentUser();
 		$users = User::loadAll();
-		if ($user->role != "admin") {
+		if (!$user->isAdmin()) {
 			// User does not have permissions
 			header("HTTP/1.1 403 Forbidden" );
 			exit();
@@ -234,26 +234,26 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/manager.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
-	
+
 	/*
 	* Function to update user information as posted by the
 	* administrators.
 	*/
 	public function processManage($uid, $event, $info) {
 		$admin = LoginSession::currentUser();
-		if ($admin->role != "admin") {
+		if (!$admin->isAdmin()) {
 			// User does not have permissions
 			header("HTTP/1.1 403 Forbidden" );
 			exit();
 		}
-		$user = User::loadById($uid);
+		$user = $uid == $admin->id ? $admin : User::loadById($uid);
 		if($event == "Update") {
 			// Update the user's information.
 			$user->namefirst = $info[0];
 			$user->namelast = $info[1];
 			$user->email = $info[2];
 			$user->save();
-			$json = array('status' => 'success');	
+			$json = array('status' => 'success');
 		} else if($event == "Delete") {
 			// Delete the user.
 			Event::deleteUsersEvents($user);
