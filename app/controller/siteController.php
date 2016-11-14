@@ -259,9 +259,13 @@ class SiteController {
 			foreach($userSubs as $nextSub) {
 				$nextSub->delete();
 			}
-			$userCourses= Courses::loadByUser($user);
+			$userCourses= Course::loadByUser($user);
 			foreach($userCourses as $nextCourse) {
 				$nextCourse->delete();
+			}
+			$userLessons = Lesson::loadByUser($user);
+			foreach($userLessons as $nextLesson) {
+				$nextLesson->delete();
 			}
 			$user->delete();
 			$json = array('status' => 'success');
