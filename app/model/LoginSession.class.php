@@ -31,7 +31,8 @@ class LoginSession
     public static function currentUser()
     {
         self::startSession();
-        return self::isLoggedIn() ? $_SESSION['user'] : null;
+        return self::isLoggedIn() ? $_SESSION['user'] :
+            new User(array('role' => 'unregistered'));
     }
 
     // Checks if the user is logged in

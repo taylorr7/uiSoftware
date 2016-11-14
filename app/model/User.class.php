@@ -31,6 +31,34 @@ class User extends DbObject {
 		return "https://www.gravatar.com/avatar/{$hash}.jpg?s=256";
 	}
 
+	public function canViewSite() {
+		return $this->role !== "unregistered";
+	}
+
+	public function canModifyUser($user) {
+		return $this->id === $user->id || $this->role === "admin";
+	}
+
+	public function canViewCourse($course) {
+		return $course->published || $this->id === $course->userid;
+	}
+
+	public function canModifyCourse($course) {
+		return $this->id === $course->userid || $this->role === "admin";
+	}
+
+	public function canViewLesson($lesson) {
+		return $this->id === $lesson->userid || $this->role === "admin";
+	}
+
+	public function canModifyLesson($lesson) {
+		return $this->id === $lesson->userid || $this->role === "admin";
+	}
+
+	public static function loadAll() {
+		return Db::instance()->selectAll(self::DB_TABLE, __CLASS__);
+	}
+
 	/*
 	* Function to return the User object associated
 	* with the given id.

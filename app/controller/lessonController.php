@@ -19,7 +19,7 @@ class LessonController {
 	 * Send not logged in user to login page.
 	 */
 	public function checkLoginStatus() {
-		if (!LoginSession::isLoggedIn()) {
+		if (!LoginSession::currentUser()->canViewSite()) {
 			header('Location: ' . BASE_URL . '/login');
 			exit();
 		}
@@ -87,7 +87,7 @@ class LessonController {
 	public function editLesson($lid) {
 		$user = LoginSession::currentUser();
 		$lesson = Lesson::loadById($lid);
-        if ($lesson->userid != $user->id) {
+        if (!$user->canModifyLesson($lesson)) {
             // User does not own lesson to edit
             header("HTTP/1.1 403 Forbidden" );
             exit();
@@ -103,7 +103,14 @@ class LessonController {
 	 * Function to delete a lesson.
 	 */
 	public function deleteLesson($lid) {
-		Db::instance()->deleteById("lessons", $lid);
+		$user = LoginSession::currentUser();
+		$lesson = Lesson::loadById($lid);
+        if (!$user->canModifyLesson($lesson)) {
+            // User does not own lesson to edit
+            header("HTTP/1.1 403 Forbidden" );
+            exit();
+        }
+		$lesson->delete();
 		header('Location: ' . BASE_URL . '/lessons/personal');
 	}
 
@@ -114,11 +121,11 @@ class LessonController {
 		$user = LoginSession::currentUser();
 		if ($lid) {
 			$lesson = Lesson::loadById($lid);
-			if ($lesson->userid != $user->id) {
-				// User does not own lesson to edit
-				header("HTTP/1.1 403 Forbidden" );
-				exit();
-			}
+	        if (!$user->canModifyLesson($lesson)) {
+	            // User does not own lesson to edit
+	            header("HTTP/1.1 403 Forbidden" );
+	            exit();
+	        }
 		} else {
 			$lesson = new Lesson();
 		}

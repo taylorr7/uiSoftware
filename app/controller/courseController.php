@@ -19,7 +19,7 @@ class CourseController {
 	 * Send not logged in user to login page.
 	 */
 	public function checkLoginStatus() {
-		if (!LoginSession::isLoggedIn()) {
+		if (!LoginSession::currentUser()->canViewSite()) {
 			header('Location: ' . BASE_URL . '/login');
 			exit();
 		}
@@ -111,7 +111,7 @@ class CourseController {
   public function viewCourse($cid) {
 		$user = LoginSession::currentUser();
 		$course = Course::loadById($cid);
-    if (!$course->published && $course->userid != $user->id) {
+    if (!$user->canViewCourse($course)) {
       header("HTTP/1.1 403 Forbidden" );
       exit();
     }
@@ -126,7 +126,12 @@ class CourseController {
 	 * Function to load course.
 	 */
   public function loadCourse($cid, $lid) {
+	$user = LoginSession::currentUser();
 	 $course = Course::loadById($cid);
+	 if (!$user->canViewCourse($course)) {
+	   header("HTTP/1.1 403 Forbidden" );
+	   exit();
+	 }
 		$toc = $course->coursecontent;
 		if ($lid == "null") {
 			$content = null;
@@ -165,10 +170,9 @@ class CourseController {
 		$user = LoginSession::currentUser();
 		$course = new Course();
 		$lessonArray = Lesson::loadByUser($user);
-		$lessonList = array();
-		for ($i = 0; $i < count($lessonArray); $i++) {
-			array_push($lessonList, $lessonArray[$i]->lessonname);
-		}
+		$lessonList = array_map(function($l) {
+			return $l->lessonname;
+		}, $lessonArray);
 		$pageName = 'New Course';
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/editcourse.tpl';
@@ -181,16 +185,15 @@ class CourseController {
 	public function editCourse($cid) {
 		$user = LoginSession::currentUser();
 		$course = Course::loadById($cid);
-    if ($course->userid != $user->id) {
+    if (!$user->canModifyCourse($course)) {
       // User does not own course to edit
       header("HTTP/1.1 403 Forbidden" );
       exit();
     }
 		$lessonArray = Lesson::loadByUser($user);
-		$lessonList = array();
-		for ($i = 0; $i < count($lessonArray); $i++) {
-			array_push($lessonList, $lessonArray[$i]->lessonname);
-		}
+		$lessonList = array_map(function($l) {
+			return $l->lessonname;
+		}, $lessonArray);
 
 		$pageName = 'Edit Course';
 		include_once SYSTEM_PATH.'/view/header.tpl';
@@ -202,7 +205,14 @@ class CourseController {
 	 * Function to delete course.
 	 */
 	public function deleteCourse($cid) {
-		Db::instance()->deleteById("courses", $cid);
+		$user = LoginSession::currentUser();
+		$course = Course::loadById($cid);
+		if (!$user->canModifyCourse($course)) {
+		  // User does not own course to delete
+		  header("HTTP/1.1 403 Forbidden" );
+		  exit();
+		}
+		$course->delete();
 		header('Location: ' . BASE_URL . '/courses');
 	}
 
@@ -213,11 +223,11 @@ class CourseController {
 	$user = LoginSession::currentUser();
 	if ($cid) {
 		$course = Course::loadById($cid);
-		if ($course->userid != $user->id) {
-			// User does not own course to edit
-			header("HTTP/1.1 403 Forbidden" );
-			exit();
-		}
+	    if (!$user->canModifyCourse($course)) {
+	      // User does not own course to edit
+	      header("HTTP/1.1 403 Forbidden" );
+	      exit();
+	    }
 	} else {
 		$course = new Course();
 		$course->published = false;
@@ -242,10 +252,10 @@ class CourseController {
 	public function publish($cid, $check) {
     $user = LoginSession::currentUser();
 		$course = Course::loadById($cid);
-    if ($course->userid != $user->id) {
+    if (!$user->canModifyCourse($course)) {
       // User does not own course to edit
-     header("HTTP/1.1 403 Forbidden" );
-     exit();
+      header("HTTP/1.1 403 Forbidden" );
+      exit();
     }
 		if ($check == 'false') {
 			if ($course->published == 0) {

@@ -37,7 +37,7 @@ class LoginController {
 	 * Login function.
 	 */
   public function login() {
-	 if (LoginSession::isLoggedIn()) {
+  	if (LoginSession::currentUser()->canViewSite()) {
 			header('Location: '. BASE_URL);
 			exit();
 	 }

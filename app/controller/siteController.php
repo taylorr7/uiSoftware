@@ -18,7 +18,7 @@ class SiteController {
 	 * Send not logged in user to login page.
 	 */
 	public function checkLoginStatus() {
-		if (!LoginSession::isLoggedIn()) {
+		if (!LoginSession::currentUser()->canViewSite()) {
 			header('Location: ' . BASE_URL . '/login');
 			exit();
 		}
@@ -215,7 +215,7 @@ class SiteController {
 	*/
 	public function manage() {
 		$user = LoginSession::currentUser();
-		$users = User::search("");
+		$users = User::loadAll();
 		if ($user->role != "admin") {
 			// User does not have permissions
 			header("HTTP/1.1 403 Forbidden" );
