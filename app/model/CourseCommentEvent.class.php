@@ -1,5 +1,5 @@
 <?php
-
+// Event subclass for a course comment
 class CourseCommentEvent extends Event {
 
     function __construct($args = array()) {

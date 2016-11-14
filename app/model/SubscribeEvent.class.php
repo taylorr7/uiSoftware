@@ -1,5 +1,6 @@
 <?php
 
+// Event subclass for a new subscription
 class SubscribeEvent extends Event {
 
     function __construct($args = array()) {

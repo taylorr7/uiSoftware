@@ -1,5 +1,6 @@
 <?php
 
+// Event subclass for a new lesson
 class NewLessonEvent extends Event {
 
     public static function deleteByLesson($lesson) {

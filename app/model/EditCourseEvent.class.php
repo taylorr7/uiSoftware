@@ -1,5 +1,6 @@
 <?php
 
+// Event subclass for a course edit
 class EditCourseEvent extends Event {
 
     public static function deleteByCourse($course) {
