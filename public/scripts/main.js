@@ -46,6 +46,7 @@ $(document).ready(() => {
 	*/
 	$("#uploadImage").click(() => {
 		const url = prompt("What is the image url?");
+		if (!url) exit();
 		$('#lessonContent').get(0).value += `\n~IMAGE:url-${url}:~\n`;
 	});
 
