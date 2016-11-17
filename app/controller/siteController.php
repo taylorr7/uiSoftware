@@ -155,6 +155,7 @@ class SiteController {
 
 		$pageName = $authorName;
 		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/zoomable.tpl';
 		include_once SYSTEM_PATH.'/view/author.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
