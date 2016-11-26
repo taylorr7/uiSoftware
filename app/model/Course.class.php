@@ -59,4 +59,34 @@ class Course extends DbObject {
 			$qry,
 			__CLASS__);
 	}
+
+	public static function loadUsersCourseData($user, $publishedOnly = false) {
+		$usersCourses = self::loadByUser($user, $publishedOnly);
+
+		$courseNodes = array_map(function($course) {
+			preg_match_all("~LESSON:name-([^:]+):~", $course->coursecontent, $lessonMatches);
+			$lessonNames = array_map(function($lessonName) {
+				return array("name" => "Lesson: {$lessonName}", "size" => 1);
+			}, $lessonMatches[1]);
+
+			$commentsChildren = array_map(function($comment) {
+				return array(
+					"name" => "{$comment->getCommenter()->username} commented: {$comment->content}",
+					"size" => 1
+				);
+			}, Comment::loadByCourse($course->id));
+			$commentsNode = array("name" => "Comments", "children" => $commentsChildren);
+
+			return array(
+				"name" => $course->coursename,
+				"published" => $course->published,
+				"children" => array_merge($lessonNames, [$commentsNode])
+			);
+		}, $usersCourses);
+
+		return array(
+			"name" => "{$user->username}'s Courses",
+			"children" => $courseNodes
+		);
+	}
 }
