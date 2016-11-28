@@ -13,6 +13,8 @@
 	</a>
 </div>
 
+<svg width="700" height="200"></svg>
+
 <div class="row">
 	<div class="col-sm-8 col-xs-12">
 		<h3><?= $author->username ?>'s Courses</h3>
@@ -76,4 +78,11 @@
 	</div>
 </div>
 
+<link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/styles/line.css">
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="<?= BASE_URL ?>/public/scripts/line.js"></script>
 <script src="<?= BASE_URL ?>/public/scripts/subscribe.js" type="text/javascript"></script>
+
+<script>
+	loadD3();
+</script>
