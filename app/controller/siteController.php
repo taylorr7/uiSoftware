@@ -52,6 +52,12 @@ class SiteController {
 				$this->viewAuthor($authorName);
 				break;
 
+			case 'animate':
+				$this->checkLoginStatus();
+				$authorName = htmlspecialchars($_GET['aname']);
+				$this->animate($authorName);
+				break;
+
 			case 'deleteUser':
 				$this->checkLoginStatus();
 				$uid = htmlspecialchars($_GET['uid']);
@@ -147,7 +153,7 @@ class SiteController {
 	 * Function to view author page.
 	 */
 	public function viewAuthor($authorName) {
-    	$user = LoginSession::currentUser();
+    $user = LoginSession::currentUser();
 		$author = User::loadByUsername($authorName);
 		$events = Event::getUserEvents($author, 10);
 		$usersAuthorIsSubscribedTo = Subscription::getSubscribedToUsers($author);
@@ -156,8 +162,22 @@ class SiteController {
 
 		$pageName = $authorName;
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/zoomable.tpl';
 		include_once SYSTEM_PATH.'/view/author.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
+	}
+
+	/*
+	 * Function to animate the user
+	 */
+	public function animate($authorName) {
+		$user = LoginSession::currentUser();
+		$author = User::loadById($authorName);
+		$events = Event::getUserEvents($author, 10);
+		$courseData = Course::loadUsersCourseData($author, $author->id == $user->id);
+
+		$pageName = $authorName;
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/zoomable.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 

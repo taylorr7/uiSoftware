@@ -97,4 +97,11 @@ $(document).ready(() => {
 			window.location = `${BASE_URL}/account/delete/${$(this).attr("data-aid")}`;
 		}
 	});
+
+	/*
+	* Function to view animation
+	*/
+	$(".animate").click(function() {
+		window.location = `${BASE_URL}/authors/animate/${$(this).attr("data-aname")}`;
+	});
 });
