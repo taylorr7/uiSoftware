@@ -75,13 +75,10 @@ class Course extends DbObject {
 					"size" => 1
 				);
 			}, Comment::loadByCourse($course->id));
-			$commentsNode = array("name" => "Comments", "children" => $commentsChildren);
-			
-			foreach($commentsNode as $key => &$child) {
-				if($child == null) {
-					$child = "No Comments";
-				}
-			}
+
+			$commentsNode = empty($commentsChildren) ?
+				array("name" => "No Comments", "size" => 1) :
+				array("name" => "Comments", "children" => $commentsChildren);
 
 			return array(
 				"name" => $course->coursename,
