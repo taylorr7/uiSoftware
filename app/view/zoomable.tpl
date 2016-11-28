@@ -5,5 +5,3 @@
 <script>
 	loadD3(<?= json_encode($courseData) ?>);
 </script>
-
-<?= json_encode($courseData) ?>
