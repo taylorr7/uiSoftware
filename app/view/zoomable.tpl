@@ -17,4 +17,6 @@
 <script src="<?= BASE_URL ?>/public/scripts/zoomable.js"></script>
 <script src="<?= BASE_URL ?>/public/scripts/subscribe.js" type="text/javascript"></script>
 
-<?= json_encode($courseData) ?>
+<script>
+	loadD3(<?= json_encode($courseData) ?>);
+</script>
