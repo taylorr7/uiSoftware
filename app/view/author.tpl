@@ -6,11 +6,11 @@
 				<span class="glyphicon glyphicon-edit"></span>
 				Subscribe
 		</a>
-		<a class="btn btn-default animate" data-aname="<?= $author->id ?>" role="button">
-				<span class="glyphicon glyphicon-film"></span>
-				View Animation
-		</a>
 	<?php endif; ?>
+	<a class="btn btn-default animate" data-aname="<?= $author->id ?>" role="button">
+			<span class="glyphicon glyphicon-film"></span>
+			View Animation
+	</a>
 </div>
 
 <div class="row">
