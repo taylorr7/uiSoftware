@@ -62,7 +62,7 @@ class Db
         $result = $this->query($query);
         $items = array();
         if (is_null($class_name)) {
-            while ($item = mysql_fetch_array($result)) {
+            while ($item = mysql_fetch_assoc($result)) {
                 $items[] = $item;
             }
         } else {
