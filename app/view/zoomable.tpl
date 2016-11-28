@@ -18,5 +18,5 @@
 <script src="<?= BASE_URL ?>/public/scripts/subscribe.js" type="text/javascript"></script>
 
 <script>
-	loadD3(<?= json_encode($courseData) ?>);
+	setJSON(<?= json_encode($courseData) ?>);
 </script>
