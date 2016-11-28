@@ -102,12 +102,16 @@ abstract class Event extends DbObject {
 
   public static function getActivityForMonth($user) {
 	$table = self::DB_TABLE;
-	$query = <<<SQL
-SELECT date(timestamp) as day,COUNT(*) as count from {$table}
+
+	return array_map(function($i) use ($user, $table) {
+		$query = <<<SQL
+SELECT DATE_SUB(CURRENT_DATE(), INTERVAL {$i} day) as day,
+	COUNT(*) as count from {$table}
 WHERE (user1id='{$user->id}' OR user2id='{$user->id}')
-	AND timestamp >= DATE_SUB(NOW(), INTERVAL 30 day)
-	GROUP BY day;
+	AND date(timestamp) = DATE_SUB(CURRENT_DATE(), INTERVAL {$i} day);
 SQL;
-	return Db::instance()->select($query);
+		$result = Db::instance()->select($query)[0];
+		return array($result["day"] => $result["count"]);
+	}, range(0, 30));
   }
 }
