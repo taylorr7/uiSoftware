@@ -2,14 +2,13 @@
 
 <form id="addCourseCommentForm">
   <label>Add comment: <input type="text" id="addCourseComment" name="comment" value=""></label>
-  <input type="hidden" id="cid" name="cid" value="">
-  <input type="submit" name="submit" value="Add">
+  <input type="submit" name="add" value="Add">
 </form>
 
-<form id="subscribeToUserForm">
-  <input type="hidden" id="aname" name="aname" value="<? $author ?>">
-  <a class="btn btn-default subscribe" name="<?= $author->id ?>" role="button">
-  </a>
+<form id="editCourseCommentForm">
+  <label>Edit comment: <input type="text" id="addCourseComment" name="comment" value=""></label>
+  <input type="submit" name="edit" value="Edit">
+  <input type="submit" name="delete" value="Delete">
 </form>
 
 <svg width="700" height="700"></svg>

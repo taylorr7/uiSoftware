@@ -27,7 +27,7 @@
   display: none; /* hide by default */
 }
 
-#subscribeToUserForm {
+#editCourseCommentForm {
   float: right;
   width: 200px;
   display: none; /* hide by default */

@@ -27,26 +27,6 @@ $(document).ready(function(){
       'json'
     );
   });
-
-  $('#subscribeToUserForm').submit(function(e){
-    e.preventDefault(); // don't submit the form
-
-    $.post(
-        `${BASE_URL}/authors/subscribe`,
-        {
-          name, check
-        },
-        function(data) {
-            if (data.status === 'subscribed') {
-                $(`[name="${name}"]`).html("<span class='glyphicon glyphicon-remove'></span> Unsubscribe");
-            } else if (data.status === 'unsubscribed') {
-                $(`[name="${name}"]`).html("<span class='glyphicon glyphicon-ok'></span> Subscribe");
-            }
-            $('#subscribeToUserForm').hide(); // hide comment panel
-        },
-        "json"
-    );
-  });
 });
 
 function setJSON(json) {
@@ -81,14 +61,14 @@ function drawCirclePacking() {
 	.enter().append("circle")
 	  .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
 	  .style("fill", function(d) { return d.children ? color(d.depth) : null; })
-	  .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); })
-    .on("click", function(d) {
-        if($('#subscribeToUserForm').is(':visible')) {
-          $('#subscribeToUserForm').hide();
-        } else {
-          $('#subscribeToUserForm').show();
-          $('#subscribeToUserForm').focus();
-        }
+	  .on("click", function(d) {
+      if (focus !== d) zoom(d), d3.event.stopPropagation();
+      if($('#addCourseCommentForm').is(':visible')) {
+        $('#addCourseCommentForm').hide();
+      } else {
+        $('#addCourseCommentForm').show();
+        $('#addCourseCommentForm').focus();
+      }
     });
 
   var text = g.selectAll("text")
