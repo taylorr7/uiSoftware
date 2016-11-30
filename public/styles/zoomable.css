@@ -17,7 +17,7 @@
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
 }
 
-.label, .node--root, .node--leaf {
+.label, .node--root {
   pointer-events: none;
 }
 

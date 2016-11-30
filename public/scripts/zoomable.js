@@ -1,4 +1,5 @@
 var jsonOb;
+var id = null;
 
 $(document).ready(function(){
   drawCirclePacking();
@@ -7,7 +8,6 @@ $(document).ready(function(){
     e.preventDefault(); // don't submit the form
 
     var content = $('#addCourseComment').val();
-    var id = $('#cid').val();
 
     $.post(
       BASE_URL + '/courses/view/' + id + '/comment/',
@@ -62,7 +62,8 @@ function drawCirclePacking() {
 	  .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
 	  .style("fill", function(d) { return d.children ? color(d.depth) : null; })
 	  .on("click", function(d) {
-      if (focus !== d) zoom(d), d3.event.stopPropagation();
+	  if(d.data.commentId != null) { id = d.data.commentId; } else if(d.data.courseId != null) { id = d.data.courseId; }
+      if (focus !== d && d.children) zoom(d), d3.event.stopPropagation();
       if($('#addCourseCommentForm').is(':visible')) {
         $('#addCourseCommentForm').hide();
       } else {
