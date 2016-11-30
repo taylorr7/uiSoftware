@@ -72,6 +72,7 @@ class Course extends DbObject {
 			$commentsChildren = array_map(function($comment) {
 				return array(
 					"name" => "{$comment->getCommenter()->username} commented: {$comment->content}",
+					"commentId" => $comment->id,
 					"size" => 1
 				);
 			}, Comment::loadByCourse($course->id));
@@ -82,7 +83,7 @@ class Course extends DbObject {
 
 			return array(
 				"name" => $course->coursename,
-				"published" => $course->published,
+				"courseId" => $course->id,
 				"children" => array_merge($lessonNames, [$commentsNode])
 			);
 		}, $usersCourses);
