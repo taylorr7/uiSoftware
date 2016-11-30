@@ -158,7 +158,7 @@ class SiteController {
 		$events = Event::getUserEvents($author, 10);
 		$usersAuthorIsSubscribedTo = Subscription::getSubscribedToUsers($author);
 		$usersSubscribedToAuthor = Subscription::getSubscribersOf($author);
-		$courseData = Course::loadUsersCourseData($author, $author->id == $user->id);
+		$activity = Event::getActivityForMonth($author);
 
 		$pageName = $authorName;
 		include_once SYSTEM_PATH.'/view/header.tpl';

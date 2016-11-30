@@ -13,10 +13,24 @@
 	</a>
 </div>
 
-<svg width="700" height="200"></svg>
-
 <div class="row">
 	<div class="col-sm-8 col-xs-12">
+
+		<h3><?= $author->username ?>'s Recent Activity</h3>
+		<div class="svg-container">
+			<svg preserveAspectRatio="xMinYMin meet"></svg>
+		</div>
+		<ul class="list-group">
+			<?php foreach($events as $e): ?>
+
+				<li class="list-group-item">
+					<h4><?= $e->getDescription() ?></h4>
+					<small class="text-muted"><?= $e->getPrettyDate() ?></small>
+				</li>
+
+			<?php endforeach; ?>
+		</ul>
+
 		<h3><?= $author->username ?>'s Courses</h3>
 		<ul class="list-group">
 			<?php foreach(Course::loadByUser($author, true) as $course):
@@ -27,18 +41,6 @@
 						<a href="<?= BASE_URL ?>/courses/view/<?= $course->id ?>"><?= $course->coursename ?></a>
 					</h4>
 					<p><?= $course->coursedescription ?></p>
-				</li>
-
-			<?php endforeach; ?>
-		</ul>
-
-		<h3><?= $author->username ?>'s Recent Activity</h3>
-		<ul class="list-group">
-			<?php foreach($events as $e): ?>
-
-				<li class="list-group-item">
-					<h4><?= $e->getDescription() ?></h4>
-					<small class="text-muted"><?= $e->getPrettyDate() ?></small>
 				</li>
 
 			<?php endforeach; ?>
@@ -84,5 +86,5 @@
 <script src="<?= BASE_URL ?>/public/scripts/subscribe.js" type="text/javascript"></script>
 
 <script>
-	loadD3();
+	loadD3(<?= json_encode($activity) ?>);
 </script>

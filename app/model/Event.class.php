@@ -110,8 +110,7 @@ SELECT DATE_SUB(CURRENT_DATE(), INTERVAL {$i} day) as day,
 WHERE (user1id='{$user->id}' OR user2id='{$user->id}')
 	AND date(timestamp) = DATE_SUB(CURRENT_DATE(), INTERVAL {$i} day);
 SQL;
-		$result = Db::instance()->select($query)[0];
-		return array($result["day"] => $result["count"]);
+		return Db::instance()->select($query)[0];
 	}, range(0, 30));
   }
 }
