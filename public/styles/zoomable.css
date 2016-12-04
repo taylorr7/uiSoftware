@@ -20,15 +20,3 @@
 .label, .node--root {
   pointer-events: none;
 }
-
-#addCourseCommentForm {
-  float: right;
-  width: 200px;
-  display: none; /* hide by default */
-}
-
-#editCourseCommentForm {
-  float: right;
-  width: 200px;
-  display: none; /* hide by default */
-}

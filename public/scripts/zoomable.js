@@ -80,8 +80,11 @@ const drawCirclePacking = (data) => {
         .style("fill", (d) => d.children ? color(d.depth) : null)
         .on("click", (d) => {
             if (d.data.name === "Add Comment") {
-                $('#comment-modal').modal('show');
+                $('#add-comment-modal').modal('show');
                 $('#sumbit-comment').attr('data-course', d.data.courseId);
+            } else if (d.data.id === "Edit Comment") {
+                $('#edit-comment-modal').modal('show');
+                $('#sumbit-comment').attr('data-comment', d.data.commentId);
             }
 
             if (focus !== d) zoom(d.children ? d : d.parent);
