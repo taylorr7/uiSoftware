@@ -37,8 +37,8 @@
 </div>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="<?= BASE_URL ?>/public/scripts/zoomable.js"></script>
 
 <script>
-    loadD3(<?= json_encode($courseData) ?>);
+    const DATA_URL = "<?= BASE_URL ?>/authors/breakdown-data/<?= $author->username ?>";
 </script>
+<script src="<?= BASE_URL ?>/public/scripts/zoomable.js"></script>

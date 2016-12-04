@@ -25,6 +25,8 @@ RewriteRule ^account/delete/(\d+)/?$ app/controller/siteController.php?action=de
 
 RewriteRule ^authors/breakdown/(\w+)/?$ app/controller/siteController.php?action=breakdown&aname=$1 [QSA,L]
 
+RewriteRule ^authors/breakdown-data/(\w+)/?$ app/controller/siteController.php?action=breakdownData&aname=$1 [QSA,L]
+
 RewriteRule ^authors/view/(\w+)/?$ app/controller/siteController.php?action=viewAuthor&aname=$1 [QSA,L]
 
 RewriteRule ^search/?$ app/controller/siteController.php?action=search [QSA,L]

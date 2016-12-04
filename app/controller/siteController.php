@@ -58,6 +58,12 @@ class SiteController {
 				$this->breakdown($authorName);
 				break;
 
+			case 'breakdownData':
+				$this->checkLoginStatus();
+				$authorName = htmlspecialchars($_GET['aname']);
+				$this->breakdownData($authorName);
+				break;
+
 			case 'deleteUser':
 				$this->checkLoginStatus();
 				$uid = htmlspecialchars($_GET['uid']);
@@ -172,12 +178,22 @@ class SiteController {
 	public function breakdown($authorName) {
 		$user = LoginSession::currentUser();
 		$author = User::loadByUsername($authorName);
-		$courseData = Course::loadUsersCourseData($author, $author->id == $user->id);
 
 		$pageName = $author->username;
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/zoomable.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
+	}
+
+	/*
+	 * Function to show breakdown data of the user's courses
+	 */
+	public function breakdownData($authorName) {
+		$user = LoginSession::currentUser();
+		$author = User::loadByUsername($authorName);
+		$courseData = Course::loadUsersCourseData($author, $author->id == $user->id);
+
+		echo json_encode($courseData);
 	}
 
 	/*

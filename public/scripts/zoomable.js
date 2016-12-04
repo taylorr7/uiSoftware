@@ -1,18 +1,20 @@
-const loadD3 = (data) => {
-    drawCirclePacking(data);
+let focus;
+
+const loadD3 = () => {
+    $.getJSON(DATA_URL, drawCirclePacking);
 };
 
 $('#sumbit-comment').click(function(e) {
     const courseId = $(this).attr("data-course");
     const content = $("#course-comment").val();
+    $("#course-comment").val('');
 
-    $.get(`${BASE_URL}/courses/view/${courseId}/comment`, {content}, (data) => {
-            console.log(data);
-        }, 'json');
+    $.getJSON(`${BASE_URL}/courses/view/${courseId}/comment`, {content}, (data) => {
+            loadD3();
+        });
 });
 
 const drawCirclePacking = (data) => {
-
     const zoom = (d) => {
         focus = d;
 
@@ -46,6 +48,7 @@ const drawCirclePacking = (data) => {
     };
 
     const svg = d3.select("svg");
+    svg.selectAll("*").remove();
     const margin = 20;
     const diameter = +svg.attr("width");
     const g = svg.append("g")
@@ -65,7 +68,7 @@ const drawCirclePacking = (data) => {
         .sort((a, b) => b.value - a.value);
 
     const nodes = pack(root).descendants();
-    let focus = root;
+    focus = root;
     let view;
 
     const circle = g.selectAll("circle")
@@ -103,3 +106,5 @@ const drawCirclePacking = (data) => {
 
     zoomTo([root.x, root.y, root.r * 2 + margin]);
 };
+
+loadD3();
