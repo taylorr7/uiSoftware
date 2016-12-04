@@ -87,21 +87,4 @@ $(document).ready(() => {
 			window.location = `${BASE_URL}/lessons/delete/${$(this).attr("data-lid")}`;
 		}
 	});
-
-	/*
-	* Function to confirm user deletion.
-	*/
-	$(".delete-account").click(function() {
-		const result = confirm("Are you sure you want to delete your account?");
-		if (result) {
-			window.location = `${BASE_URL}/account/delete/${$(this).attr("data-aid")}`;
-		}
-	});
-
-	/*
-	* Function to view animation
-	*/
-	$(".animate").click(function() {
-		window.location = `${BASE_URL}/authors/animate/${$(this).attr("data-aname")}`;
-	});
 });

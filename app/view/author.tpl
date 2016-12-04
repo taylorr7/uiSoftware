@@ -7,9 +7,9 @@
 				Subscribe
 		</a>
 	<?php endif; ?>
-	<a class="btn btn-default animate" data-aname="<?= $author->id ?>" role="button">
-			<span class="glyphicon glyphicon-film"></span>
-			View Animation
+	<a class="btn btn-default" href="<?= BASE_URL ?>/authors/breakdown/<?= $author->username ?>" role="button">
+			<span class="glyphicon glyphicon-info-sign"></span>
+			View Course Breakdown
 	</a>
 </div>
 

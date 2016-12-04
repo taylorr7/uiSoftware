@@ -52,10 +52,10 @@ class SiteController {
 				$this->viewAuthor($authorName);
 				break;
 
-			case 'animate':
+			case 'breakdown':
 				$this->checkLoginStatus();
 				$authorName = htmlspecialchars($_GET['aname']);
-				$this->animate($authorName);
+				$this->breakdown($authorName);
 				break;
 
 			case 'deleteUser':
@@ -167,15 +167,14 @@ class SiteController {
 	}
 
 	/*
-	 * Function to animate the user
+	 * Function to show breakdown of the user's courses
 	 */
-	public function animate($authorName) {
+	public function breakdown($authorName) {
 		$user = LoginSession::currentUser();
-		$author = User::loadById($authorName);
-		$events = Event::getUserEvents($author, 10);
+		$author = User::loadByUsername($authorName);
 		$courseData = Course::loadUsersCourseData($author, $author->id == $user->id);
 
-		$pageName = $authorName;
+		$pageName = $author->username;
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/zoomable.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';

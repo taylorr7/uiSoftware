@@ -23,7 +23,7 @@ RewriteRule ^account/process/?$ app/controller/siteController.php?action=process
 
 RewriteRule ^account/delete/(\d+)/?$ app/controller/siteController.php?action=deleteUser&uid=$1 [QSA,L]
 
-RewriteRule ^authors/animate/(\d+)/?$ app/controller/siteController.php?action=animate&aname=$1 [QSA,L]
+RewriteRule ^authors/breakdown/(\w+)/?$ app/controller/siteController.php?action=breakdown&aname=$1 [QSA,L]
 
 RewriteRule ^authors/view/(\w+)/?$ app/controller/siteController.php?action=viewAuthor&aname=$1 [QSA,L]
 

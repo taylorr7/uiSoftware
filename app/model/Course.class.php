@@ -69,17 +69,30 @@ class Course extends DbObject {
 				return array("name" => "Lesson: {$lessonName}", "size" => 1);
 			}, $lessonMatches[1]);
 
-			$commentsChildren = array_map(function($comment) {
+			$commentsChildren = array_map(function($comment) use($course) {
 				return array(
 					"name" => "{$comment->getCommenter()->username} commented: {$comment->content}",
+					"courseId" => $course->id,
 					"commentId" => $comment->id,
 					"size" => 1
 				);
 			}, Comment::loadByCourse($course->id));
 
-			$commentsNode = empty($commentsChildren) ?
-				array("name" => "No Comments", "size" => 1) :
-				array("name" => "Comments", "children" => $commentsChildren);
+			if (empty($commentsChildren)) {
+				array_push($commentsChildren, array(
+					"name" => "No Comments",
+					"courseId" => $course->id,
+					"size" => 1
+				));
+			}
+
+			array_push($commentsChildren, array(
+				"name" => "Add Comment",
+				"courseId" => $course->id,
+				"size" => 1
+			));
+
+			$commentsNode = array("name" => "Comments", "children" => $commentsChildren);
 
 			return array(
 				"name" => $course->coursename,
