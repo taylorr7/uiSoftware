@@ -16,13 +16,13 @@ const y = d3.scaleLinear()
 
 const line = d3.line()
     .x((d) => x(d.day))
-    .y((d) => y(d.count));
+    .y((d) => y(+d.count));
 
 const loadD3 = (data) => {
     data = data.map(({day, count}) => ({day: parseTime(day), count}));
 
     x.domain(d3.extent(data, (d) => d.day));
-    y.domain(d3.extent(data, (d) => d.count));
+    y.domain(d3.extent(data, (d) => +d.count));
 
     g.append("g")
         .attr("class", "axis axis--x")
