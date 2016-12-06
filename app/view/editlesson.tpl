@@ -3,83 +3,81 @@
 </div>
 
 <div id="add-quiz-modal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add a Quiz</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-					What do you want the question to be?: <input class="form-control" type="text" id="quiz-name" name="quiz-name">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Add a Quiz</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					Enter the quiz question: <input class="form-control required" type="text" id="quiz-name" name="quiz-name">
 					<form id="quiz-answers">
 						<input type="radio" name="answers" value="answer-1" checked="checked"> Enter a possible answer:
 						<input class="form-control" type="text" id="quiz-answer-1" name="quiz-answer-1">
-						<input type="radio" name="answers" value="answer-2"> Enter a possible answer:
-						<input class="form-control" type="text" id="quiz-answer-2" name="quiz-answer-2">
 					</form>
-                </div>
-            </div>
-            <div class="modal-footer">
-				<button id="add-quiz" type="button" class="btn btn-primary">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="add-quiz-question" type="button" class="btn btn-primary">
 					<span class="glyphicon glyphicon-plus"></span>
 					Add Possible Answer
 				</button>
-                <button id="submit-quiz" type="button" class="btn btn-primary"  data-dismiss="modal">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    Add Quiz
-                </button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
+				<button id="submit-quiz" type="button" class="btn btn-primary" data-dismiss="modal">
+					<span class="glyphicon glyphicon-ok"></span>
+					Add Quiz
+				</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div id="add-link-modal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add a Link</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Add a Link</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
 					What should this link say?: <input class="form-control" type="text" id="link-name" name="link-name">
 					Where do you want the link to go?: <input class="form-control" type="text" id="link-url" name="link-url">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button id="submit-link" type="button" class="btn btn-primary"  data-dismiss="modal">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    Add Link
-                </button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="submit-link" type="button" class="btn btn-primary"  data-dismiss="modal">
+					<span class="glyphicon glyphicon-ok"></span>
+					Add Link
+				</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div id="add-image-modal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add an Image</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Add an Image</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
 					What is the image url?: <input class="form-control" type="text" id="image-url" name="image-url">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button id="submit-image" type="button" class="btn btn-primary"  data-dismiss="modal">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    Add Image
-                </button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="submit-image" type="button" class="btn btn-primary"  data-dismiss="modal">
+					<span class="glyphicon glyphicon-ok"></span>
+					Add Image
+				</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="row">
