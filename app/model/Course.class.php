@@ -76,6 +76,7 @@ class Course extends DbObject {
 			$commentsChildren = array_map(function($comment) use($course, $curUser) {
 				return array(
 					"name" => "{$comment->getCommenter()->username} commented: {$comment->content}",
+					"comment" => $comment->content,
 					"id" => "Edit Comment",
 					"courseId" => $course->id,
 					"commentId" => $comment->id,
