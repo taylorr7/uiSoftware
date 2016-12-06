@@ -66,7 +66,7 @@ const drawCirclePacking = (data) => {
         circle.attr("r", (d) => d.r * k);
     };
 
-    const size = 400;
+    const size = 550;
     const svg = d3.select("svg").attr("viewBox", `0 0 ${size} ${size}`);
     svg.selectAll("*").remove();
     const margin = 20;
