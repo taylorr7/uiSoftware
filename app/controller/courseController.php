@@ -78,6 +78,17 @@ class CourseController {
 				$content = $_GET['content'];
 				$this->comment($cid, $content);
 				break;
+				
+			case 'edComment':
+				$cid = $_GET['cid'];
+				$content = $_GET['content'];
+				$this->edComment($cid, $content);
+				break;
+			
+			case 'delComment':
+				$cid = $_GET['cid'];
+				$this->delComment($cid);
+				break;
 		}
 	}
 
@@ -296,6 +307,37 @@ class CourseController {
 		$event->data = $newComment->id;
 		$event->save();
 
+		$json = array('status' => 'Success');
+		header('Content-Type: application/json');
+		echo json_encode($json);
+	}
+	
+	public function edComment($cid, $content) {
+		$user = LoginSession::currentUser();
+		$comment = Comment::loadById($cid);
+		if($user->id != $comment->commenterid) {
+			header("HTTP/1.1 403 Forbidden" );
+			exit();
+		}
+		
+		$comment->content = $content;
+		$comment->save();
+		
+		$json = array('status' => 'Success');
+		header('Content-Type: application/json');
+		echo json_encode($json);
+	}
+	
+	public function delComment($cid) {
+		$user = LoginSession::currentUser();
+		$comment = Comment::loadById($cid);
+		if($user->id != $comment->commenterid) {
+			header("HTTP/1.1 403 Forbidden" );
+			exit();
+		}
+		
+		$comment->delete();
+		
 		$json = array('status' => 'Success');
 		header('Content-Type: application/json');
 		echo json_encode($json);

@@ -33,7 +33,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <input class="form-control" type="text" id="course-comment" name="course-comment">
+                    <input class="form-control" type="text" id="ed-comment" name="ed-comment">
                 </div>
             </div>
             <div class="modal-footer">

@@ -14,6 +14,29 @@ $('#sumbit-comment').click(function(e) {
         });
 });
 
+$('#edit-comment').click(function(e) {
+	const courseId = $(this).attr("data-course");
+	const commentId = $(this).attr("data-comment");
+	const content = $("#ed-comment").val();
+	$("ed-comment").val('');
+	
+	$.getJSON(`${BASE_URL}/courses/view/${courseId}/comment/edit/${commentId}`, {content}, (data) => {
+		loadD3();
+	});
+});
+
+/*
+$('#delete-comment').click(function(e) {
+	const courseId = $(this).attr("data-course");
+	const commentId = $(this).attr("data-comment");
+	
+	$.getJSON(`${BASE_URL}/courses/view/${courseId}/comment/delete/${commentId}`, {content}, (data) => {
+		loadD3();
+	});
+	
+});
+*/
+
 const drawCirclePacking = (data) => {
     const zoom = (d) => {
         focus = d;
@@ -84,7 +107,8 @@ const drawCirclePacking = (data) => {
                 $('#sumbit-comment').attr('data-course', d.data.courseId);
             } else if (d.data.id === "Edit Comment") {
                 $('#edit-comment-modal').modal('show');
-                $('#sumbit-comment').attr('data-comment', d.data.commentId);
+				$('#edit-comment').attr('data-course', d.data.courseId);
+                $('#edit-comment').attr('data-comment', d.data.commentId);
             }
 
             if (focus !== d) zoom(d.children ? d : d.parent);
