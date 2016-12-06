@@ -2,6 +2,39 @@
 	<h2>Design a Lesson</h2>
 </div>
 
+<div id="add-quiz-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add a Quiz</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+					What do you want the question to be?: <input class="form-control" type="text" id="quiz-name" name="quiz-name">
+					<form id="quiz-answers">
+						<input type="radio" name="answers" value="answer-1" checked="checked"> Enter a possible answer:
+						<input class="form-control" type="text" id="quiz-answer-1" name="quiz-answer-1">
+						<input type="radio" name="answers" value="answer-2"> Enter a possible answer:
+						<input class="form-control" type="text" id="quiz-answer-2" name="quiz-answer-2">
+					</form>
+                </div>
+            </div>
+            <div class="modal-footer">
+				<button id="add-quiz" type="button" class="btn btn-primary">
+					<span class="glyphicon glyphicon-plus"></span>
+					Add Possible Answer
+				</button>
+                <button id="submit-quiz" type="button" class="btn btn-primary"  data-dismiss="modal">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Add Quiz
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="add-link-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -67,7 +100,7 @@
 
 	<aside id="navigation" class="col-sm-4 col-xs-12">
 		<h5>Design Tools</h5>
-		<button class="btn btn-default" id="uploadQuiz"> Add a Quiz </button>
+		<button class="btn btn-default" data-toggle="modal" data-target="#add-quiz-modal" id="uploadQuiz"> Add a Quiz </button>
 		<button class="btn btn-default" data-toggle="modal" data-target="#add-link-modal"> Add a Link </button>
 		<button class="btn btn-default" data-toggle="modal" data-target="#add-image-modal"> Add an Image </button>
 	</aside>

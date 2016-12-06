@@ -10,26 +10,33 @@ $(document).ready(() => {
 	* Function to add a new quiz to a lesson.
 	*/
 	$("#uploadQuiz").click(() => {
-		const name = prompt("What do you want the question to be?");
-		if (!name) exit();
-		const numQuestions = parseInt(prompt("How many possible answers do you want there to be?"));
-		if (!numQuestions) exit();
-		const answers = [];
-		for (let i = 0; i < numQuestions; i++) {
-			const answer = prompt("What is a possible answer?");
-			if (!answer) exit();
-			answers.push(answer);
+		$("#quiz-answers").attr('answers', 2);
+	});
+	
+	$("#submit-quiz").click(() => {
+		const name = $("#quiz-name").val();
+		const correct = $("input[name=answers]:checked").val();
+		let answerText = "";
+		for(let i = 1; i <= $("#quiz-answers").attr('answers'); i++) {
+			let currentAnswer = "answer-" + i;
+			let currentForm = "#quiz-answer-" + i;
+			if(currentAnswer === correct) {
+				answerText += "correctAnswer-" + $(currentForm).val() +":";
+			} else {
+				answerText += "answer-" + $(currentForm).val() + ":";
+			}
 		}
-		if (!answers) exit();
-		const correct = parseInt(prompt("Which number answer was the correct one?"));
-		if (!correct) exit();
-		const answerText = answers.reduce((prev, cur, curIdx) => {
-			const answerType = curIdx == correct - 1 ? "correctAnswer" : "answer";
-			return `${prev}${answerType}-${cur}:`;
-		}, '');
 		$('#lessonContent').get(0).value += `\n~QUIZ:name-${name}:${answerText}~\n`;
 	});
 
+	$("#add-quiz").click(() => {
+		let numAnswers = parseInt($("#quiz-answers").attr('answers')) + 1;
+		$("#quiz-answers").attr('answers', numAnswers);
+		let newOption = "<input type=\"radio\" name=\"answers\" value=\"answer-" + numAnswers +"\">";
+		newOption += "Enter a possible answer:<input class=\"form-control\" type=\"text\" id=\"quiz-answer-" + numAnswers + "\" name=\"quiz-answer-" + numAnswers + "\">";
+		$("#quiz-answers").append(newOption);
+	});
+	
 	/*
 	* Function to add a new link to a lesson.
 	*/
@@ -40,7 +47,7 @@ $(document).ready(() => {
 		if (!url) exit();
 		$('#lessonContent').get(0).value += `\n~LINK:name-${name}:url-${url}:~\n`;
 	});
-
+	
 	/*
 	* Function to add a new image to a lesson.
 	*/
