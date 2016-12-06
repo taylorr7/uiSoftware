@@ -43,6 +43,12 @@
 					</a>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li>
+							<a href="<?= BASE_URL ?>/authors/view/<?= $user->username ?>">
+								<span class="glyphicon glyphicon-user"></span>
+								Profile
+							</a>
+						</li>
+						<li>
 							<a href="<?= BASE_URL ?>/account">
 								<span class="glyphicon glyphicon-cog"></span>
 								Edit Account
