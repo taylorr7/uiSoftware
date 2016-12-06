@@ -312,6 +312,9 @@ class CourseController {
 		echo json_encode($json);
 	}
 	
+	/*
+	 * Function to edit a comment on a course.
+	 */
 	public function edComment($cid, $content) {
 		$user = LoginSession::currentUser();
 		$comment = Comment::loadById($cid);
@@ -328,6 +331,9 @@ class CourseController {
 		echo json_encode($json);
 	}
 	
+	/*
+	 * Function to delete a comment on a course.
+	 */
 	public function delComment($cid) {
 		$user = LoginSession::currentUser();
 		$comment = Comment::loadById($cid);
@@ -337,9 +343,6 @@ class CourseController {
 		}
 		
 		$comment->delete();
-		
-		$json = array('status' => 'Success');
-		header('Content-Type: application/json');
-		echo json_encode($json);
+		header('Location: ' . BASE_URL . '/authors/breakdown/' . $user->username);
 	}
 }

@@ -18,24 +18,19 @@ $('#edit-comment').click(function(e) {
 	const courseId = $(this).attr("data-course");
 	const commentId = $(this).attr("data-comment");
 	const content = $("#ed-comment").val();
-	$("ed-comment").val('');
+	$("#ed-comment").val('');
 	
 	$.getJSON(`${BASE_URL}/courses/view/${courseId}/comment/edit/${commentId}`, {content}, (data) => {
 		loadD3();
 	});
 });
 
-/*
 $('#delete-comment').click(function(e) {
 	const courseId = $(this).attr("data-course");
 	const commentId = $(this).attr("data-comment");
 	
-	$.getJSON(`${BASE_URL}/courses/view/${courseId}/comment/delete/${commentId}`, {content}, (data) => {
-		loadD3();
-	});
-	
+	window.location = `${BASE_URL}/courses/view/${courseId}/comment/delete/${commentId}`;
 });
-*/
 
 const drawCirclePacking = (data) => {
     const zoom = (d) => {
@@ -109,6 +104,8 @@ const drawCirclePacking = (data) => {
                 $('#edit-comment-modal').modal('show');
 				$('#edit-comment').attr('data-course', d.data.courseId);
                 $('#edit-comment').attr('data-comment', d.data.commentId);
+				$('#delete-comment').attr('data-course', d.data.courseId);
+                $('#delete-comment').attr('data-comment', d.data.commentId);
             }
 
             if (focus !== d) zoom(d.children ? d : d.parent);
