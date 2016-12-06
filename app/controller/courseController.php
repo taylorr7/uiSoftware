@@ -78,13 +78,13 @@ class CourseController {
 				$content = $_GET['content'];
 				$this->comment($cid, $content);
 				break;
-				
+
 			case 'edComment':
 				$cid = $_GET['cid'];
 				$content = $_GET['content'];
 				$this->edComment($cid, $content);
 				break;
-			
+
 			case 'delComment':
 				$cid = $_GET['cid'];
 				$this->delComment($cid);
@@ -311,40 +311,41 @@ class CourseController {
 		header('Content-Type: application/json');
 		echo json_encode($json);
 	}
-	
+
 	/*
 	 * Function to edit a comment on a course.
 	 */
 	public function edComment($cid, $content) {
 		$user = LoginSession::currentUser();
 		$comment = Comment::loadById($cid);
-		if($user->id != $comment->commenterid) {
-			header("HTTP/1.1 403 Forbidden" );
-			exit();
+		$json = array();
+		if($user->canModifyComment($comment)) {
+			$comment->content = $content;
+			$comment->save();
+			$json['status'] = 'Success';
+		} else {
+			$json['status'] = 'Failure: Permission Denied';
 		}
-		
-		$comment->content = $content;
-		$comment->save();
-		
-		$json = array('status' => 'Success');
+
 		header('Content-Type: application/json');
 		echo json_encode($json);
 	}
-	
+
 	/*
 	 * Function to delete a comment on a course.
 	 */
 	public function delComment($cid) {
 		$user = LoginSession::currentUser();
 		$comment = Comment::loadById($cid);
-		if($user->id != $comment->commenterid) {
-			header("HTTP/1.1 403 Forbidden" );
-			exit();
-		}
-		
-		$comment->delete();
 
-		$json = array('status' => 'Success');
+		$json = array();
+		if($user->canModifyComment($comment)) {
+			$comment->delete();
+			$json['status'] = 'Success';
+		} else {
+			$json['status'] = 'Failure: Permission Denied';
+		}
+
 		header('Content-Type: application/json');
 		echo json_encode($json);
 	}

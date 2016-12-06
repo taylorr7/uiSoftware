@@ -59,6 +59,10 @@ class User extends DbObject {
 		return $this->id === $lesson->userid || $this->role === "admin";
 	}
 
+	public function canModifyComment($comment) {
+		return $this->id === $comment->commenterid || $this->role === "admin";
+	}
+
 	public static function loadAll() {
 		return Db::instance()->selectAll(self::DB_TABLE, __CLASS__);
 	}
