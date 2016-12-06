@@ -193,6 +193,7 @@ class SiteController {
 		$author = User::loadByUsername($authorName);
 		$courseData = Course::loadUsersCourseData($author, $user, $user->canModifyUser($author));
 
+		header('Content-Type: application/json');
 		echo json_encode($courseData);
 	}
 
