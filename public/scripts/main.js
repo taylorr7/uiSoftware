@@ -5,14 +5,10 @@
 */
 
 $(document).ready(() => {
-
+	
 	/*
 	* Function to add a new quiz to a lesson.
 	*/
-	$("#uploadQuiz").click(() => {
-		$("#quiz-answers").attr('answers', 2);
-	});
-	
 	$("#submit-quiz").click(() => {
 		const name = $("#quiz-name").val();
 		const correct = $("input[name=answers]:checked").val();
@@ -28,7 +24,18 @@ $(document).ready(() => {
 		}
 		$('#lessonContent').get(0).value += `\n~QUIZ:name-${name}:${answerText}~\n`;
 	});
+	
+	/*
+	 * Function to open the add quiz modal and set number of
+	 * answers.
+	 */
+	$("#uploadQuiz").click(() => {
+		$("#quiz-answers").attr('answers', 2);
+	});
 
+	/*
+	 * Function to add a new possible answer to the quiz modal.
+	 */
 	$("#add-quiz").click(() => {
 		let numAnswers = parseInt($("#quiz-answers").attr('answers')) + 1;
 		$("#quiz-answers").attr('answers', numAnswers);
