@@ -19,4 +19,15 @@ class CourseCommentEvent extends Event {
 </blockquote>
 HTML;
     }
+	
+	// Static helper function that loads course comment event by comment id
+	public static function loadByCommentId($cid) {
+		$props = array('eventtypeid' => 5, 'data' => $cid);
+		$results = Db::instance()->selectByProperties(self::DB_TABLE, $props, __CLASS__);
+		$numResults = count($results);
+		if ($numResults != 1) {
+			die("Found {$numResults} events with comment id {$cid}");
+		}
+		return $results[0];
+	}
 }
