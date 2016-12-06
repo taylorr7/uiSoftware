@@ -42,12 +42,14 @@
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					What should this link say?: <input class="form-control" type="text" id="link-name" name="link-name">
-					Where do you want the link to go?: <input class="form-control" type="text" id="link-url" name="link-url">
+					<form id="link-info">
+						Enter the link name: <input class="form-control" type="text" id="link-name" name="link-name" required>
+						Enter the link URL: <input class="form-control" type="text" id="link-url" name="link-url" required>
+					</form>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button id="submit-link" type="button" class="btn btn-primary"  data-dismiss="modal">
+				<button id="submit-link" type="button" class="btn btn-primary">
 					<span class="glyphicon glyphicon-ok"></span>
 					Add Link
 				</button>
@@ -66,11 +68,13 @@
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					What is the image url?: <input class="form-control" type="text" id="image-url" name="image-url">
+					<form id="image-info">
+						Enter the image URL: <input class="form-control" type="text" id="image-url" name="image-url" required>
+					</form>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button id="submit-image" type="button" class="btn btn-primary"  data-dismiss="modal">
+				<button id="submit-image" type="button" class="btn btn-primary">
 					<span class="glyphicon glyphicon-ok"></span>
 					Add Image
 				</button>

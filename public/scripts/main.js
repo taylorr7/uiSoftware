@@ -10,7 +10,6 @@ $(document).ready(() => {
 	* Function to add a new quiz to a lesson.
 	*/
 	$("#submit-quiz").click(() => {
-		$("#quiz-name").valid();
 		if ($("#quiz-answers").valid()) {
 			const name = $("#quiz-name").val();
 			const correct = $("input[name=answers]:checked").val();
@@ -52,20 +51,23 @@ $(document).ready(() => {
 	* Function to add a new link to a lesson.
 	*/
 	$("#submit-link").click(() => {
-		const name = $("#link-name").val();
-		if (!name) exit();
-		const url = $("#link-url").val();
-		if (!url) exit();
-		$('#lessonContent').get(0).value += `~LINK:name-${name}:url-${url}:~\n`;
+		if ($("#link-info").valid()) {
+			const name = $("#link-name").val();
+			const url = $("#link-url").val();
+			$('#lessonContent').get(0).value += `~LINK:name-${name}:url-${url}:~\n`;
+			$("#add-link-modal").modal('hide');
+		}
 	});
 
 	/*
 	* Function to add a new image to a lesson.
 	*/
 	$("#submit-image").click(() => {
-		const url = $("#image-url").val();
-		if (!url) exit();
-		$('#lessonContent').get(0).value += `~IMAGE:url-${url}:~\n`;
+		if ($("#image-info").valid()) {
+			const url = $("#image-url").val();
+			$('#lessonContent').get(0).value += `~IMAGE:url-${url}:~\n`;
+			$("#add-image-modal").modal('hide');
+		}
 	});
 
 	/*
@@ -84,7 +86,7 @@ $(document).ready(() => {
 	$("#addLesson").click(function() {
 		const lessons = JSON.parse(document.getElementById("addLesson").value);
 		let options = "<select id=\"selected-lesson\" class=\"form-control\">";
-		for(let i = 0; i < lessons.length; i++) {
+		for (let i = 0; i < lessons.length; i++) {
 			options += "<option value=\"" + lessons[i] + "\">" + lessons[i] + "</option>";
 		}
 		options += "</select>";
