@@ -49,9 +49,9 @@ RewriteRule ^courses/view/(\d+)/load/?$ app/controller/courseController.php?acti
 
 RewriteRule ^courses/view/(\d+)/comment/?$ app/controller/courseController.php?action=comment&cid=$1 [QSA,L]
 
-RewriteRule ^courses/view/(\d+)/comment/edit/(\d+)/?$ app/controller/courseController.php?action=edComment&cid=$2 [QSA,L]
+RewriteRule ^comment/edit/(\d+)/?$ app/controller/courseController.php?action=edComment&cid=$1 [QSA,L]
 
-RewriteRule ^courses/view/(\d+)/comment/delete/(\d+)/?$ app/controller/courseController.php?action=delComment&cid=$2 [QSA,L]
+RewriteRule ^comment/delete/(\d+)/?$ app/controller/courseController.php?action=delComment&cid=$1 [QSA,L]
 
 RewriteRule ^courses/new/?$ app/controller/courseController.php?action=newCourse [QSA,L]
 

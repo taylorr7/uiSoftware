@@ -94,6 +94,7 @@ class Course extends DbObject {
 
 			array_push($commentsChildren, array(
 				"name" => "Add Comment",
+				"id" => "Add Comment",
 				"courseId" => $course->id,
 				"size" => 1
 			));
