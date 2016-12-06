@@ -10,38 +10,41 @@ $(document).ready(() => {
 	* Function to add a new quiz to a lesson.
 	*/
 	$("#submit-quiz").click(() => {
-		const name = $("#quiz-name").val();
-		const correct = $("input[name=answers]:checked").val();
-		let answerText = "";
-		for (let i = 1; i <= $("#quiz-answers").attr('answers'); i++) {
-			let currentAnswer = "answer-" + i;
-			let currentForm = "#quiz-answer-" + i;
-			if (currentAnswer === correct) {
-				answerText += "correctAnswer-" + $(currentForm).val() +":";
-			} else {
-				answerText += "answer-" + $(currentForm).val() + ":";
+		$("#quiz-name").valid();
+		if ($("#quiz-answers").valid()) {
+			const name = $("#quiz-name").val();
+			const correct = $("input[name=answers]:checked").val();
+			let answerText = "";
+			for (let i = 1; i <= $("#quiz-answers").attr('answers'); i++) {
+				let currentAnswer = "answer-" + i;
+				let currentForm = "#quiz-answer-" + i;
+				if (currentAnswer === correct) {
+					answerText += "correctAnswer-" + $(currentForm).val() +":";
+				} else {
+					answerText += "answer-" + $(currentForm).val() + ":";
+				}
 			}
+			$('#lessonContent').get(0).value += `~QUIZ:name-${name}:${answerText}~\n`;
+			$("#add-quiz-modal").modal('hide');
 		}
-		$('#lessonContent').get(0).value += `~QUIZ:name-${name}:${answerText}~\n`;
 	});
 
 	/*
-	 * Function to open the add quiz modal and set number of
-	 * answers.
-	 */
+	* Function to open the add quiz modal and set number of
+	* answers.
+	*/
 	$("#uploadQuiz").click(() => {
-		$("#quiz-answers").formValidation('resetForm', true);
 		$("#quiz-answers").attr('answers', 1);
 	});
 
 	/*
-	 * Function to add a new possible answer to the quiz modal.
-	 */
+	* Function to add a new possible answer to the quiz modal.
+	*/
 	$("#add-quiz-question").click(() => {
 		let numAnswers = parseInt($("#quiz-answers").attr('answers')) + 1;
 		$("#quiz-answers").attr('answers', numAnswers);
 		let newOption = "<input type=\"radio\" name=\"answers\" value=\"answer-" + numAnswers +"\">";
-		newOption += " Enter a possible answer:<input class=\"form-control\" type=\"text\" id=\"quiz-answer-" + numAnswers + "\" name=\"quiz-answer-" + numAnswers + "\">";
+		newOption += " Enter a possible answer:<input class=\"form-control\" type=\"text\" id=\"quiz-answer-" + numAnswers + "\" name=\"quiz-answer-" + numAnswers + "\" required>";
 		$("#quiz-answers").append(newOption);
 	});
 
@@ -75,9 +78,9 @@ $(document).ready(() => {
 	})
 
 	/*
-	 * Function to open the add lesson modal and populate
-	 * its options.
-	 */
+	* Function to open the add lesson modal and populate
+	* its options.
+	*/
 	$("#addLesson").click(function() {
 		const lessons = JSON.parse(document.getElementById("addLesson").value);
 		let options = "<select id=\"selected-lesson\" class=\"form-control\">";

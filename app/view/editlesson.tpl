@@ -11,10 +11,10 @@
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					Enter the quiz question: <input class="form-control required" type="text" id="quiz-name" name="quiz-name">
 					<form id="quiz-answers">
+						Enter the quiz question: <input class="form-control" type="text" id="quiz-name" name="quiz-name" required>
 						<input type="radio" name="answers" value="answer-1" checked="checked"> Enter a possible answer:
-						<input class="form-control" type="text" id="quiz-answer-1" name="quiz-answer-1">
+						<input class="form-control" type="text" id="quiz-answer-1" name="quiz-answer-1" required>
 					</form>
 				</div>
 			</div>
@@ -23,7 +23,7 @@
 					<span class="glyphicon glyphicon-plus"></span>
 					Add Possible Answer
 				</button>
-				<button id="submit-quiz" type="button" class="btn btn-primary" data-dismiss="modal">
+				<button id="submit-quiz" type="button" class="btn btn-primary">
 					<span class="glyphicon glyphicon-ok"></span>
 					Add Quiz
 				</button>
@@ -103,3 +103,5 @@
 		<button class="btn btn-default" data-toggle="modal" data-target="#add-image-modal"> Add an Image </button>
 	</aside>
 </div>
+
+<script src="<?= BASE_URL ?>/public/scripts/jquery.validate.min.js"></script>
