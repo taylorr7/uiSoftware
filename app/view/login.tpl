@@ -28,6 +28,7 @@
 			<ul class="nav nav-tabs">
 				<li class="active"><a data-toggle="tab" href="#login">Login</a></li>
 				<li><a data-toggle="tab" href="#register">Register</a></li>
+				<li><a data-toggle="tab" href="#about">About Us</a></li>
 			</ul>
 
 			<div class="tab-content">
@@ -77,6 +78,22 @@
 						</div>
 						<button type="submit" class="btn btn-default btn-primary">Register</button>
 					</form>
+				</div>
+				
+				<div id="about" class="tab-pane fade">
+					<h3>About Us</h3>
+					<p> Welcome! </p> 
+					<p> ThoughtShare is a web application designed to give people the tools to share their knowledge with the world around them. </p>
+					<p> Here, users can:
+						<ul>
+							<li> design their own courses. </li>
+							<li> publish their courses for the world to see. </li>
+							<li> subscribe to the courses of other users. </li>
+							<li> comment on the courses of other users. </li>
+							<li> and hopefully learn something new in the process! </li>
+						</ul>
+					</p>
+					<p> These features give everyone involved a unique opportunity to learn from each other and to help teach each other. </p>
 				</div>
 			</div>
 		</div>
