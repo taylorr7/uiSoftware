@@ -9,9 +9,7 @@ $('#sumbit-comment').click(function(e) {
     const content = $("#course-comment").val();
     $("#course-comment").val('');
 
-    $.getJSON(`${BASE_URL}/courses/view/${courseId}/comment`, {content}, (data) => {
-            loadD3();
-        });
+    $.getJSON(`${BASE_URL}/courses/view/${courseId}/comment`, {content}, loadD3);
 });
 
 $('#edit-comment').click(function(e) {
@@ -19,18 +17,14 @@ $('#edit-comment').click(function(e) {
 	const content = $("#ed-comment").val();
 	$("#ed-comment").val('');
 
-	$.getJSON(`${BASE_URL}/comment/edit/${commentId}`, {content}, (data) => {
-		loadD3();
-	});
+	$.getJSON(`${BASE_URL}/comment/edit/${commentId}`, {content}, loadD3);
 });
 
 $('#delete-comment').click(function(e) {
 	const commentId = $(this).attr("data-comment");
 	$("#ed-comment").val('');
 
-	$.getJSON(`${BASE_URL}/comment/delete/${commentId}`, {}, (data) => {
-		loadD3();
-	});
+	$.getJSON(`${BASE_URL}/comment/delete/${commentId}`, loadD3);
 });
 
 const drawCirclePacking = (data) => {
@@ -102,7 +96,7 @@ const drawCirclePacking = (data) => {
             if (d.data.id === "Add Comment") {
                 $('#add-comment-modal').modal('show');
                 $('#sumbit-comment').attr('data-course', d.data.courseId);
-            } else if (d.data.id === "Edit Comment") {
+            } else if (d.data.id === "Edit Comment" && d.data.isOwn) {
                 $('#edit-comment-modal').modal('show');
                 $('#edit-comment').attr('data-comment', d.data.commentId);
                 $('#delete-comment').attr('data-comment', d.data.commentId);
