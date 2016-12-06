@@ -100,6 +100,7 @@ const drawCirclePacking = (data) => {
                 $('#edit-comment-modal').modal('show');
                 $('#edit-comment').attr('data-comment', d.data.commentId);
                 $('#delete-comment').attr('data-comment', d.data.commentId);
+				$('#ed-comment').val(d.data.comment);
             }
 
             if (focus !== d) zoom(d.children ? d : d.parent);
