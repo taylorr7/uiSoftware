@@ -1,3 +1,7 @@
+main {
+    text-align: center;
+}
+
 .node {
   cursor: pointer;
 }
@@ -19,4 +23,22 @@
 
 .label, .node--root {
   pointer-events: none;
+}
+
+.svg-container {
+    display: inline-block;
+	position: relative;
+	width: 100%;
+	padding-bottom: 90vh;
+	vertical-align: middle;
+	overflow: hidden;
+}
+
+.svg-container svg {
+    display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+    width: 100%;
+	height: 90vh;
 }

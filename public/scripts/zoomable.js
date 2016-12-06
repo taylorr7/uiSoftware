@@ -66,10 +66,11 @@ const drawCirclePacking = (data) => {
         circle.attr("r", (d) => d.r * k);
     };
 
-    const svg = d3.select("svg");
+    const size = 400;
+    const svg = d3.select("svg").attr("viewBox", `0 0 ${size} ${size}`);
     svg.selectAll("*").remove();
     const margin = 20;
-    const diameter = +svg.attr("width");
+    const diameter = size;
     const g = svg.append("g")
         .attr("transform", `translate(${diameter/2},${diameter/2})`);
 

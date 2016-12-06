@@ -1,6 +1,8 @@
 <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/styles/zoomable.css">
 
-<svg width="700" height="700"></svg>
+<div class="svg-container">
+    <svg preserveAspectRatio="xMinYMin meet"></svg>
+</div>
 
 <div id="add-comment-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
