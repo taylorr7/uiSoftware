@@ -343,6 +343,9 @@ class CourseController {
 		}
 		
 		$comment->delete();
-		header('Location: ' . BASE_URL . '/authors/breakdown/' . $user->username);
+
+		$json = array('status' => 'Success');
+		header('Content-Type: application/json');
+		echo json_encode($json);
 	}
 }

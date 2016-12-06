@@ -28,8 +28,10 @@ $('#edit-comment').click(function(e) {
 $('#delete-comment').click(function(e) {
 	const courseId = $(this).attr("data-course");
 	const commentId = $(this).attr("data-comment");
-	
-	window.location = `${BASE_URL}/courses/view/${courseId}/comment/delete/${commentId}`;
+
+	$.getJSON(`${BASE_URL}/courses/view/${courseId}/comment/delete/${commentId}`, {}, (data) => {
+		loadD3();
+	});
 });
 
 const drawCirclePacking = (data) => {
