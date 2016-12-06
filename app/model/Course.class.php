@@ -60,21 +60,26 @@ class Course extends DbObject {
 			__CLASS__);
 	}
 
-	public static function loadUsersCourseData($user, $publishedOnly = false) {
+	// Creates an object containing all the course and comment data associated
+	// with a user.  To check if comments were written by user, the current user
+	// must be provided as well
+	public static function loadUsersCourseData($user, $curUser, $publishedOnly = false) {
 		$usersCourses = self::loadByUser($user, $publishedOnly);
 
-		$courseNodes = array_map(function($course) {
+		$courseNodes = array_map(function($course) use($curUser) {
+			// Use regex to get the lessons
 			preg_match_all("~LESSON:name-([^:]+):~", $course->coursecontent, $lessonMatches);
 			$lessonNames = array_map(function($lessonName) {
 				return array("name" => "Lesson: {$lessonName}", "size" => 1);
 			}, $lessonMatches[1]);
 
-			$commentsChildren = array_map(function($comment) use($course) {
+			$commentsChildren = array_map(function($comment) use($course, $curUser) {
 				return array(
 					"name" => "{$comment->getCommenter()->username} commented: {$comment->content}",
 					"id" => "Edit Comment",
 					"courseId" => $course->id,
 					"commentId" => $comment->id,
+					"isOwn" => $comment->commenterid === $curUser->id,
 					"size" => 1
 				);
 			}, Comment::loadByCourse($course->id));

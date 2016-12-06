@@ -191,7 +191,7 @@ class SiteController {
 	public function breakdownData($authorName) {
 		$user = LoginSession::currentUser();
 		$author = User::loadByUsername($authorName);
-		$courseData = Course::loadUsersCourseData($author, $author->id == $user->id);
+		$courseData = Course::loadUsersCourseData($author, $user, $user->canModifyUser($author));
 
 		echo json_encode($courseData);
 	}
