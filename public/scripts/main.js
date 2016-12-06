@@ -33,10 +33,10 @@ $(document).ready(() => {
 	/*
 	* Function to add a new link to a lesson.
 	*/
-	$("#uploadLink").click(() => {
-		const name = prompt("What should this link say?");
+	$("#submit-link").click(() => {
+		const name = $("#link-name").val();
 		if (!name) exit();
-		const url = prompt("Where do you want this link to go?");
+		const url = $("#link-url").val();
 		if (!url) exit();
 		$('#lessonContent').get(0).value += `\n~LINK:name-${name}:url-${url}:~\n`;
 	});
@@ -44,28 +44,33 @@ $(document).ready(() => {
 	/*
 	* Function to add a new image to a lesson.
 	*/
-	$("#uploadImage").click(() => {
-		const url = prompt("What is the image url?");
+	$("#submit-image").click(() => {
+		const url = $("#image-url").val();
 		if (!url) exit();
 		$('#lessonContent').get(0).value += `\n~IMAGE:url-${url}:~\n`;
 	});
 
-
 	/*
 	* Function to add a new lesson to a course.
 	*/
+	$("#submit-lesson").click(() => {
+		const name = $("#selected-lesson").val();
+		if (!name) exit();
+		$('[name = ccontent]').get(0).value += `\n~LESSON:name-${name}:~\n`;
+	})
+
+	/*
+	 * Function to open the add lesson modal and populate
+	 * its options.
+	 */
 	$("#addLesson").click(function() {
 		const lessons = JSON.parse(document.getElementById("addLesson").value);
-		let appendText = "";
-		let promptText = "Enter the number of the lesson you would like to add:\n";
-		for (let i = 0; i < lessons.length; i++) {
-			promptText += "\n" + i + ": " + lessons[i];
+		let options = "<select id=\"selected-lesson\" class=\"form-control\">";
+		for(let i = 0; i < lessons.length; i++) {
+			options += "<option value=\"" + lessons[i] + "\">" + lessons[i] + "</option>";
 		}
-		var response = prompt(promptText);
-		if (parseInt(response) < lessons.length) {
-			appendText += "\n~LESSON:name-"+lessons[parseInt(response)]+":~";
-		}
-		$('[name = ccontent]').get(0).value += appendText;
+		options += "</select>";
+		$("#select-lesson").html(options);
 	});
 
 	/*
