@@ -33,6 +33,9 @@ $(document).ready(() => {
 	* answers.
 	*/
 	$("#uploadQuiz").click(() => {
+		$("#quiz-name").val("");
+		$("#quiz-answer-1").val("");
+		$(".extra").remove();
 		$("#quiz-answers").attr('answers', 1);
 	});
 
@@ -42,8 +45,8 @@ $(document).ready(() => {
 	$("#add-quiz-question").click(() => {
 		let numAnswers = parseInt($("#quiz-answers").attr('answers')) + 1;
 		$("#quiz-answers").attr('answers', numAnswers);
-		let newOption = "<input type=\"radio\" name=\"answers\" value=\"answer-" + numAnswers +"\">";
-		newOption += " Enter a possible answer:<input class=\"form-control\" type=\"text\" id=\"quiz-answer-" + numAnswers + "\" name=\"quiz-answer-" + numAnswers + "\" required>";
+		let newOption = "<div class=\"extra\"><input type=\"radio\" name=\"answers\" value=\"answer-" + numAnswers +"\">";
+		newOption += " Enter a possible answer:<input class=\"form-control\" type=\"text\" id=\"quiz-answer-" + numAnswers + "\" name=\"quiz-answer-" + numAnswers + "\" required></div>";
 		$("#quiz-answers").append(newOption);
 	});
 
@@ -57,6 +60,8 @@ $(document).ready(() => {
 			$('#lessonContent').get(0).value += `~LINK:name-${name}:url-${url}:~\n`;
 			$("#add-link-modal").modal('hide');
 		}
+		$("#link-name").val("");
+		$("#link-url").val("");
 	});
 
 	/*
@@ -68,6 +73,7 @@ $(document).ready(() => {
 			$('#lessonContent').get(0).value += `~IMAGE:url-${url}:~\n`;
 			$("#add-image-modal").modal('hide');
 		}
+		$("#image-url").val("");
 	});
 
 	/*
